@@ -1,0 +1,1 @@
+copy C:\vagrant\resources\caidao\caidao.asp "C:\inetpub\wwwroot"
