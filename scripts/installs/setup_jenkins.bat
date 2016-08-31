@@ -1,5 +1,4 @@
 mkdir "%ProgramFiles%\jenkins"
 copy C:\vagrant\resources\jenkins\jenkins.war "%ProgramFiles%\jenkins"
-copy C:\vagrant\resources\jenkins\start_jenkins.bat "%ProgramFiles%\jenkins"
-copy C:\vagrant\resources\jenkins\StartJenkins.exe "%ProgramFiles%\jenkins"
-sc create Jenkins binpath= "C:\Program Files\jenkins\StartJenkins.exe" start= "auto"
+copy C:\vagrant\resources\jenkins\jenkins.exe "%ProgramFiles%\jenkins"
+"%ProgramFiles%\jenkins\jenkins.exe" -Service Install
