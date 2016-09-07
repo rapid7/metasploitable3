@@ -1,1 +1,0 @@
-"C:\Program Files\Java\jdk1.6.0_26\bin\java.exe" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1617 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false SimpleAgent
