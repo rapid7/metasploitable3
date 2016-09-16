@@ -65,6 +65,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
+  # Configure flags
+  config.vm.provision :shell, path: "scripts/installs/install_flags.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
