@@ -9,7 +9,7 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 Requirements:
 
 * [Packer](https://www.packer.io/intro/getting-started/setup.html)
-* [Vagrant](https://www.vagrantup.com/docs/installation/)
+* [Vagrant](https://www.vagrantup.com/docs/installation/) NOTE: There is a bug in the latest version of Vagrant that is causing the provisioning to fail. This can be worked around by using Vagrant 1.8.1.
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
