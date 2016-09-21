@@ -14,7 +14,7 @@ else
     exit 1
 fi
 
-if vagrant -v | grep -q '1.8.5'; then
+if vagrant -v | grep -q '1.8.1'; then
     echo 'Correct version of vagrant was found.'
 else
     echo "A compatible version of vagrant was not found. At this time only 1.8.1 is supported. Please install from here: https://releases.hashicorp.com/vagrant/1.8.1/"
