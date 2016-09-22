@@ -4,5 +4,4 @@ cmd /c ""C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\glassfish4.zip" -oC:\
 copy /Y "C:\vagrant\resources\glassfish\admin-keyfile" "C:\glassfish\glassfish4\glassfish\domains\domain1\config\admin-keyfile"
 copy /Y "C:\vagrant\resources\glassfish\domain.xml" "C:\glassfish\glassfish4\glassfish\domains\domain1\config\domain.xml"
 
-schtasks /create /tn "GlassFish" /tr "C:\glassfish\glassfish4\bin\asadmin.bat start-domain domain1" /sc onstart /np
-schtasks /run /tn "GlassFish"
+C:\glassfish\glassfish4\bin\asadmin.bat create-service domain1
