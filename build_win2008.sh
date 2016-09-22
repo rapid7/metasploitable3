@@ -43,7 +43,7 @@ echo "Attempting to add the box to Vagrant..."
 if vagrant box list | grep -q 'metasploitable3'; then
     echo 'metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant.'
 else
-    vagrant add windows_2008_r2_virtualbox.box --name metasploitable3
+    vagrant box add windows_2008_r2_virtualbox.box --name metasploitable3
     echo "Box successfully added to Vagrant."
 fi
 
