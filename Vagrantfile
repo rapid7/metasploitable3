@@ -57,4 +57,8 @@ Vagrant.configure("2") do |config|
   # Configure Firewall to open up vulnerable services
   config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
+  # Configure flags
+  config.vm.provision :shell, path: "scripts/installs/install_flags.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614a
 end
