@@ -1,16 +1,16 @@
 copy C:\vagrant\resources\flags\six_of_diamonds.zip C:\inetpub\wwwroot
 
 copy C:\vagrant\resources\flags\jack_of_clubs.png C:\WINDOWS\System32\jack_of_clubs.png
+attrib +h "C:\WINDOWS\System32\jack_of_clubs.png"
 cacls "C:\WINDOWS\System32\jack_of_clubs.png" /t /e /g SYSTEM:f
 cacls "C:\WINDOWS\System32\jack_of_clubs.png" /R Administrators /E
 cacls "C:\WINDOWS\System32\jack_of_clubs.png" /R Users /E
-attrib +h "C:\WINDOWS\System32\jack_of_clubs.png"
 
 copy C:\vagrant\resources\flags\three_of_spades.png C:\Windows
+attrib +h "C:\Windows\three_of_spades.png"
 cacls "C:\Windows\three_of_spades.png" /t /e /g SYSTEM:f
 cacls "C:\Windows\three_of_spades.png" /R Administrators /E
 cacls "C:\Windows\three_of_spades.png" /R USERS /E
-attrib +h "C:\Windows\three_of_spades.png"
 
 copy C:\vagrant\resources\flags\four_of_clubs.wav C:\Users\Public\Music
 
