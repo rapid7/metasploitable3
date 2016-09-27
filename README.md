@@ -14,7 +14,12 @@ Requirements:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
-To build:
+To build automatically:
+1. Run the build_win2008.sh script if using bash, or build_win2008.ps1 if using Windows.
+2. If the command completes successfully, run 'vagrant up'.
+3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
+
+To build manually:
 
 1. Clone this repo and navigate to the main directory.
 2. Build the base VM image by running `packer build windows_2008_r2.json`. This will take a while the first time you run it since it has to download the OS installation ISO.
