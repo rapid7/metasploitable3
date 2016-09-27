@@ -10,10 +10,6 @@ function compare_versions {
     expected_version=$2
     exact_match=$3
 
-    echo $actual_version
-    echo $expected_version
-    echo $exact_match
-
     if $exact_match; then
         if [ "$actual_version" == "$expected_version" ]; then
             return 0
