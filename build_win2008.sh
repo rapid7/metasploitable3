@@ -16,7 +16,6 @@ function compare_versions {
 
     if $exact_match; then
         if [ "$actual_version" == "$expected_version" ]; then
-            echo "exact match"
             return 0
         else
             return 1
@@ -26,16 +25,13 @@ function compare_versions {
     IFS='.' read -ra actual_version <<< "$actual_version"
     IFS='.' read -ra expected_version <<< "$expected_version"
 
-    echo ${expected_version[0]}
     for ((i=0; i < ${#expected_version[@]}; i++))
     do
         if [[ ${actual_version[$i]} -gt ${expected_version[$i]} ]]; then
-            echo "was bigger"
             return 0
         fi
 
         if [[ ${actual_version[$i]} -lt ${expected_version[$i]} ]]; then
-            echo "was smaller"
             return 1
         fi
     done
