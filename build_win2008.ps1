@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.8.1"
 $virtualBoxMinVersion = "5.1.0"
-$vagrantreloadMinVersion = "0.0.2"
+$vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     $actualVersion = $actualVersion.split(".")
@@ -57,7 +57,7 @@ If ($(Test-Path "C:\HashiCorp\Vagrant\bin\vagrant.exe") -eq $True) {
 If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinVersion -exactVersion True) {
     Write-Host "Compatible version of Vagrant found."
 } else {
-    Write-Host "Could not find a compatible version of Vagrant at C:\HashiCorp\Vagrant\bin\. Please download and install it from https://www.vagrantup.com/downloads.html."
+    Write-Host "Could not find a compatible version of Vagrant at C:\HashiCorp\Vagrant\bin\. At this time only $vagrantMinVersion is supported. Please download and install it from https://releases.hashicorp.com/vagrant/1.8.1/."
     exit
 }
 
