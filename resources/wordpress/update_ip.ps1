@@ -1,0 +1,2 @@
+$ip=get-WmiObject Win32_NetworkAdapterConfiguration|Where {$_.Ipaddress.length -gt 1} 
+(Get-Content C:\vagrant\resources\wordpress\wordpress.sql) -replace 'CHANGETHISIP', $ip.ipaddress[0] | Set-Content "C:\Program Files\wordpress\wordpress.sql"
