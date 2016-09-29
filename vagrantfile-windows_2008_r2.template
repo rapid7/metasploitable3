@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--memory", 2048]
         v.customize ["modifyvm", :id, "--cpus", 2]
         v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+        v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
 
     config.vm.provider :vmware_fusion do |v, override|
