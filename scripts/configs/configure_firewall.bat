@@ -6,3 +6,4 @@ netsh advfirewall firewall add rule name="Open Port 4848 for GlassFish" dir=in a
 netsh advfirewall firewall add rule name="Open Port 8080 for GlassFish" dir=in action=allow protocol=TCP localport=8080
 netsh advfirewall firewall add rule name="Open Port 3389 for Remote Desktop" dir=in action=allow protocol=TCP localport=3389
 netsh advfirewall firewall add rule name="Open Port 8585 for Wordpress and phpMyAdmin" dir=in action=allow protocol=TCP localport=8585
+netsh advfirewall firewall add rule name="Java 1.6 java.exe" dir=in action=allow program="C:\openjdk6\openjdk-1.6.0-unofficial-b27-windows-amd64\jre\bin\java.exe" enable=yes
