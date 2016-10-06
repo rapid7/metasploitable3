@@ -27,8 +27,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "scripts/configs/create_users.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
-  # Vulnerability - Unpatched IIS
+  # Vulnerability - Unpatched IIS and FTP
   config.vm.provision :shell, path: "scripts/installs/setup_iis.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+  config.vm.provision :shell, path: "scripts/installs/setup_ftp_site.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - Chinese caidao.asp backdoor
