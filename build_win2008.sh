@@ -1,9 +1,9 @@
 #!/bin/bash
 
-min_virtualbox_ver="5.1.0"
+min_virtualbox_ver="5.0.0"
 min_vagrant_ver="1.8.1"
-min_vagrantreload_ver="0.0.1"
 min_packer_ver="0.10.0"
+min_vagrantreload_ver="0.0.1"
 
 function compare_versions {
     actual_version=$1
@@ -86,6 +86,7 @@ echo "Attempting to add the box to Vagrant..."
 
 if vagrant box list | grep -q 'metasploitable3'; then
     echo 'metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant.'
+    echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
 else
     if vagrant box add windows_2008_r2_virtualbox.box --name metasploitable3; then
         echo "Box successfully added to Vagrant."
