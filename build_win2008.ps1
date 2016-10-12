@@ -1,7 +1,8 @@
 $ErrorActionPreference = "Stop"
+
+$virtualBoxMinVersion = "5.0.0"
 $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.8.1"
-$virtualBoxMinVersion = "5.1.0"
 $vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
