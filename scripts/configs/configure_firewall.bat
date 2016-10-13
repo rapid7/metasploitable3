@@ -8,3 +8,4 @@ netsh advfirewall firewall add rule name="Open Port 3389 for Remote Desktop" dir
 netsh advfirewall firewall add rule name="Open Port 8585 for Wordpress and phpMyAdmin" dir=in action=allow protocol=TCP localport=8585
 netsh advfirewall firewall add rule name="Java 1.6 java.exe" dir=in action=allow program="C:\openjdk6\openjdk-1.6.0-unofficial-b27-windows-amd64\jre\bin\java.exe" enable=yes
 netsh advfirewall firewall add rule name="Open Port 3000 for Rails Server" dir=in action=allow protocol=TCP localport=3000
+netsh advfirewall firewall add rule name="Open Port 3306 for MySQL" dir=in action=allow protocol=TCP localport=3306
