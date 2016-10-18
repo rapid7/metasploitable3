@@ -86,6 +86,7 @@ Vagrant.configure("2") do |config|
 
   # Vulnerability - WebDAV
   config.vm.provision :shell, path: "scripts/installs/setup_webdav.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - MySQL
   config.vm.provision :shell, path: "scripts/installs/setup_mysql.bat"
