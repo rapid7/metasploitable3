@@ -100,6 +100,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "scripts/installs/install_backdoors.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
+  # Vulnerability - SNMP
+  config.vm.provision :shell, path: "scripts/installs/setup_snmp.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
   # Configure Firewall to open up vulnerable services
   config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
