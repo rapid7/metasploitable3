@@ -53,6 +53,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - Wordpress and phpMyAdmin
+  # This must run after the WAMP setup.
   config.vm.provision :shell, path: "scripts/chocolatey_installs/vcredist2008.bat" # Visual Studio 2008 redistributable is a requirement for WAMP
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
   config.vm.provision :shell, path: "scripts/installs/install_wamp.bat"
@@ -81,6 +82,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - WebDAV
+  # This must run after the WAMP setup.
   config.vm.provision :shell, path: "scripts/installs/setup_webdav.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
@@ -93,6 +95,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - Axis2
+  # This must run after the Apache Struts setup.
   config.vm.provision :shell, path: "scripts/installs/setup_axis2.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
@@ -106,6 +109,12 @@ Vagrant.configure("2") do |config|
 
   # Configure Firewall to open up vulnerable services
   config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
+  # Vulnerability - ElasticSearch
+  # This must run after the firewall rules, because it needs to make some HTTP requests in order to
+  # set up the vulnerable state.
+  config.vm.provision :shell, path: "scripts/installs/install_elasticsearch.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Configure flags
