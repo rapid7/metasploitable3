@@ -7,6 +7,8 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "metasploitable3"
   config.vm.communicator = "winrm"
 
+  config.vm.network "private_network", type: "dhcp"
+
   # Install Chocolatey
   config.vm.provision :shell, path: "scripts/installs/chocolatey.cmd"
   config.vm.provision :reload # Hack to reset environment variables
