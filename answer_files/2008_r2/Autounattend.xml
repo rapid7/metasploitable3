@@ -143,19 +143,19 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxShellsPerUser="50"}</CommandLine>
+                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxShellsPerUser="999"}</CommandLine>
                     <Description>Win RM MaxShellsPerUser</Description>
                     <Order>7</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxProcessesPerShell="50"}</CommandLine>
+                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxProcessesPerShell="999"}</CommandLine>
                     <Description>Win RM MaxProcessesPerShell</Description>
                     <Order>8</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/service @{MaxConcurrentOperationsPerUser="50"}</CommandLine>
+                    <CommandLine>cmd.exe /c winrm set winrm/config/service @{MaxConcurrentOperationsPerUser="999"}</CommandLine>
                     <Description>Win RM ConcurrentOperationsPerUser</Description>
                     <Order>9</Order>
                     <RequiresUserInput>true</RequiresUserInput>
