@@ -12,4 +12,5 @@ netsh advfirewall firewall add rule name="Open Port 3306 for MySQL" dir=in actio
 netsh advfirewall firewall add rule name="Open Port 8020 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8020
 netsh advfirewall firewall add rule name="Open Port 8383 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8383
 netsh advfirewall firewall add rule name="Open Port 8022 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8022
+netsh advfirewall firewall add rule name="Open Port 9200 for ElasticSearch" dir=in action=allow protocol=TCP localport=9200
 netsh advfirewall firewall add rule name="Open Port 161 for SNMP" dir=in action=allow protocol=UDP localport=161
