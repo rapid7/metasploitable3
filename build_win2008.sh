@@ -1,7 +1,7 @@
 #!/bin/bash
 
-min_virtualbox_ver="5.0.0"
-min_vagrant_ver="1.8.1"
+min_virtualbox_ver="5.1.0"
+min_vagrant_ver="1.8.6"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
 
@@ -48,10 +48,10 @@ else
     exit 1
 fi
 
-if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver true; then
+if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver false; then
     echo 'Correct version of vagrant was found.'
 else
-    echo "A compatible version of vagrant was not found. At this time only $min_vagrant_ver is supported. Please install from here: https://releases.hashicorp.com/vagrant/1.8.1/"
+    echo "A compatible version of vagrant was not found. Please download and install it from https://www.virtualbox.org/wiki/Downloads."
     exit 1
 fi
 
