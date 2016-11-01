@@ -2,7 +2,6 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Source: http://www.metasploit.com/
 
 Files: *
-Copyright: 2006-2016, Rapid7, Inc.
 License: BSD-3-clause
 
 # Metasploitable3 is provided under the 3-clause BSD license provided
@@ -21,7 +20,6 @@ License: MIT
 
 Altered Files: windows_2008_r2.json answer_files/2008_r2/Autounattend.xml
 Original work Copyright: 2013-2014, Joe Fitzgerald
-Modified work Copyright: 2006-2016, Rapid7, Inc.
 License: MIT
 
 Files: resources/jenkins/jenkins.war
