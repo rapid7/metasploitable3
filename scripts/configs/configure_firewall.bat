@@ -16,4 +16,3 @@ netsh advfirewall firewall add rule name="Closed port 139 for NetBIOS" dir=in ac
 netsh advfirewall firewall add rule name="Closed port 135 for NetBIOS" dir=in action=block protocol=TCP localport=135
 netsh advfirewall firewall add rule name="Closed Port 3389 for Remote Desktop" dir=in action=block protocol=TCP localport=3389
 netsh advfirewall firewall add rule name="Closed Port 3306 for MySQL" dir=in action=block protocol=TCP localport=3306
-netsh advfirewall firewall add rule name="Closed Port 5985 for WinRM" dir=in action=block protocol=TCP localport=5985
