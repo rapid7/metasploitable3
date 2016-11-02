@@ -1,6 +1,24 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'getoptlong'
+
+opts = GetoptLong.new(
+  [ '--difficulty', GetoptLong::OPTIONAL_ARGUMENT ]
+)
+
+difficulty = :normal
+
+opts.each do |opt, arg|
+  case opt
+  when '--difficulty'
+    case arg
+    when /^easy$/i
+      difficulty = :easy
+    end
+  end
+end
+
 Vagrant.configure("2") do |config|
   # Base configuration for the VM and provisioner
   config.vm.box = "metasploitable3"
@@ -110,7 +128,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Configure Firewall to open up vulnerable services
-  config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
+  case difficulty
+  when :easy
+    config.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
+  when :normal
+    config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
+  end
+
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Vulnerability - ElasticSearch
