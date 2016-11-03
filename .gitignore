@@ -3,3 +3,6 @@ packer_cache/
 *.exe
 *.msi
 *.msu
+
+resources/manageengine/setup.log
+windows_2008_r2_virtualbox.box
