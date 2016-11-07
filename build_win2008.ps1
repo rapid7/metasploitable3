@@ -111,7 +111,7 @@ If ($vagrant_box_list -eq "metasploitable3") {
     Write-Host "metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant."
 } else {
 
-    cmd.exe /c vagrant box add windows_2008_r2_virtualbox.box --name metasploitable3
+    cmd.exe /c vagrant box add metasploitable3 windows_2008_r2_virtualbox.box
 
     if($?) {
         Write-Host "Box successfully added to Vagrant."
