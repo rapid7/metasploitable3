@@ -1,22 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require 'optparse'
-
-difficulty = :normal
-
-opts = OptionParser.new do |opts|
-  opts.banner = 'Metasploitable3 options:'
-
-  opts.on('-d', '--difficulty <String>', 'Level of difficulty') do |v|
-    if v =~ /^easy$/i
-      difficulty = :easy
-    end
+def get_argument(arg_name)
+  i = ARGV.index(arg_name)
+  if i && ARGV.length - 1 > i
+    return ARGV.fetch(i+1)
   end
+
+  ''
 end
 
-opts.parse!(ARGV)
-
+difficulty = get_argument('--difficulty').match(/^easy$/i) ? :easy : :normal
 
 Vagrant.configure("2") do |config|
   # Base configuration for the VM and provisioner
