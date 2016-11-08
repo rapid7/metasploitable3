@@ -1,17 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-def get_argument(arg_name)
-  i = ARGV.index(arg_name)
-  if i && ARGV.length - 1 > i
-    return ARGV.fetch(i+1)
-  end
-
-  ''
-end
-
-difficulty = get_argument('--difficulty').match(/^easy$/i) ? :easy : :normal
-
 Vagrant.configure("2") do |config|
   # Base configuration for the VM and provisioner
   config.vm.box = "metasploitable3"
@@ -121,10 +110,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Configure Firewall to open up vulnerable services
-  case difficulty
-  when :easy
+  case ENV['MS3_DIFFICULTY']
+  when 'easy'
     config.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
-  when :normal
+  else
     config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
   end
 
