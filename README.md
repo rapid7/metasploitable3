@@ -11,8 +11,10 @@ Requirements:
 * [Packer](https://www.packer.io/intro/getting-started/setup.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/)
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox 5.1.6](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
+
+NOTE: A bug was recently discovered in VirtualBox 5.1.8 that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/41).
 
 To build automatically:
 

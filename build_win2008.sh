@@ -1,6 +1,6 @@
 #!/bin/bash
 
-min_virtualbox_ver="5.1.0"
+min_virtualbox_ver="5.1.6"
 min_vagrant_ver="1.8.6"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
@@ -34,10 +34,10 @@ function compare_versions {
     return 0
 }
 
-if compare_versions $(VBoxManage -v | cut -d'r' -f1) $min_virtualbox_ver false; then
+if compare_versions $(VBoxManage -v | cut -d'r' -f1) $min_virtualbox_ver true; then
     echo "Compatible version of VirtualBox found."
 else
-    echo "A compatible version of VirtualBox was not found. Please download and install it from here: https://www.virtualbox.org/wiki/Downloads"
+    echo "A compatible version of VirtualBox was not found. Currently only 5.1.6 is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
     exit 1
 fi
 
