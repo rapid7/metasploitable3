@@ -6,9 +6,6 @@ $vagrantMinVersion = "1.8.6"
 $vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
-    $actualVersion = $actualVersion.split(".")
-    $expectedVersion = $expectedVersion.split(".")
-
     If ($exactMatch) {
         If ($actualVersion -eq $expectedVersion) {
             return $True
@@ -16,6 +13,9 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
             return $False
         }
     }
+
+    $actualVersion = $actualVersion.split(".")
+    $expectedVersion = $expectedVersion.split(".")
 
     for($i=0; $i -le $expectedVersion.length; $i++) {
         If([INT]$actualVersion[$i] -gt [INT]$expectedVersion[$i]) {
