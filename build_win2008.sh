@@ -44,10 +44,12 @@ if [ $(uname) = "Darwin" ]; then
 fi
 
 if compare_versions $($packer_bin -v) $min_packer_ver false; then
-    echo 'Compatible version of packer was found.'
+    echo "Compatible version of $packer was found."
 else
     packer_bin=packer
     if compare_versions $($packer_bin -v) $min_packer_ver false; then
+        echo "Compatible version of $packer was found."
+    else
         echo "A compatible version of packer was not found. Please install from here: https://www.packer.io/downloads.html"
         exit 1
     fi
