@@ -1,9 +1,9 @@
 #!/bin/bash
 
-min_virtualbox_ver="5.1.6"
 min_vagrant_ver="1.8.6"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
+packer_bin=packer-io
 
 function compare_versions {
     actual_version=$1
@@ -34,18 +34,25 @@ function compare_versions {
     return 0
 }
 
-if compare_versions $(VBoxManage -v | cut -d'r' -f1) $min_virtualbox_ver true; then
-    echo "Compatible version of VirtualBox found."
-else
-    echo "A compatible version of VirtualBox was not found. Currently only 5.1.6 is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
-    exit 1
+if [ $(uname) = "Darwin" ]; then
+    if compare_versions $(VBoxManage -v | cut -d'r' -f1) 5.1.6 true; then
+        echo "Compatible version of VirtualBox found."
+    else
+        echo "A compatible version of VirtualBox was not found. Currently only 5.1.6 is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
+        exit 1
+    fi
 fi
 
-if compare_versions $(packer -v) $min_packer_ver false; then
-    echo 'Compatible version of packer was found.'
+if compare_versions $($packer_bin -v) $min_packer_ver false; then
+    echo "Compatible version of $packer was found."
 else
-    echo "A compatible version of packer was not found. Please install from here: https://www.packer.io/downloads.html"
-    exit 1
+    packer_bin=packer
+    if compare_versions $($packer_bin -v) $min_packer_ver false; then
+        echo "Compatible version of $packer was found."
+    else
+        echo "A compatible version of packer was not found. Please install from here: https://www.packer.io/downloads.html"
+        exit 1
+    fi
 fi
 
 if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver false; then
@@ -74,7 +81,7 @@ if ls | grep -q 'windows_2008_r2_virtualbox.box'; then
     echo "It looks like the vagrant box already exists. Skipping the Packer build."
 else
     echo "Building the Vagrant box..."
-    if packer build windows_2008_r2.json; then
+    if $packer_bin build windows_2008_r2.json; then
         echo "Box successfully built by Packer."
     else
         echo "Error building the Vagrant box using Packer. Please check the output above for any error messages."
