@@ -1,9 +1,10 @@
 #!/bin/bash
 
+min_vbox_ver="5.1.9"
 min_vagrant_ver="1.8.6"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
-packer_bin=packer-io
+packer_bin="packer-io"
 
 function compare_versions {
     actual_version=$1
@@ -35,30 +36,35 @@ function compare_versions {
 }
 
 if [ $(uname) = "Darwin" ]; then
-    if compare_versions $(VBoxManage -v | cut -d'r' -f1) 5.1.6 true; then
-        echo "Compatible version of VirtualBox found."
-    else
-        echo "A compatible version of VirtualBox was not found. Currently only 5.1.6 is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
-        exit 1
-    fi
+    packer_bin="packer"
+    vagrant_exact_match=true # Boxes fail to add in Vagrant 1.8.7 on OSX - https://github.com/mitchellh/vagrant/issues/8002
+elif [ $(uname) = "Linux" ]; then
+    vagrant_exact_match=false
+fi
+
+if compare_versions $(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g') $min_vbox_ver true; then
+    echo "Compatible version of VirtualBox found."
+else
+    echo "A compatible version of VirtualBox was not found. Currently only $min_vbox_ver is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
+    exit 1
 fi
 
 if compare_versions $($packer_bin -v) $min_packer_ver false; then
-    echo "Compatible version of $packer was found."
+    echo "Compatible version of $packer_bin was found."
 else
     packer_bin=packer
     if compare_versions $($packer_bin -v) $min_packer_ver false; then
-        echo "Compatible version of $packer was found."
+        echo "Compatible version of $packer_bin was found."
     else
         echo "A compatible version of packer was not found. Please install from here: https://www.packer.io/downloads.html"
         exit 1
     fi
 fi
 
-if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver false; then
+if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver $vagrant_exact_match; then
     echo 'Correct version of vagrant was found.'
 else
-    echo "A compatible version of vagrant was not found. Please download and install it from https://www.virtualbox.org/wiki/Downloads."
+    echo "A compatible version of vagrant was not found. Please download and install it from https://www.vagrantup.com/downloads.html."
     exit 1
 fi
 

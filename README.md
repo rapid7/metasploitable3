@@ -15,6 +15,7 @@ Requirements:
 * Internet connection
 
 NOTE: A bug was recently discovered in VirtualBox 5.1.8 that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/41).
+NOTE: A bug was recently discovered in Vagrant 1.8.7 on OSX that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/43).
 
 To build automatically:
 
@@ -33,6 +34,9 @@ To build manually:
 
 ## Vulnerablities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
+
+## More Information
+The wiki has a lot more detail and serves as the main source of documentation. Please [check it out](https://github.com/rapid7/metasploitable3/wiki/).
 
 ## Acknowledgements
 The Windows portion of this project was based off of GitHub user [joefitzgerald's](https://github.com/joefitzgerald) [packer-windows](https://github.com/joefitzgerald/packer-windows) project.
