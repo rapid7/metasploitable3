@@ -6,8 +6,22 @@ Vagrant.configure("2") do |config|
   config.vm.box = "metasploitable3"
   config.vm.hostname = "metasploitable3"
   config.vm.communicator = "winrm"
+  #config.winrm.username = "Administrator"
 
   config.vm.network "private_network", type: "dhcp"
+
+  config.vm.provider 'virtualbox' do |v|
+    v.gui = true
+    v.customize ['modifyvm', :id, '--memory', 4096]
+  end
+
+  # Adjust password policy
+  config.vm.provision :shell, path: "scripts/configs/apply_password_settings.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
+  # Install root certs
+  config.vm.provision :shell, path: "scripts/installs/root_certs.bat"
+  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Install Chocolatey
   config.vm.provision :shell, path: "scripts/installs/chocolatey.cmd"
@@ -19,10 +33,6 @@ Vagrant.configure("2") do |config|
 
   # Install 7zip
   config.vm.provision :shell, path: "scripts/chocolatey_installs/7zip.bat"
-  config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
-
-  # Adjust password policy
-  config.vm.provision :shell, path: "scripts/configs/apply_password_settings.bat"
   config.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
   # Add users and add to groups

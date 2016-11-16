@@ -1,0 +1,9 @@
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\addtrust_external_ca.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\baltimore_ca.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\digicert.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\equifax.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\globalsign.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\gte_cybertrust.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\microsoft_root_2011.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\thawte_primary_root.cer
+cmd /c certutil -addstore -f "Root" C:\vagrant\resources\certs\utn-userfirst.cer

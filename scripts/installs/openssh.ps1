@@ -1,4 +1,4 @@
-param (
+aram (
   [switch]$AutoStart = $false
 )
 
@@ -21,8 +21,8 @@ Stop-Service "OpenSSHd" -Force
 
 # ensure vagrant can log in
 Write-Output "Setting vagrant user file permissions"
-New-Item -ItemType Directory -Force -Path "C:\Users\vagrant\.ssh"
-C:\Windows\System32\icacls.exe "C:\Users\vagrant" /grant "vagrant:(OI)(CI)F"
+New-Item -ItemType Directory -Force -Path "C:\Users\Administrator\.ssh"
+C:\Windows\System32\icacls.exe "C:\Users\Administrator" /grant "vagrant:(OI)(CI)F"
 C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\bin" /grant "vagrant:(OI)RX"
 C:\Windows\System32\icacls.exe "C:\Program Files\OpenSSH\usr\sbin" /grant "vagrant:(OI)RX"
 
