@@ -1,6 +1,6 @@
 #!/bin/bash
 
-min_vbox_ver="5.1.9"
+min_vbox_ver="5.1.6"
 min_vagrant_ver="1.8.6"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
