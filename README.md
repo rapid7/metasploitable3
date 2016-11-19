@@ -6,7 +6,7 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 
 ## NOTE: This is a work in progress to move provisioning to packer and using vmware
 
-use: 'packer build -only=vmware-iso windows_2008_r2.json'
+use: `packer build -only=vmware-iso windows_2008_r2.json`
 
 ## Building Metasploitable 3
 
