@@ -4,6 +4,10 @@ Metasploitable3 is a VM that is built from the ground up with a large amount of 
 
 Metasploitable3 is released under a BSD-style license. See COPYING for more details.
 
+## NOTE: This is a work in progress to move provisioning to packer and using vmware
+
+use: 'packer build -only=vmware-iso windows_2008_r2.json'
+
 ## Building Metasploitable 3
 
 Requirements:
