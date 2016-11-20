@@ -256,7 +256,7 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_netfx.ps1 -AutoStart</CommandLine>
-                    <Description>Install dotNet 4.0 and Chocolatey. This allows the environment to be reloaded after reboot.</Description>
+                    <Description>Install .NET 4.0</Description>
                     <Order>27</Order>
                 </SynchronousCommand>
                 <!-- WITHOUT WINDOWS UPDATES -->
