@@ -5,6 +5,11 @@ Metasploitable3 is a VM that is built from the ground up with a large amount of 
 Metasploitable3 is released under a BSD-style license. See COPYING for more details.
 
 ## Building Metasploitable 3
+System Requirements:
+* OS capable of running all of the required applications listed below
+* VT-x/AMD-V Supported Processor recommended
+* 65 GB Available space on drive
+* 2.5 GB RAM
 
 Requirements:
 
