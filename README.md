@@ -38,6 +38,9 @@ To build manually:
 5. To start the VM, run the command `vagrant up`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
 
+If you are using Windows, you can also watch this video (thanks Jeremy!):
+https://www.youtube.com/watch?v=i_K2cZcTXeI
+
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
 
