@@ -12,6 +12,8 @@ cacls "C:\Windows\three_of_spades.png" /t /e /g SYSTEM:f
 cacls "C:\Windows\three_of_spades.png" /R Administrators /E
 cacls "C:\Windows\three_of_spades.png" /R USERS /E
 
+copy C:\vagrant\resources\flags\kingofclubs.exe C:\Windows\System32
+
 copy C:\vagrant\resources\flags\four_of_clubs.wav C:\Users\Public\Music
 
 copy C:\vagrant\resources\flags\joker.html C:\inetpub\wwwroot\index.html
