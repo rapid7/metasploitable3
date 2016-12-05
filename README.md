@@ -6,6 +6,7 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 
 ## Building Metasploitable 3
 System Requirements:
+* OS capable of running all of the required applications listed below
 * VT-x/AMD-V Supported Processor recommended
 * 65 GB Available space on drive
 * 2.5 GB RAM
@@ -36,6 +37,12 @@ To build manually:
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
 5. To start the VM, run the command `vagrant up`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
+
+Videos:
+
+Thanks to [Jeremy](https://twitter.com/webpwnized), you can also follow the steps in these videos to set up Metasploitable3:
+
+https://www.youtube.com/playlist?list=PLZOToVAK85MpnjpcVtNMwmCxMZRFaY6mT
 
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
