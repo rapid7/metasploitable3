@@ -10,10 +10,19 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "private_network", type: "dhcp"
 
-  config.vm.provider 'virtualbox' do |v|
-    # Enable for debug output
-    # v.gui = true
-    v.customize ['modifyvm', :id, '--memory', 4096]
+  config.vm.provider :virtualbox do |v, override|
+      #v.gui = true
+      v.memory = "2048"
+  end
+
+  config.vm.provider :vmware_fusion do |v, override|
+      #v.gui = true
+      v.memory = "2048"
+  end
+
+  config.vm.provider :vmware_workstation do |v, override|
+      #v.gui = true
+      v.memory = "2048"
   end
 
   # Adjust password policy
