@@ -11,7 +11,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", type: "dhcp"
 
   config.vm.provider 'virtualbox' do |v|
-    v.gui = true
+    # Enable for debug output
+    # v.gui = true
     v.customize ['modifyvm', :id, '--memory', 4096]
   end
 
