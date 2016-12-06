@@ -1,4 +1,4 @@
-copy /Y C:\Vagrant\resources\rails_server\gemrc C:\Users\Administrator\.gemrc
+copy /Y C:\Vagrant\resources\rails_server\gemrc C:\Users\vagrant\.gemrc
 
 cmd /C "C:\tools\ruby23\bin\gem.cmd install rails -v '4.1.1' --no-ri --no-rdoc"
 cmd /C "C:\tools\ruby23\bin\gem.cmd install rake -v '11.3.0' --no-ri --no-rdoc"
