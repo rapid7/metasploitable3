@@ -9,14 +9,14 @@ System Requirements:
 * OS capable of running all of the required applications listed below
 * VT-x/AMD-V Supported Processor recommended
 * 65 GB Available space on drive
-* 2.5 GB RAM
+* 4.5 GB RAM
 
 Requirements:
 
 * [Packer](https://www.packer.io/intro/getting-started/setup.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/)
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
-* [VirtualBox 5.1.6](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
 NOTE: A bug was recently discovered in VirtualBox 5.1.8 that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/41).
