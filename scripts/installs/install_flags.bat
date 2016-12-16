@@ -20,7 +20,7 @@ copy C:\vagrant\resources\flags\joker.html C:\inetpub\wwwroot\index.html
 copy C:\vagrant\resources\flags\hahaha.jpg C:\inetpub\wwwroot
 del C:\inetpub\wwwroot\iisstart.htm
 
-copy C:\vagrant\resources\flags\seven_of_hearts.html C:\Inetput\wwwroot
+copy C:\vagrant\resources\flags\seven_of_hearts.html C:\inetpub\wwwroot
 
 copy C:\vagrant\resources\flags\jack_of_hearts.docx C:\Users\Public\Documents
 
