@@ -19,10 +19,6 @@ Requirements:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
-NOTE: A bug was recently discovered in VirtualBox 5.1.8 that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/41).
-
-NOTE: A bug was recently discovered in Vagrant 1.8.7 on OSX that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/43).
-
 To build automatically:
 
 1. Run the build_win2008.sh script if using bash, or build_win2008.ps1 if using Windows.
