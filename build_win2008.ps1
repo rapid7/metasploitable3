@@ -34,7 +34,7 @@ If ($(Test-Path "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe") -eq $True) 
     $vboxVersion = $vboxVersion.split("r")[0]
 }
 
-If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion --exactMatch $False) {
+If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
     Write-Host "Compatible version of VirtualBox found."
 } else {
     Write-Host "Could not find a compatible version of VirtualBox at C:\Program Files\Oracle\VirtualBox\. Please download and install it from https://www.virtualbox.org/"
