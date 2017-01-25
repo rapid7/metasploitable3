@@ -1,4 +1,4 @@
-{
+ {
   "builders": [
     {
       "type": "vmware-iso",
@@ -11,7 +11,7 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "winServer2008Standard-64",
+      "guest_os_type": "windows8srv-64",
       "tools_upload_flavor": "windows",
       "disk_size": 61440,
       "floppy_files": [
@@ -126,54 +126,8 @@
         "scripts/configs/apply_password_settings.bat",
         "scripts/configs/create_users.bat",
         "scripts/installs/setup_iis.bat",
-        "scripts/installs/setup_ftp_site.bat",
-        "scripts/chocolatey_installs/java.bat"
-      ]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "scripts/chocolatey_installs/tomcat.bat",
-        "scripts/installs/setup_apache_struts.bat",
-        "scripts/installs/setup_glassfish.bat",
-        "scripts/installs/start_glassfish_service.bat",
-        "scripts/installs/setup_jenkins.bat",
-        "scripts/chocolatey_installs/vcredist2008.bat",
-        "scripts/installs/install_wamp.bat",
-        "scripts/installs/start_wamp.bat",
-        "scripts/installs/install_wordpress.bat",
-        "scripts/installs/install_openjdk6.bat",
-        "scripts/installs/setup_jmx.bat",
-        "scripts/installs/install_ruby.bat",
-        "scripts/installs/install_devkit.bat"
+        "scripts/installs/setup_ftp_site.bat"
         ]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-    "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "scripts/installs/install_rails_server.bat",
-        "scripts/installs/setup_rails_server.bat",
-        "scripts/installs/install_rails_service.bat",
-        "scripts/installs/setup_webdav.bat",
-        "scripts/installs/setup_mysql.bat",
-        "scripts/installs/install_manageengine.bat",
-        "scripts/installs/setup_axis2.bat",
-        "scripts/installs/install_backdoors.bat",
-        "scripts/installs/setup_snmp.bat",
-        "scripts/configs/configure_firewall.bat",
-        "scripts/installs/install_elasticsearch.bat",
-        "scripts/installs/install_flags.bat"
-      ]
     }
   ],
   "post-processors": [

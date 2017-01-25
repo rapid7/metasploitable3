@@ -8,4 +8,4 @@ net start domain1
 powershell -Command "Start-Sleep -s 5"
 net stop domain1
 icacls "C:\glassfish" /grant "NT Authority\LOCAL SERVICE:(OI)(CI)F" /T
-sc config domain1 obj= "NT Authority\LOCAL SERVICE"
+sc config "domain1" obj= "NT Authority\LOCAL SERVICE"
