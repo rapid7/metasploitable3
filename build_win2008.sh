@@ -1,10 +1,10 @@
 #!/bin/bash
 
-min_vbox_ver="5.1.6"
-min_vagrant_ver="1.8.6"
+min_vbox_ver="5.1.10"
+min_vagrant_ver="1.9.0"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
-packer_bin="packer-io"
+packer_bin="packer"
 
 function compare_versions {
     actual_version=$1
@@ -35,17 +35,22 @@ function compare_versions {
     return 0
 }
 
+# Conditional for platform specific version checks. Some of these might seem redundant since
+# there might not be anything actively broken in the dependent software. Keeping it around as
+# version upgrades could break things on specific platforms.
 if [ $(uname) = "Darwin" ]; then
-    packer_bin="packer"
-    vagrant_exact_match=true # Boxes fail to add in Vagrant 1.8.7 on OSX - https://github.com/mitchellh/vagrant/issues/8002
+    vagrant_exact_match=false
 elif [ $(uname) = "Linux" ]; then
     vagrant_exact_match=false
+    if cat /etc/*-release | grep -q 'DISTRIB_ID=Arch'; then
+        packer_bin="packer-io"
+    fi
 fi
 
-if compare_versions $(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g') $min_vbox_ver true; then
+if compare_versions $(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g') $min_vbox_ver false; then
     echo "Compatible version of VirtualBox found."
 else
-    echo "A compatible version of VirtualBox was not found. Currently only $min_vbox_ver is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
+    echo "A compatible version of VirtualBox was not found. Please download and install it from https://www.virtualbox.org/"
     exit 1
 fi
 
@@ -109,5 +114,6 @@ else
     fi
 fi
 
+echo "---------------------------------------------------------------------"
 echo "SUCCESS: Run 'vagrant up' to provision and start metasploitable3."
 echo "NOTE: The VM will need Internet access to provision properly."

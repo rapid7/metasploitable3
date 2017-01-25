@@ -9,18 +9,19 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 use: `packer build -only=vmware-iso windows_2008_r2.json`
 
 ## Building Metasploitable 3
+System Requirements:
+* OS capable of running all of the required applications listed below
+* VT-x/AMD-V Supported Processor recommended
+* 65 GB Available space on drive
+* 4.5 GB RAM
 
 Requirements:
 
 * [Packer](https://www.packer.io/intro/getting-started/setup.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/)
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
-* [VirtualBox 5.1.6](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
-
-NOTE: A bug was recently discovered in VirtualBox 5.1.8 that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/41).
-
-NOTE: A bug was recently discovered in Vagrant 1.8.7 on OSX that is breaking provisioning. More information [here](https://github.com/rapid7/metasploitable3/issues/43).
 
 To build automatically:
 
@@ -36,6 +37,12 @@ To build manually:
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
 5. To start the VM, run the command `vagrant up`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
+
+Videos:
+
+Thanks to [Jeremy](https://twitter.com/webpwnized), you can also follow the steps in these videos to set up Metasploitable3:
+
+https://www.youtube.com/playlist?list=PLZOToVAK85MpnjpcVtNMwmCxMZRFaY6mT
 
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)

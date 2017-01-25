@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
         v.vmx["ethernet0.virtualDev"] = "vmxnet3"
         v.vmx["RemoteDisplay.vnc.enabled"] = "false"
         v.vmx["RemoteDisplay.vnc.port"] = "5900"
-        v.vmx["scsi0.virtualDev"] = "lsisas1068"
+        v.vmx["scsi0.virtualDev"] = "lsilogic"
     end
 
     config.vm.provider :vmware_workstation do |v, override|
