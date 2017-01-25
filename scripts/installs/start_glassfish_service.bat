@@ -1,1 +1,1 @@
-net start "domain1 GlassFish Server"
+net start "domain1 Glassfish Server"
