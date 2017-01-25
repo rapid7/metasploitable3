@@ -1,8 +1,8 @@
 $ErrorActionPreference = "Stop"
 
-$virtualBoxMinVersion = "5.1.6"
+$virtualBoxMinVersion = "5.1.10"
 $packerMinVersion = "0.10.0"
-$vagrantMinVersion = "1.8.6"
+$vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
@@ -34,10 +34,10 @@ If ($(Test-Path "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe") -eq $True) 
     $vboxVersion = $vboxVersion.split("r")[0]
 }
 
-If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion --exactMatch $True) {
+If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
     Write-Host "Compatible version of VirtualBox found."
 } else {
-    Write-Host "Could not find a compatible version of VirtualBox at C:\Program Files\Oracle\VirtualBox\. Currently only 5.1.6 is supported. Please download and install it from https://www.virtualbox.org/wiki/Download_Old_Builds_5_1."
+    Write-Host "Could not find a compatible version of VirtualBox at C:\Program Files\Oracle\VirtualBox\. Please download and install it from https://www.virtualbox.org/"
     exit
 }
 
