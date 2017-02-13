@@ -1,0 +1,279 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides:          <%= @mysql_name %>
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Should-Start:      $network $time
+# Should-Stop:       $network $time
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start and stop the mysql database server daemon
+# Description:       Controls the main MySQL database server daemon "mysqld"
+#                    and its wrapper script "mysqld_safe".
+### END INIT INFO
+
+# set -e
+# set -u
+
+### Exit code reference
+# http://fedoraproject.org/wiki/Packaging:SysVInitScript
+# http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
+
+# Source functions
+<% if node['platform_family'] == 'rhel' %>
+# Source RHEL function library.
+. /etc/rc.d/init.d/functions
+<% end %>
+
+####
+# Variables
+####
+
+STARTTIMEOUT=900
+STOPTIMEOUT=900
+PID_DELAY=60
+
+####
+# Helper functions
+###
+
+# Boolean function to see if MYSQL_PID exists and is a number
+pid_exists() {
+    PID_EXISTS=1
+    if [ -f <%= @pid_file %> ]; then
+        MYSQLD_PID=`cat <%= @pid_file %> 2>/dev/null`
+	      if [ -n "$MYSQLD_PID" ] && [ -d "/proc/$MYSQLD_PID" ] ; then
+	          PID_EXISTS=0
+	      fi
+    fi
+    return $PID_EXISTS
+}
+
+# Use mysqladmin to ping the service as an invalid user over a socket
+running() {
+    RUNNING=1
+    RESPONSE=`<%= @mysqladmin_bin %> --defaults-file=<%= @defaults_file %> --user=UNKNOWN_MYSQL_USER ping 2>&1`
+    local mret=$?
+    if pid_exists \
+        && [ $mret -eq 0 ] \
+        || [ `echo $RESPONSE | grep -q "Access denied for user"` ]; then
+        RUNNING=0
+    fi
+    return $RUNNING
+}
+
+writable_error_log() {
+    WRITABLE_ERROR_LOG=1
+	  touch "<%= @error_log %>" 2>/dev/null
+    touchret=$?
+	  if [ $touchret -eq 0 ]; then
+        chown <%= @config.run_user %>:<%= @config.run_group %> <%= @error_log %>
+        return 0
+    else
+        return $WRITABLE_ERROR_LOG
+    fi
+}
+
+print_start_success() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Starting <%= @mysql_name %>: " /bin/true
+    <% else %>
+    echo "Staring MySQL instance <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+print_start_failure() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Starting <%= @mysql_name %>: " /bin/false
+    <% else %>
+    echo "Could not start MySQL instance <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+print_reload_success() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Reloading <%= @mysql_name %>" /bin/true
+    <% else %>
+    echo "Reload success for <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+print_reload_failure() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Reloading <%= @mysql_name %>" /bin/false
+    <% else %>
+    echo "Reload failed for <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+print_stop_success() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Stopping <%= @mysql_name %>: " /bin/true
+    <% else %>
+    echo "Stopping MySQL instance <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+print_stop_failure() {
+    <% if node['platform_family'] == 'rhel' %>
+    action $"Stopping <%= @mysql_name %>: " /bin/false
+    <% else %>
+    echo "Could not stop MySQL instance <%= @mysql_name %>"
+    <% end %>
+    return 0;
+}
+
+start_command() {
+    # Attempt to start <%= @mysql_name %>
+    echo "Starting MySQL instance <%= @mysql_name %>"
+
+    local scl_name="<%= @scl_name %>"
+
+    if [ -z $scl_name ]; then
+        <%= @mysqld_safe_bin %> \
+            --defaults-file=<%= @defaults_file %> \
+            >/dev/null 2>&1 &
+        local pid=$!
+    else
+        scl enable $scl_name "<%= @mysqld_safe_bin %> \
+            --defaults-file=<%= @defaults_file %> \
+            >/dev/null 2>&1 &"
+        local pid=$!
+    fi
+
+    return $pid
+}
+
+####
+# Init script actions
+###
+
+# Start <%= @mysql_name %>
+start() {
+    # exit 0 if already running.
+    if running; then
+        print_start_success
+        return 0;
+    fi
+
+    # exit 4 if we can't write to error_log
+    if ! writable_error_log; then
+        print_start_failure
+        return 4
+    fi
+
+    # run program
+    start_command;
+    start_pid=$?
+
+    # Timeout loop
+    local TIMEOUT=$STARTTIMEOUT
+    while [ $TIMEOUT -gt 0 ]; do
+        if running; then
+            break
+        fi
+
+        let CURRENT_DELAY=${STARTTIMEOUT}-${TIMEOUT}
+        if [ $CURRENT_DELAY -gt $PID_DELAY ] \
+          && ! pid_exists; then
+            break
+        fi
+
+        sleep 1
+	      let TIMEOUT=${TIMEOUT}-1
+    done
+
+    if running; then
+        # successbaby.gif
+        print_start_success
+        return 0
+    elif ! pid_exists; then
+        # Handle startup failure
+        print_start_failure
+        return 3
+	  elif [ $TIMEOUT -eq 0 ]; then
+        # Handle timeout
+        print_start_failure
+        # clean up
+        kill $start_pid 2>/dev/null
+	      return 1
+	  fi
+}
+
+# Reload <%= @mysql_name %>
+reload() {
+    <%= @mysqladmin_bin %> reload
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+        print_reload_success;
+    else
+        print_reload_failure;
+    fi
+    return $ret
+}
+
+# Status of <%= @mysql_name %>
+status() {
+    if running; then
+        echo "<%= @mysql_name %> is running"
+        return 0
+    else
+        echo "<%= @mysql_name %> is not running"
+        return 1
+    fi
+}
+
+# Stop <%= @mysql_name %>
+stop() {
+    if running; then
+        echo "Stopping MySQL instance <%= @mysql_name %>"
+        if [ -f <%= @pid_file %> ]; then
+            /bin/kill `cat <%= @pid_file %> 2>/dev/null`
+            kstat=$?
+        fi
+
+        # Timeout loop
+        local TIMEOUT=$STARTTIMEOUT
+        while [ $TIMEOUT -gt 0 ]; do
+            if [ -e <%= @pid_file %> ]; then
+            sleep 1
+            fi
+	          let TIMEOUT=${TIMEOUT}-1
+        done
+
+        return $kstat
+    else
+        echo "MySQL instance <%= @mysql_name %> Stopped."
+        return 0
+    fi
+}
+
+# main()
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        stop ; start
+        ;;
+    reload)
+        reload
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|reload}"
+        exit 2
+esac
+
+exit $?
