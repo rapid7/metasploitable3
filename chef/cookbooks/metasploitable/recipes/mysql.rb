@@ -2,7 +2,7 @@
 # Cookbook:: metasploitable
 # Recipe:: mysql
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright:: 2017, Rapid7, All Rights Reserved.
 
 mysql_client 'default' do
   action :create
