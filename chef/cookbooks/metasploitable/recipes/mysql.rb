@@ -4,6 +4,10 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
+execute "apt-get update" do
+  command "apt-get update"
+end
+
 mysql_client 'default' do
   action :create
 end
