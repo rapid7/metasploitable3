@@ -132,7 +132,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "trusty" do |trusty|
-    trusty.vm.box = "ubuntu/trusty64"
+    trusty.vm.box = "rsginc/ubuntu64-14-04-1"
     trusty.vm.hostname = "metasploitableUB"
 
     trusty.vm.network "private_network", type: "dhcp"
@@ -152,6 +152,7 @@ Vagrant.configure("2") do |config|
 
       chef.add_recipe "metasploitable::mysql"
       chef.add_recipe "metasploitable::apache_continuum"
+      chef.add_recipe "metasploitable::apache"
       chef.add_recipe "metasploitable::users"
     end
   end
