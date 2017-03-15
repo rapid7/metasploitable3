@@ -149,6 +149,10 @@ Vagrant.configure("2") do |config|
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = [ 'chef/cookbooks' ]
 
+      chef.json = { 'metasploitable' => {
+                      # Customizations here
+                    }
+                  }
 
       chef.add_recipe "metasploitable::mysql"
       chef.add_recipe "metasploitable::apache_continuum"
@@ -157,6 +161,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::phpmyadmin"
       chef.add_recipe "metasploitable::proftpd"
       chef.add_recipe "metasploitable::users"
+      chef.add_recipe "metasploitable::docker"
     end
   end
 end
