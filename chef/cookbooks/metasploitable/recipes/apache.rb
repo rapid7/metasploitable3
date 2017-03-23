@@ -39,6 +39,10 @@ execute 'disable-serve-cgi-bin-conf' do
   command 'a2disconf serve-cgi-bin'
 end
 
+execute 'make /var/www/html writeable' do
+  command 'chmod o+w /var/www/html'
+end
+
 service 'apache2' do
   action [:enable, :start]
 end

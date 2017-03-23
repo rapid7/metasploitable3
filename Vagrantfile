@@ -155,6 +155,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::apache"
       chef.add_recipe "metasploitable::php_545"
       chef.add_recipe "metasploitable::phpmyadmin"
+      chef.add_recipe "metasploitable::proftpd"
       chef.add_recipe "metasploitable::users"
     end
   end
