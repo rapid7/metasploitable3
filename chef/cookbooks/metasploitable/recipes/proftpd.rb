@@ -1,6 +1,6 @@
 #
-# Cookbook:: proftpd
-# Recipe:: phpmyadmin
+# Cookbook:: metasploitable
+# Recipe:: proftpd
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
