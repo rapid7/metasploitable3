@@ -1,0 +1,57 @@
+# Chef generated my.cnf for instance mysql-<%= @config.name %>
+
+[client]
+<% if @config.charset %>
+default-character-set          = <%= @config.charset %>
+<% end %>
+<% if @config.port %>
+port                           = <%= @config.port %>
+<% end %>
+<% if @config.socket_file %>
+socket                         = <%= @config.socket_file %>
+<% end %>
+
+[mysql]
+<% if @config.charset %>
+default-character-set          = <%= @config.charset %>
+<% end %>
+
+[mysqld]
+<% if @config.run_user %>
+user                           = <%= @config.run_user %>
+<% end %>
+<% if @config.pid_file %>
+pid-file                       = <%= @config.pid_file %>
+<% end %>
+<% if @config.socket_file %>
+socket                         = <%= @config.socket_file %>
+<% end %>
+<% if @config.bind_address %>
+bind-address                   = <%= @config.bind_address %>
+<% end %>
+<% if @config.port %>
+port                           = <%= @config.port %>
+<% end %>
+<% if @config.data_dir %>
+datadir                        = <%= @config.data_dir %>
+<% end %>
+<% if @config.tmp_dir %>
+tmpdir                         = <%= @config.tmp_dir %>
+<% end %>
+<% @config.mysqld_options.each do |option,value| %>
+<%= option %>                  = <%= value %>
+<% end %>
+<% if @config.lc_messages_dir %>
+lc-messages-dir                = <%= @config.lc_messages_dir %>
+<% end %>
+<% if @config.error_log %>
+log-error                      = <%= @config.error_log %>
+<% end %>
+<% if @config.include_dir %>
+!includedir <%= @config.include_dir %>
+<% end %>
+
+[mysqld_safe]
+<% if @config.socket_file %>
+socket                         = <%= @config.socket_file %>
+<% end %>
