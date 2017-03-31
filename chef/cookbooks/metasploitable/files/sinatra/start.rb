@@ -8,7 +8,7 @@ MYSECRET = 'a7aebc287bba0ee4e64f947415a94e5f'
 
 set :environment, :development
 set :bind, '0.0.0.0'
-set :port, 8080
+set :port, 8181
 
 use Rack::Session::Cookie,
   :key          => "_metasploitable",
