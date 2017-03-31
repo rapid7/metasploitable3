@@ -11,7 +11,7 @@ require 'net/http'
 
 SECRET = "a7aebc287bba0ee4e64f947415a94e5f"
 
-cli = Net::HTTP.new('127.0.0.1', 8080)
+cli = Net::HTTP.new('127.0.0.1', 8181)
 req = Net::HTTP::Get.new('/')
 res = cli.request(req)
 cookie = res['Set-Cookie'].scan(/_metasploitable=(.+); path/).flatten.first || ''
