@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     win2k8.vm.network "private_network", type: "dhcp"
 
     # Install Chocolatey
-    config.vm.provision :shell, path: "scripts/installs/chocolatey.cmd"
+    #config.vm.provision :shell, path: "scripts/installs/chocolatey.cmd"
     config.vm.provision :reload # Hack to reset environment variables
 
     # Install BoxStarter
@@ -157,6 +157,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::phpmyadmin"
       chef.add_recipe "metasploitable::proftpd"
       chef.add_recipe "metasploitable::users"
+      chef.add_recipe "metasploitable::sinatra"
     end
   end
 end
