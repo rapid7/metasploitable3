@@ -162,6 +162,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::proftpd"
       chef.add_recipe "metasploitable::users"
       chef.add_recipe "metasploitable::docker"
+      chef.add_recipe "metasploitable::samba"
     end
   end
 end
