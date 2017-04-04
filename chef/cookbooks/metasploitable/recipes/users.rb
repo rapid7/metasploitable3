@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
+# See scripts/configs/create_users.bat for passwords
+
 users = {'leah_organa' => { password: '$1$2ny4/xaH$tAFV5fbEqHx2OkOPIQhpx0' },
          'luke_skywalker' => { password: '$1$n8tgrGRs$8xaS40CFS1J5iIAEmbnx50' },
          'han_solo' => { password: '$1$L/2/AWAh$ZMUulbFhP2IesZ6xwBmaV0' },
