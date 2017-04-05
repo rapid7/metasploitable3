@@ -12,7 +12,7 @@
 
 case "$1" in
  start)
-   /opt/sinatra/start.rb
+   /opt/sinatra/start.sh
    ;;
  *)
    echo "Usage: start {start}" >&2
