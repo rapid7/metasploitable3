@@ -9,43 +9,30 @@
 include_recipe 'metasploitable::sinatra'
 
 apt_repository 'rvm' do
-  uri 'ppa:rael-gc/rvm'
+  uri 'ppa:brightbox/ruby-ng'
 end
 
-package 'rvm'
+package 'ruby2.3'
 
-bash 'run rvm.sh' do
-  code <<-EOH
-  source /etc/profile.d/rvm.sh
-  rvmsudo rvm install ruby-2.3.1
-  rvm --default use 2.3.1
-  gem install bundler
-  EOH
-end
+package 'bundler'
 
 directory '/opt/sinatra' do
   mode '0777'
 end
 
-['Gemfile', 'README.txt', 'check.rb', 'poc.rb', 'start.rb'].each do |fname|
+['Gemfile', 'README.txt', 'check.rb', 'poc.rb', 'start.sh', 'server.rb'].each do |fname|
   cookbook_file "/opt/sinatra/#{fname}" do
     source "sinatra/#{fname}"
     mode '0777'
   end
 end
 
-bash 'bundle install sinatra' do
-  code <<-EOH
-  cd /opt/sinatra
-  bundle install
-  EOH
-end
-
-cookbook_file '/etc/init.d/sinatra' do
-  source 'sinatra/sinatra.sh'
+cookbook_file '/etc/init/sinatra.conf' do
+  source 'sinatra/sinatra.conf'
   mode '0777'
 end
 
 service 'sinatra' do
+  supports restart: false, start: true, reload: false, status: false
   action [:enable, :start]
 end

@@ -3,12 +3,19 @@
 require 'sinatra'
 require 'erubis'
 require 'active_support'
+require 'webrick'
 
 MYSECRET = 'a7aebc287bba0ee4e64f947415a94e5f'
 
 set :environment, :development
 set :bind, '0.0.0.0'
 set :port, 8181
+
+# These settings are specific for Sinatra 2.0.0rc2
+set :logging, false
+set :quiet, true
+dev_null = WEBrick::Log::new("/dev/null", 7)
+set :server_settings, {:Logger => dev_null, :AccessLog => dev_null}
 
 use Rack::Session::Cookie,
   :key          => "_metasploitable",
