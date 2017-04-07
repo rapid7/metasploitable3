@@ -126,6 +126,10 @@ Vagrant.configure("2") do |config|
     win2k8.vm.provision :shell, path: "scripts/installs/install_elasticsearch.bat"
     win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
+    # Insecure share from the Linux machine
+    win2k8.vm.provision :shell, path: "scripts/installs/setup_linux_share.bat"
+    win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+
     # Configure flags
     win2k8.vm.provision :shell, path: "scripts/installs/install_flags.bat"
     win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614a
@@ -135,7 +139,7 @@ Vagrant.configure("2") do |config|
     trusty.vm.box = "rsginc/ubuntu64-14-04-1"
     trusty.vm.hostname = "metasploitableUB"
 
-    trusty.vm.network "private_network", type: "dhcp"
+    trusty.vm.network "private_network", ip: '172.28.128.3'
 
     trusty.vm.provider "virtualbox" do |v|
       v.name = "MetasploitableUB"
