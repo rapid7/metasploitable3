@@ -139,7 +139,7 @@ Vagrant.configure("2") do |config|
     trusty.vm.box = "rsginc/ubuntu64-14-04-1"
     trusty.vm.hostname = "metasploitableUB"
 
-    trusty.vm.network "private_network", type: "dhcp"
+    trusty.vm.network "private_network", ip: '172.28.128.3'
 
     trusty.vm.provider "virtualbox" do |v|
       v.name = "MetasploitableUB"
