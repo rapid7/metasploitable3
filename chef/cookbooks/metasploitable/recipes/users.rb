@@ -26,7 +26,7 @@ uid = 1111
 
 users.each do |username, opts|
   user username do
-    supports :manage_home => true
+    manage_home true
     password opts[:password]
     uid uid
     gid '100'
