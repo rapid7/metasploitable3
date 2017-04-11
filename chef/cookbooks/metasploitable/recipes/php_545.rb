@@ -35,7 +35,7 @@ end
 bash "compile and install php" do
   code <<-EOH
     cd /home/vagrant/php-5.4.5
-    ./configure --with-apxs2=/usr/bin/apxs --with-mysql
+    ./configure --with-apxs2=/usr/bin/apxs --with-mysqli --enable-embedded-mysqli
     make
     make install
   EOH
