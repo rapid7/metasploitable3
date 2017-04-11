@@ -38,6 +38,7 @@ if($_POST['s']){
                     foreach ($keys as $key) {
                         echo "<td>" . $row[$key] . "</td>";
                     }
+                    echo "</tr>\n";
                 }
                 $result->free();
             }

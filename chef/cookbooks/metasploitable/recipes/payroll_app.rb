@@ -13,6 +13,17 @@ cookbook_file '/tmp/payroll.sql' do
   mode '0755'
 end
 
+directory '/home/vagrant/poc/payroll_app/' do
+  mode '0755'
+  owner 'vagrant'
+  recursive true
+end
+
+cookbook_file '/home/vagrant/poc/payroll_app/poc.rb' do
+  source 'payroll_app/poc.rb'
+  mode '0755'
+end
+
 bash 'create payroll database and import data' do
   code <<-EOH
     mysql -S /var/run/mysql-default/mysqld.sock --user="root" --password="sploitme" --execute="CREATE DATABASE payroll;"
