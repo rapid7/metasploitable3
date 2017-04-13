@@ -29,15 +29,22 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
     return $True
 }
 
-If ($(Test-Path "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe") -eq $True) {
-    $vboxVersion = cmd.exe /c "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" -v
+$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
+    $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
     $vboxVersion = $vboxVersion.split("r")[0]
+} else {
+    Write-Host "VirtualBox is not installed (or not in the expected location of $expectedVBoxLocation\)"
+    Write-Host "Please download and install it from https://www.virtualbox.org/"
+    exit
 }
 
 If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
     Write-Host "Compatible version of VirtualBox found."
 } else {
-    Write-Host "Could not find a compatible version of VirtualBox at C:\Program Files\Oracle\VirtualBox\. Please download and install it from https://www.virtualbox.org/"
+    Write-Host "A compatible version of VirtualBox was not found."
+    Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
+    Write-Host "Please download and install it from https://www.virtualbox.org/"
     exit
 }
 
