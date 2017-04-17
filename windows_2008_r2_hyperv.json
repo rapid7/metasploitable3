@@ -6,6 +6,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "boot_wait": "2m",
+      "ssh_timeout": "3h",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
