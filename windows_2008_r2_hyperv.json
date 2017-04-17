@@ -28,7 +28,8 @@
         "./resources/certs/gte_cybertrust.cer",
         "./resources/certs/microsoft_root_2011.cer",
         "./resources/certs/thawte_primary_root.cer",
-        "./resources/certs/utn-userfirst.cer"
+        "./resources/certs/utn-userfirst.cer",
+        "./resources/exe/setupssh-7.1p1-1.exe"
       ]
     }
   ],

@@ -7,13 +7,15 @@ $is_64bit = [IntPtr]::size -eq 8
 
 # setup openssh
 $ssh_download_url = "http://www.mls-software.com/files/setupssh-7.1p1-1.exe"
-
+$ssh_download_name = "setupssh-7.1p1-1.exe"
 if (!(Test-Path "C:\Program Files\OpenSSH\bin\ssh.exe")) {
-    Write-Output "Downloading $ssh_download_url"
-    (New-Object System.Net.WebClient).DownloadFile($ssh_download_url, "C:\Windows\Temp\openssh.exe")
+    #Write-Output "Downloading $ssh_download_url"
+    #(New-Object System.Net.WebClient).DownloadFile($ssh_download_url, "C:\Windows\Temp\openssh.exe")
 
+    Write-Output "Using Cached $ssh_download_urlsince vagrant hyper-v doesn't has internet by default"
     # initially set the port to 2222 so that there is not a race
     # condition in which packer connects to SSH before we can disable the service
+    Copy-Item "a:\$ssh_download_name" "C:\Windows\Temp\openssh.exe"
     Start-Process "C:\Windows\Temp\openssh.exe" "/S /port=2222 /privsep=1 /password=D@rj33l1ng" -NoNewWindow -Wait
 }
 
