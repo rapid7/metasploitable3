@@ -1,12 +1,12 @@
 #
-# Cookbook:: sinatra
-# Recipe:: sinatra
+# Cookbook:: chatbot
+# Recipe:: chatbot
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 #
 #
 
-include_recipe 'metasploitable::sinatra'
+include_recipe 'metasploitable::chatbot'
 
 package 'unzip'
 
