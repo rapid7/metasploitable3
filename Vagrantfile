@@ -169,6 +169,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::docker"
       chef.add_recipe "metasploitable::samba"
       chef.add_recipe "metasploitable::unrealircd"
+      chef.add_recipe "metasploitable::payroll_app"
     end
   end
 end
