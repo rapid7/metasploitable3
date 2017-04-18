@@ -19,7 +19,7 @@ if (!isset($_POST['s'])) {
     </tr>
     <tr>
         <td>Password</td>
-        <td><input type="text" name="password"></td>
+        <td><input type="password" name="password"></td>
     </tr>
     <tr>
        <td><input type="submit" value="OK" name="s">
