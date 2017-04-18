@@ -6,19 +6,30 @@ if ($conn->connect_error) {
 }
 ?>
 
+<?php
+if (!isset($_POST['s'])) {
+?>
+<center>
 <form action="" method="post">
-<table width="50%">
+<h2>Payroll Login</h2>
+<table style="border-radius: 25px; border: 2px solid black; padding: 20px;">
     <tr>
         <td>User</td>
         <td><input type="text" name="user"></td>
     </tr>
     <tr>
-        <td></td>
+        <td>Password</td>
         <td><input type="text" name="password"></td>
     </tr>
+    <tr>
+       <td><input type="submit" value="OK" name="s">
+    </tr>
 </table>
-    <input type="submit" value="OK" name="s">
 </form>
+</center>
+<?php
+}
+?>
 
 <?php
 if($_POST['s']){
@@ -29,7 +40,9 @@ if($_POST['s']){
     if ($conn->multi_query($sql)) {
         do {
             /* store first result set */
-            echo "<table border=1>";
+            echo "<center>";
+            echo "<h2>Welcome, " . $user . "</h2><br>";
+            echo "<table style='border-radius: 25px; border: 2px solid black;' cellspacing=30>";
             echo "<tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Salary</th></tr>";
             if ($result = $conn->store_result()) {
                 while ($row = $result->fetch_assoc()) {
@@ -43,7 +56,7 @@ if($_POST['s']){
                 $result->free();
             }
             if (!$conn->more_results()) {
-                echo "</table>";
+                echo "</table></center>";
             }
         } while ($conn->next_result());
     }
