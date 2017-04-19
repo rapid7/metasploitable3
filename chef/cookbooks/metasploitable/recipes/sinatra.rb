@@ -7,14 +7,7 @@
 #
 
 include_recipe 'metasploitable::sinatra'
-
-apt_repository 'rvm' do
-  uri 'ppa:brightbox/ruby-ng'
-end
-
-package 'ruby2.3'
-
-package 'bundler'
+include_recipe 'metasploitable::ruby23'
 
 directory '/opt/sinatra' do
   mode '0777'
