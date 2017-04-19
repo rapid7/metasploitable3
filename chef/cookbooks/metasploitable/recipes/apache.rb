@@ -17,6 +17,11 @@ directory '/var/www/cgi-bin' do
   recursive true
 end
 
+directory '/var/www/uploads' do
+  mode '0777'
+  recursive true
+end
+
 cookbook_file '/var/www/cgi-bin/hello_world.sh' do
   source 'apache/hello_world.sh'
   mode '0755'
@@ -27,16 +32,27 @@ cookbook_file '/etc/apache2/conf-available/cgi-bin.conf' do
   mode '0644'
 end
 
-execute 'enable-cgi-mod' do
-  command 'a2enmod cgi'
+cookbook_file '/etc/apache2/conf-available/dav.conf' do
+  source 'apache/dav.conf'
+  mode '0644'
 end
 
-execute 'enable-cgi-bin-conf' do
-  command 'a2enconf cgi-bin'
+bash "configure cgi" do
+  code <<-EOH
+    a2enmod cgi
+    a2enconf cgi-bin
+    a2disconf serve-cgi-bin
+  EOH
 end
 
-execute 'disable-serve-cgi-bin-conf' do
-  command 'a2disconf serve-cgi-bin'
+bash "configure webDAV" do
+  code <<-EOH
+    a2enmod dav
+    a2enmod dav_fs
+    a2enmod dav_lock
+    a2enmod auth_digest
+    a2enconf dav
+  EOH
 end
 
 execute 'make /var/www/html writeable' do
