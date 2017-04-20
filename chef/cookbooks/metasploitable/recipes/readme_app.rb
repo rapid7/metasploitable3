@@ -7,9 +7,9 @@
 #
 
 include_recipe 'metasploitable::ruby23'
+include_recipe 'metasploitable::nodejs'
 
 package 'git'
-package 'nodejs'
 
 directory '/opt/readme_app' do
   mode '0777'
