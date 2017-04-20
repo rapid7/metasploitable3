@@ -1,5 +1,5 @@
 #
-# Cookbook:: sinatra
+# Cookbook:: metasploitable
 # Recipe:: sinatra
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
