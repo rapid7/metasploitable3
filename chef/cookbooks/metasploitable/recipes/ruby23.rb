@@ -6,6 +6,10 @@
 #
 #
 
+apt_repository 'rvm' do
+  uri 'ppa:brightbox/ruby-ng'
+end
+
 execute 'apt-get update' do
   command 'apt-get update'
 end
