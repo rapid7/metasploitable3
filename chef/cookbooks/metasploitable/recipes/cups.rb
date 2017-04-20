@@ -18,5 +18,5 @@ cookbook_file '/etc/cups/cupsd.conf' do
 end
 
 service 'cups' do
-  action [:enable, :start]
+  action [:enable, :restart]
 end
