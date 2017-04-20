@@ -1,18 +1,22 @@
 #
-# Cookbook:: chatbot
+# Cookbook:: metasploitable
 # Recipe:: chatbot
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 #
 #
 
-include_recipe 'metasploitable::chatbot'
+include_recipe 'metasploitable::ruby23'
+include_recipe 'metasploitable::nodejs'
 
 package 'unzip'
 
-package 'npm'
-
-package 'bundler'
+bash "Install dependencies" do
+  code <<-EOH
+    npm install express
+    npm install cors
+  EOH
+end
 
 cookbook_file '/tmp/chatbot.zip' do
   source 'chatbot/chatbot.zip'
