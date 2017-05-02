@@ -47,10 +47,19 @@ elif [ $(uname) = "Linux" ]; then
     fi
 fi
 
-if compare_versions $(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g') $min_vbox_ver false; then
-    echo "Compatible version of VirtualBox found."
+if [ -x "$(which VBoxManage)" ] ; then
+    current_vbox_ver=$(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g')
+    if compare_versions $current_vbox_ver $min_vbox_ver false; then
+        echo "Compatible version of VirtualBox found."
+    else
+        echo "A compatible version of VirtualBox was not found."
+        echo "Current Version=[$current_vbox_ver], Minimum Version=[$min_vbox_ver]"
+        echo "Please download and install it from https://www.virtualbox.org/"
+        exit 1
+    fi
 else
-    echo "A compatible version of VirtualBox was not found. Please download and install it from https://www.virtualbox.org/"
+    echo "VirtualBox is not installed (or not added to the path)."
+    echo "Please download and install it from https://www.virtualbox.org/"
     exit 1
 fi
 
