@@ -5,7 +5,7 @@ copy /Y "C:\vagrant\resources\glassfish\admin-keyfile" "C:\glassfish\glassfish4\
 copy /Y "C:\vagrant\resources\glassfish\domain.xml" "C:\glassfish\glassfish4\glassfish\domains\domain1\config\domain.xml"
 cmd.exe /c "C:\glassfish\glassfish4\bin\asadmin.bat create-service domain1"
 net start domain1
-powershell -Command "Start-Sleep -s 5"
+powershell -Command "Start-Sleep -s 10"
 net stop domain1
 icacls "C:\glassfish" /grant "NT Authority\LOCAL SERVICE:(OI)(CI)F" /T
 sc config domain1 obj= "NT Authority\LOCAL SERVICE"
