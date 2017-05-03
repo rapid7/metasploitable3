@@ -103,6 +103,17 @@
       "destination": "C:/vagrant"
     },
     {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "./scripts/installs/vm-guest-tools.bat"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
       "type":"powershell",
       "inline": [
         "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
@@ -116,7 +127,6 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "./scripts/installs/vm-guest-tools.bat",
         "./scripts/configs/vagrant-ssh.bat",
         "./scripts/configs/disable-auto-logon.bat",
         "./scripts/configs/enable-rdp.bat",
@@ -185,9 +195,9 @@
     }
   ],
   "variables": {
-    "iso_url": "en_windows_server_2008_r2_x64_dvd_x15-50365.iso",
+    "iso_url": "http://download.microsoft.com/download/7/5/E/75EC4E54-5B02-42D6-8879-D8D3A25FBEF7/7601.17514.101119-1850_x64fre_server_eval_en-us-GRMSXEVAL_EN_DVD.iso",
     "iso_checksum_type": "md5",
-    "iso_checksum": "0ffbae83327f0ad8c2ab4d5dfa754c09",
+    "iso_checksum": "4263be2cf3c59177c45085c0a7bc6ca5",
     "autounattend": "./answer_files/2008_r2/Autounattend.xml"
   }
 }

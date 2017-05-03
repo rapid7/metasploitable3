@@ -35,7 +35,7 @@
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <Key>YC6KT-GKW9T-YTKYR-T4X34-R7VHC</Key>
+                    <!--<Key>YC6KT-GKW9T-YTKYR-T4X34-R7VHC</Key>-->
                     
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
@@ -260,7 +260,7 @@
                     <Description>Install .NET 4.0</Description>
                     <Order>27</Order>
                 </SynchronousCommand>
-                <!-- WITHOUT WINDOWS UPDATES -->
+                 <!--WITHOUT WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\openssh.ps1 -AutoStart</CommandLine>
                     <Description>Install OpenSSH</Description>
@@ -291,8 +291,8 @@
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
             <!-- Rename computer here. -->
-            <ComputerName>metasploitable3-2008R2</ComputerName>
-            <TimeZone>Eastern Standard Time</TimeZone>
+            <ComputerName>vagrant-2008R2</ComputerName>
+            <TimeZone>Pacific Standard Time</TimeZone>
             <RegisteredOwner/>
         </component>
         <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
