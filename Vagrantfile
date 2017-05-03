@@ -127,6 +127,8 @@ Vagrant.configure("2") do |config|
     win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
     # Insecure share from the Linux machine
+    win2k8.vm.provision :shell, path: "scripts/installs/install_share_autorun.bat"
+    win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
     win2k8.vm.provision :shell, path: "scripts/installs/setup_linux_share.bat"
     win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
 
@@ -170,6 +172,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::samba"
       chef.add_recipe "metasploitable::unrealircd"
       chef.add_recipe "metasploitable::chatbot"
+      chef.add_recipe "metasploitable::cups"
       chef.add_recipe "metasploitable::readme_app"
       chef.add_recipe "metasploitable::payroll_app"
     end
