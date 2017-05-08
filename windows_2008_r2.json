@@ -47,8 +47,9 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": true,
-      "boot_wait": "2m",
+      "headless": false,
+      "boot_wait": "5m",
+      "communicator": "ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
@@ -107,7 +108,8 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "./scripts/installs/vm-guest-tools.bat"
+        "./scripts/installs/vm-guest-tools.bat",
+        "./scripts/configs/disable_firewall.bat"
       ]
     },
     {
