@@ -99,7 +99,7 @@ If ($(Test-Path "windows_2008_r2_virtualbox.box") -eq $True) {
     Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
 } else {
     Write-Host "Building the Vagrant box..."
-    cmd.exe /c packer build windows_2008_r2.json
+    cmd.exe /c packer build --only=virtualbox-iso windows_2008_r2.json
 
     if($?) {
         Write-Host "Box successfully built by Packer."
