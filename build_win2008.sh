@@ -101,7 +101,7 @@ if ls | grep -q 'windows_2008_r2_virtualbox.box'; then
     echo "It looks like the vagrant box already exists. Skipping the Packer build."
 else
     echo "Building the Vagrant box..."
-    if $packer_bin build windows_2008_r2.json; then
+    if $packer_bin build --only=virtualbox-iso windows_2008_r2.json; then
         echo "Box successfully built by Packer."
     else
         echo "Error building the Vagrant box using Packer. Please check the output above for any error messages."
