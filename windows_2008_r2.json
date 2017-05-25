@@ -35,7 +35,7 @@
         "./resources/certs/thawte_primary_root.cer",
         "./resources/certs/utn-userfirst.cer"
       ],
-      "vm_name": "metasploitable3",
+      "vm_name": "metasploitable3-win2k8",
       "vmx_data": {
         "cpuid.coresPerSocket": "2",
         "memsize": "4096",
@@ -57,6 +57,7 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "Windows2008_64",
       "disk_size": 61440,
+      "vm_name": "metasploitable3-win2k8",
       "floppy_files": [
         "{{user `autounattend`}}",
         "./scripts/configs/microsoft-updates.bat",
