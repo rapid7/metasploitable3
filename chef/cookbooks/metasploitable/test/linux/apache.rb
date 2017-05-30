@@ -1,5 +1,4 @@
-# Inspec Tests for the Linux version
-# All of these tests must pass before release.
+# Inspec Tests for Apache
 
 # Tests for Apache Continuum
 describe service'continuum' do
