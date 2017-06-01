@@ -28,4 +28,3 @@ cmd /C C:\tools\ruby23\bin\gem.cmd install minitest -v '5.9.1' --no-ri --no-rdoc
 
 copy /Y C:\Vagrant\Resources\rails_server\sqlite3-1.3.11-x64-mingw32.gemspec C:\tools\ruby23\lib\ruby\gems\2.3.0\specifications
 C:\tools\ruby23\bin\rails.bat _4.1.1_ new "C:\Program Files\Rails_Server"
-
