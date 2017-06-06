@@ -15,7 +15,7 @@ execute "install prereqs" do
     libxml2-dev libcurl4-openssl-dev libpcre3-dev libbz2-dev libjpeg-dev \
     libpng12-dev libfreetype6-dev libt1-dev libmcrypt-dev libmhash-dev \
     freetds-dev libmysqlclient-dev unixodbc-dev \
-    libxslt1-dev php5-mysql apache2-dev"
+    libxslt1-dev apache2-dev"
 end
 
 execute "fix freetype bug" do
@@ -35,7 +35,7 @@ end
 bash "compile and install php" do
   code <<-EOH
     cd /home/vagrant/php-5.4.5
-    ./configure --with-apxs2=/usr/bin/apxs --with-mysqli --enable-embedded-mysqli
+    ./configure --with-apxs2=/usr/bin/apxs --with-mysqli --enable-embedded-mysqli --with-gd --with-mcrypt --enable-mbstring --with-pdo-mysql
     make
     make install
   EOH
