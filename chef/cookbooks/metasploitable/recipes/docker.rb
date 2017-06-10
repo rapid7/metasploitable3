@@ -11,5 +11,5 @@ end
 group 'docker' do
   action [:create, :modify]
   append true
-  members node['metasploitable']['docker_users']
+  members node[:metasploitable][:docker_users]
 end

@@ -175,6 +175,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::cups"
       chef.add_recipe "metasploitable::readme_app"
       chef.add_recipe "metasploitable::payroll_app"
+      chef.add_recipe "metasploitable::drupal"
     end
   end
 end
