@@ -145,7 +145,7 @@ Vagrant.configure("2") do |config|
 
     trusty.vm.provider "virtualbox" do |v|
       v.name = "MetasploitableUB"
-      v.memory = 1024
+      v.memory = 2048
     end
 
     config.omnibus.chef_version = :latest
