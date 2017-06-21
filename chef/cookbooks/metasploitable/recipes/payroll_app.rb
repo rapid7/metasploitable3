@@ -3,13 +3,17 @@
 # Recipe:: payroll_app
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
+include_recipe 'metasploitable::mysql'
+include_recipe 'metasploitable::apache'
+include_recipe 'metasploitable::php_545'
+
 cookbook_file '/var/www/html/payroll_app.php' do
   source 'payroll_app/payroll_app.php'
   mode '0755'
 end
 
-cookbook_file '/tmp/payroll.sql' do
-  source 'payroll_app/payroll.sql'
+template '/tmp/payroll.sql' do
+  source 'payroll_app/payroll.sql.erb'
   mode '0755'
 end
 
