@@ -6,6 +6,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "metasploitable3"
   config.vm.hostname = "metasploitable3"
   config.vm.communicator = "winrm"
+  config.winrm.retry_limit = 60
+  config.winrm.retry_delay = 10
 
   config.vm.network "private_network", type: "dhcp"
 
