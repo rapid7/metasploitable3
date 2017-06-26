@@ -13,7 +13,7 @@ System Requirements:
 
 Requirements:
 
-* [Packer](https://www.packer.io/intro/getting-started/setup.html)
+* [Packer](https://www.packer.io/intro/getting-started/install.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/) NOTE: Currently 1.9.1 is recommended as there are build issues with newer versions.
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
