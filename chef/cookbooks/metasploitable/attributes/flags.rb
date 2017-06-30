@@ -3,5 +3,5 @@
 # Attributes:: flags
 #
 
-default[:flags][:flag1][:vuln_service] = 'apache'
-default[:flags][:flag1][:vuln_port] = '8989'
+default[:flags][:five_of_diamonds][:vuln_service] = 'custom_http'
+default[:flags][:five_of_diamonds][:vuln_port] = '8989'

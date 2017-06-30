@@ -4,11 +4,11 @@
 [openFlag]
         sequence    = <%= node[:users].collect { |u, att| node[:users][u][:salary] }.join(',') %>
         seq_timeout = 15
-        command     = /sbin/iptables -I INPUT 1 -s %IP% -p tcp --dport <%= node[:flags][:flag1][:vuln_port] %> -j ACCEPT
+        command     = /sbin/iptables -I INPUT 1 -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
         tcpflags    = syn
 
 [closeFlag]
         sequence    = <%= node[:users].collect { |u, att| node[:users][u][:salary] }.reverse.join(',') %>
         seq_timeout = 15
-        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport <%= node[:flags][:flag1][:vuln_port] %> -j ACCEPT
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
         tcpflags    = syn
