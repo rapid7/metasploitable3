@@ -1,0 +1,15 @@
+################################################
+#
+# knockd's default file, for generic sys config
+#
+################################################
+
+# control if we start knockd at init or not
+# 1 = start
+# anything else = don't start
+#
+# PLEASE EDIT /etc/knockd.conf BEFORE ENABLING
+START_KNOCKD=1
+
+# command line options
+#KNOCKD_OPTS="-i eth1"
