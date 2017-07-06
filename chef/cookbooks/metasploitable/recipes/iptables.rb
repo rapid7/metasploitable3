@@ -9,12 +9,12 @@ execute "apt-get update" do
 end
 
 bash 'setup for knockd, used for flag' do
-  code <<-EOH
-    iptables -A FORWARD 1 -p tcp -m tcp --dport 8989 -j DROP
-    iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-    iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-    iptables -A INPUT -j DROP
-  EOH
+  code 'iptables -A FORWARD 1 -p tcp -m tcp --dport 8989 -j DROP'
+  code 'iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT'
+  node[:metasploitable][:ports].keys.each do |service|
+    code "iptables -A INPUT -p tcp --dport #{node[:metasploitable][:ports][service]} -j ACCEPT"
+  end
+  code 'iptables -A INPUT -j DROP'
 end
 
 package 'iptables-persistent' do
