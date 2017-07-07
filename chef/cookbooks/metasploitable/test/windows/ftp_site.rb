@@ -5,4 +5,9 @@ control "setup-ftp-site" do
   describe file('C:\\Windows\\System32\\inetsrv\\config\\applicationHost.config') do
    it { should exist }
   end
+
+  describe command('netstat -aob | findstr :21') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
 end

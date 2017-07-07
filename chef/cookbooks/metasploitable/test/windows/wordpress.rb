@@ -13,4 +13,9 @@ control "wordpress" do
   describe file('C:\\wamp\\www\\wordpress') do
    it { should exist }
   end
+
+  describe command('netstat -aob | findstr :8585') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
 end

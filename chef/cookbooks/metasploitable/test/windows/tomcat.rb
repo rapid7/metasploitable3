@@ -9,4 +9,9 @@ control "tomcat" do
   describe command('sc query Tomcat8') do
    its('stdout') { should match('STATE              : 4  RUNNING') }
   end
+
+  describe command('netstat -aob | findstr :8282') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
 end

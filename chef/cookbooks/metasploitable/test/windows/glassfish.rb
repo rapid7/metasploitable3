@@ -21,4 +21,17 @@ control "glassfish" do
 #  describe command('icacls "C:\glassfish"') do
 #   its('stdout') { should match "NT AUTHORITY\LOCAL SERVICE:(OI)(CI)(F)" }
 #  end
+
+  describe command('netstat -aob | findstr :4848') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
+  describe command('netstat -aob | findstr :8080') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
+  describe command('netstat -aob | findstr :8181') do
+   its('stdout') { should match ("LISTENING") }
+  end
+
 end
