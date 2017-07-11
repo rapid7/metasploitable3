@@ -39,21 +39,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `first_name`, `last_name`, `password`, `salary`) VALUES
-('luke_skywalker', 'Luke', 'Skywalker', 'password', 102000),
-('leia_organa', 'Leia', 'Organa', 'obiwan', 95600),
-('han_solo', 'Han', 'Solo', 'sh00t-first', 12000),
-('artoo_detoo', 'Artoo', 'Detoo', 'beep_b00p', 22000),
-('c_three_pio', 'C', 'Threepio', 'pr0t0c0l', 32000),
-('ben_kenobi', 'Ben', 'Kenobi', 'thats_no_moon', 1000000),
-('darth_vader', 'Darth', 'Vader', 'd@rk_sid3', 666000),
-('anakin_skywalker', 'Anakin', 'Skywalker', 'yipp33!!', 0),
-('jarjar_binks', 'Jar-Jar', 'Binks', 'mesah_p@ssw0rd', 2000),
-('lando_calrissian', 'Lando', 'Calrissian', 'b@ckstab', 4000000),
-('boba_fett', 'Boba', 'Fett', 'mandalorian1', 2000000),
-('jabba_hutt', 'Jabba', 'The Hutt', 'not-a-slug12', 10000000),
-('greedo', 'Greedo', 'Rodian', 'hanShotFirst!', 500000),
-('chewbacca', 'Chewbacca', '', 'rwaaaaawr5', 4500),
-('kylo_ren', 'Kylo', 'Ren', 'daddy_issues1', 66600);
+<%= values = ""
+    node[:users].keys.each do |u|
+      values << "('#{node[:users][u][:username]}', '#{node[:users][u][:first_name]}', '#{node[:users][u][:last_name]}', '#{node[:users][u][:password]}', '#{node[:users][u][:salary]}'),"
+    end
+    values[0...-1]
+%>;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

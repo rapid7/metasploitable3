@@ -145,7 +145,7 @@ Vagrant.configure("2") do |config|
 
     trusty.vm.provider "virtualbox" do |v|
       v.name = "MetasploitableUB"
-      v.memory = 1024
+      v.memory = 2048
     end
 
     config.omnibus.chef_version = :latest
@@ -160,12 +160,6 @@ Vagrant.configure("2") do |config|
                     }
                   }
 
-      chef.add_recipe "metasploitable::mysql"
-      chef.add_recipe "metasploitable::apache_continuum"
-      chef.add_recipe "metasploitable::apache"
-      chef.add_recipe "metasploitable::php_545"
-      chef.add_recipe "metasploitable::phpmyadmin"
-      chef.add_recipe "metasploitable::proftpd"
       chef.add_recipe "metasploitable::users"
       chef.add_recipe "metasploitable::sinatra"
       chef.add_recipe "metasploitable::docker"
@@ -176,6 +170,9 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::readme_app"
       chef.add_recipe "metasploitable::payroll_app"
       chef.add_recipe "metasploitable::drupal"
+      chef.add_recipe "metasploitable::knockd"
+      chef.add_recipe "metasploitable::iptables"
+      chef.add_recipe "metasploitable::flags"
     end
   end
 end
