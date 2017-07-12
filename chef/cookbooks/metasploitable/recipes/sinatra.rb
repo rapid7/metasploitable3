@@ -13,11 +13,20 @@ directory '/opt/sinatra' do
   mode '0777'
 end
 
-['Gemfile', 'README.txt', 'start.sh', 'server.rb'].each do |fname|
+directory '/var/opt/sinatra' do
+  mode '0777'
+end
+
+['Gemfile', 'server'].each do |fname|
   cookbook_file "/opt/sinatra/#{fname}" do
     source "sinatra/#{fname}"
     mode '0777'
   end
+end
+
+cookbook_file '/var/opt/sinatra/start.sh' do
+  source 'sinatra/start.sh'
+  mode '0777'
 end
 
 cookbook_file '/etc/init/sinatra.conf' do

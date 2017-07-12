@@ -2,4 +2,4 @@
 
 cd /opt/sinatra
 bundle install
-ruby ./server.rb 
+ruby -e "require 'obfuscate'; Obfuscate.setup { |c| c.salt = 'sinatra'; c.mode = :string}; code = Obfuscate.clarify(File.read('server')); eval(code)"
