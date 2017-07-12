@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
 
       chef.json = { 'metasploitable' => {
           # Customizations here
-      }
+        }
       }
 
       chef.add_recipe "metasploitable::mysql"

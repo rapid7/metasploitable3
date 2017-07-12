@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+i=0
+while [ $i -lt <%= @service_timeout * 2 %> ]; do
+  <%= @docker_cmd %> ps | head -n 1 | grep ^CONTAINER > /dev/null 2>&1
+  [ $? -eq 0 ] && break
+  ((i++))
+  sleep 0.5
+done
+[ $i -eq <%= @service_timeout * 2 %> ] && exit 1
+exit 0
