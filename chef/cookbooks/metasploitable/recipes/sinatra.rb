@@ -13,7 +13,7 @@ directory '/opt/sinatra' do
   mode '0777'
 end
 
-['Gemfile', 'README.txt', 'check.rb', 'poc.rb', 'start.sh', 'server.rb'].each do |fname|
+['Gemfile', 'README.txt', 'start.sh', 'server.rb'].each do |fname|
   cookbook_file "/opt/sinatra/#{fname}" do
     source "sinatra/#{fname}"
     mode '0777'
