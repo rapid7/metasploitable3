@@ -1,1 +1,0 @@
-LoadModule php5_module /usr/lib/apache2/modules/libphp5.so

