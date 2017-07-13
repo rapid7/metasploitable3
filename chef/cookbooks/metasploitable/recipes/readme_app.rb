@@ -12,7 +12,7 @@ include_recipe 'metasploitable::nodejs'
 package 'git'
 
 directory '/opt/readme_app' do
-  mode '0777'
+  mode '0644'
 end
 
 bash "clone the readme app and install gems" do
@@ -22,14 +22,14 @@ bash "clone the readme app and install gems" do
   EOH
 end
 
-cookbook_file '/opt/readme_app/start.sh' do
-  source 'readme_app/start.sh'
-  mode '0777'
+template '/opt/readme_app/start.sh' do
+  source 'readme_app/start.sh.rb'
+  mode '0600'
 end
 
 cookbook_file '/etc/init/readme_app.conf' do
   source 'readme_app/readme_app.conf'
-  mode '0777'
+  mode '0600'
 end
 
 service 'readme_app' do
