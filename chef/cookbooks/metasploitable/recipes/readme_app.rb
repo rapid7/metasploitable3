@@ -23,7 +23,7 @@ bash "clone the readme app and install gems" do
 end
 
 template '/opt/readme_app/start.sh' do
-  source 'readme_app/start.sh.rb'
+  source 'readme_app/start.sh.erb'
   mode '0600'
 end
 
