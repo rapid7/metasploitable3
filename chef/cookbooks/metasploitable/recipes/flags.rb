@@ -32,7 +32,7 @@ cookbook_file '/home/artoo_detoo//music/10_of_clubs.wav' do
 end
 
 cookbook_file '/etc/joker.png' do
-  source 'flagsjoker.png'
+  source 'flags/joker.png'
   mode 644
 end
 
