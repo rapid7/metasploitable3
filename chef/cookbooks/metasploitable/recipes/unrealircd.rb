@@ -20,6 +20,10 @@ cookbook_file '/opt/unrealircd/Unreal3.2/unrealircd.conf' do
   source 'unrealircd/unrealircd.conf'
 end
 
+cookbook_file '/opt/unrealircd/Unreal3.2/ircd.motd' do
+  source 'unrealircd/ircd.motd'
+end
+
 bash 'configure and compile' do
   code <<-EOH
     cd /opt/unrealircd/Unreal3.2
