@@ -59,6 +59,10 @@ execute 'make /var/www/html writeable' do
   command 'chmod o+w /var/www/html'
 end
 
+execute 'rm /var/www/html/index.html' do
+  command 'rm /var/www/html/index.html'
+end
+
 service 'apache2' do
   action [:enable, :start]
 end

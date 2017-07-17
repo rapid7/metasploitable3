@@ -18,7 +18,7 @@ $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = '';
+$cfg['Servers'][$i]['password'] = 'sploitme';
 
 /* End of servers configuration */
 
