@@ -6,11 +6,14 @@ control "elasticsearch" do
    it { should exist }
   end
 
-  describe command('sc query elasticsearch-service-x64') do
-   its('stdout') { should match ("STATE              : 4  RUNNING") }
-  end
+  describe service('elasticsearch-service-x64') do
+   it { should be_installed }  
+   it { should be_enabled }  
+   it { should be_running }  
+  end  
 
-  describe command('netstat -aob | findstr :9200') do
-   its('stdout') { should match "LISTENING" }
+
+  describe port('9200') do
+   it { should be_listening }
   end
 end
