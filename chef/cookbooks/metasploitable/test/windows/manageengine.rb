@@ -2,19 +2,25 @@ control "manageengine" do
   title "ManageEngine"
   desc "Check if ManageEngine is running. Installation script is available at /scripts/installs/install_manageengine.bat"
 
-  describe command('sc query MEDCServerComponent-Apache') do
-   its('stdout') { should match ("STATE              : 4  RUNNING") }
+  describe service('MEDCServerComponent-Apache') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command('sc query "MEDC Server Component - Notification Server"') do
-   its('stdout') { should match ("STATE              : 4  RUNNING") }
+  describe service('MEDC Server Component - Notification Server') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command('sc query DesktopCentralServer') do
-   its('stdout') { should match ("STATE              : 4  RUNNING") }
+  describe service('DesktopCentralServer') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command('netstat -aob | findstr :8020') do
-   its('stdout') { should match "LISTENING" }
+  describe port('8020') do
+   it { should be_listening }
   end
 end
