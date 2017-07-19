@@ -10,11 +10,13 @@ control "webdav" do
    it { should exist }
   end
 
-  describe command('sc query wampapache') do
-   its('stdout') { should match "STATE              : 4  RUNNING" }
+  describe service('wampapache') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command('netstat -aob | findstr :8585') do
-   its('stdout') { should match "LISTENING" }
+  describe port('8585') do
+   it { should be_listening }
   end
 end

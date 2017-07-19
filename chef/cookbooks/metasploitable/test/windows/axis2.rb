@@ -10,7 +10,7 @@ control "axis2" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :8282') do
-   its('stdout') { should match "LISTENING" }
+  describe port('8282') do
+   it { should be_listening }
   end
 end
