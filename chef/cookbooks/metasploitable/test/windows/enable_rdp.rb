@@ -6,12 +6,11 @@ control "enable-rdp" do
    its('stdout') { should match ("Enabled:                              Yes") }
   end
 
-  describe command('reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections') do
-   its('stdout') { should match ("fDenyTSConnections    REG_DWORD    0x0") }
-  end
+  describe registry_key('HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server') do
+   its('fDenyTSConnections') { should eq 0 }
+  end  
 
-  # As port('3389') doesnt work on windows, we use netstat command to know if the port is listening
-  describe command('netstat -aob | findstr :3389') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('3389') do
+   it { should be_listening }
   end
 end

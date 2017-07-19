@@ -14,8 +14,8 @@ control "wordpress" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :8585') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('8585') do
+   it { should be_listening }
   end
 
 end

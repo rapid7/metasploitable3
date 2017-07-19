@@ -6,12 +6,14 @@ control "tomcat" do
    it { should exist }
   end
 
-  describe command('sc query Tomcat8') do
-   its('stdout') { should match('STATE              : 4  RUNNING') }
+  describe service('Tomcat8') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command('netstat -aob | findstr :8282') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('8282') do
+   it { should be_listening }
   end
 
 end

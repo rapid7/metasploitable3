@@ -10,7 +10,7 @@ control "devkit" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :3000') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('3000') do
+   it { should be_listening }
   end
 end

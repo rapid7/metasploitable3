@@ -14,11 +14,13 @@ control "jenkins" do
    it { should exist }
   end
 
-  describe command("sc query jenkins") do
-   its('stdout') { should match ("STATE              : 4  RUNNING") }
+  describe service('jenkins') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
   end
 
-  describe command("netstat -aob | findstr :8484") do
-   its('stdout') { should match ("LISTENING") }
+  describe port('8484') do
+   it { should be_listening }
   end
 end

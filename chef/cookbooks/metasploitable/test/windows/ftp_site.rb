@@ -6,8 +6,8 @@ control "setup-ftp-site" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :21') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('21') do
+   it { should be_listening }
   end
 
 end

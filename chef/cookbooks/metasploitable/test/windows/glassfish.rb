@@ -14,24 +14,26 @@ control "glassfish" do
    it { should exist }
   end
 
-  describe command('sc query domain1') do
-   its('stdout') { should match ('STATE              : 4  RUNNING') }
-  end
+  describe service('domain1') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
+  end  
 
 #  describe command('icacls "C:\glassfish"') do
 #   its('stdout') { should match "NT AUTHORITY\LOCAL SERVICE:(OI)(CI)(F)" }
 #  end
 
-  describe command('netstat -aob | findstr :4848') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('4848') do
+   it { should be_listening }
   end
 
-  describe command('netstat -aob | findstr :8080') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('8080') do
+   it { should be_listening }
   end
 
-  describe command('netstat -aob | findstr :8181') do
-   its('stdout') { should match ("LISTENING") }
+  describe port('8181') do
+   it { should be_listening }
   end
 
 end
