@@ -26,7 +26,13 @@ control "jmx" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :1617') do
-   its('stdout') { should match ("LISTENING") }
+  describe service('jmx') do
+   it { should be_installed }
+   it { should be_enabled }
+   it { should be_running }
+  end
+
+  describe port('1617') do
+   it { should be_listening }
   end
 end
