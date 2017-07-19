@@ -10,11 +10,12 @@ control "rails_service" do
    it { should exist }
   end
 
-  describe command('netstat -aob | findstr :3000') do
-   its('stdout') { should match "LISTENING" }
+  describe port('3000') do
+   it { should be_listening }
   end
 
-  describe command('schtasks /Query /tn rails') do
-   its('stdout') { should match "Ready" }
+  describe windows_task('rails') do
+   it { should exist }
+   it { should be_enabled }
   end
 end
