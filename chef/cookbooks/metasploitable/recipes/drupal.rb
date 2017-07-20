@@ -65,3 +65,15 @@ bash "create drupal database and inject data" do
   EOH
   not_if "mysql -h 127.0.0.1 --user=\"root\" --password=\"sploitme\" --execute=\"SHOW DATABASES LIKE 'drupal'\" | grep -c drupal"
 end
+
+# This step is necessary because Drupal rewrites our 5_of_hearts.png,
+# which causes the metadata to be lost.
+cookbook_file '/var/www/html/drupal/sites/default/files/styles/large/public/field/image/5_of_hearts.png' do
+  source 'flags/5_of_hearts.png'
+  mode '777'
+end
+
+cookbook_file '/var/www/html/drupal/sites/default/files/field/image/5_of_hearts.png' do
+  source 'flags/5_of_hearts.png'
+  mode '777'
+end
