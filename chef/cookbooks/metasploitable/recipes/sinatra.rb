@@ -17,15 +17,18 @@ directory '/var/opt/sinatra' do
   mode '0777'
 end
 
-['Gemfile', 'server'].each do |fname|
-  cookbook_file "/opt/sinatra/#{fname}" do
-    source "sinatra/#{fname}"
-    mode '0777'
-  end
+cookbook_file '/opt/sinatra/Gemfile' do
+  source 'sinatra/Gemfile'
+  mode '0777'
 end
 
-cookbook_file '/var/opt/sinatra/start.sh' do
-  source 'sinatra/start.sh'
+cookbook_file '/opt/sinatra/server' do
+  source 'sinatra/loader'
+  mode '0777'
+end
+
+cookbook_file '/opt/sinatra/.server' do
+  source 'sinatra/server'
   mode '0777'
 end
 
