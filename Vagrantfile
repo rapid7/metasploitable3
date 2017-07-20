@@ -70,6 +70,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "metasploitable::knockd"
       chef.add_recipe "metasploitable::iptables"
       chef.add_recipe "metasploitable::flags"
+      chef.add_recipe "metasploitable::clear_cache"
     end
   end
 end
