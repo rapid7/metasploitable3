@@ -45,12 +45,12 @@ OptionParser.parse! do \|parser\|
   parser.on("-h", "--help", "Show this help.") { puts parser }
 end
 
-server = HTTP::Server.new(port) do \|context\|
+server = HTTP::Server.new("0.0.0.0", port) do \|context\|
   context.response.content_type = "image/png"
   context.response.print Base64.decode_string("\#{flag}")
 end
 
-puts "Listening on http://127.0.0.1:\#{port}"
+puts "Listening on http://0.0.0.0:\#{port}"
 server.listen|
 
 puts "* This is the Crystal code you are about to compile:"
@@ -74,4 +74,3 @@ end
 puts "* Crystal built: #{CRYSTALOUTPUT}"
 print '* '
 puts `file #{CRYSTALOUTPUT}`
-
