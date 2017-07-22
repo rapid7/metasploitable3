@@ -1,39 +1,5 @@
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          five_of_diamonds
-# Required-Start:    $local_fs
-# Required-Stop:     $local_fs
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# X-Interactive:     false
-# Short-Description: Init script for five_of_diamonds
-# Description:       Start/stop five_of_diamonds
-### END INIT INFO
+description 'Run vulnerable custom http on 8989'
+author 'metasploitable3'
 
-DESC="five_of_diamonds"
-NAME=five_of_diamonds
-#DAEMON=
-
-do_start()
-{
-   echo "Starting five_of_diamonds.";
-   /opt/knock_knock/five_of_diamonds -p 8989 &
-}
-
-do_stop()
-{
-   echo "Stopping five_of_diamonds."
-   killall five_of_diamonds
-}
-
-
-case "$1" in
-   start)
-     do_start
-     ;;
-   stop)
-     do_stop
-     ;;
-esac
-
-exit 0
+start on runlevel [2345]
+exec "/opt/knock_knock/five_of_diamonds"

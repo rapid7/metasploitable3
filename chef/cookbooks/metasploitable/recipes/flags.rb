@@ -16,9 +16,9 @@ cookbook_file '/opt/knock_knock/five_of_diamonds' do
   mode 0700
 end
 
-cookbook_file '/etc/init.d/five_of_diamonds_srv' do
+cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
   source 'flags/five_of_diamonds_srv'
-  mode '760'
+  mode '777'
 end
 
 service 'five_of_diamonds_srv' do
