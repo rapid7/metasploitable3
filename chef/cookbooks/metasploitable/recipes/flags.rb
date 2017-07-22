@@ -8,12 +8,12 @@ include_recipe 'metasploitable::knockd'
 include_recipe 'metasploitable::docker'
 
 directory '/opt/knock_knock' do
-  mode 0777
+  mode 0700
 end
 
 cookbook_file '/opt/knock_knock/five_of_diamonds' do
   source 'flags/five_of_diamonds'
-  mode 0777
+  mode 0700
 end
 
 cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
