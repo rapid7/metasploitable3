@@ -6,6 +6,8 @@
         seq_timeout = 15
         command     = /sbin/iptables -I INPUT 1 -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
         tcpflags    = syn
+        cmd_timeout = 30
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
 
 [closeFlag]
         sequence    = <%= node[:users].collect { |u, att| node[:users][u][:salary] }.reverse.join(',') %>
