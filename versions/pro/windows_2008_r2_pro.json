@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "type": "vmware-iso",
+      "type": "virtualbox-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -11,7 +11,7 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "winServer2008Standard-64",
+      "guest_os_type": "Windows2008_64",
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -31,6 +31,20 @@
         "./resources/certs/microsoft_root_2011.cer",
         "./resources/certs/thawte_primary_root.cer",
         "./resources/certs/utn-userfirst.cer"
+      ],
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "4096"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
       ]
     }
   ],
@@ -52,7 +66,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "windows_2008_r2_{{.Provider}}.box",
+      "output": "windows_2008_r2_{{.Provider}}_pro.box",
       "vagrantfile_template": "vagrantfile-windows_2008_r2.template"
     }
   ],
