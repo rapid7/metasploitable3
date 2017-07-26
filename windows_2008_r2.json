@@ -151,7 +151,6 @@
         "scripts/installs/setup_iis.bat",
         "scripts/installs/setup_ftp_site.bat",
         "scripts/chocolatey_installs/java.bat",
-        "scripts/chocolatey_installs/dotnet.bat",
         "scripts/chocolatey_installs/wmf.bat"
       ]
     },
