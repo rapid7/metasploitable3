@@ -20,8 +20,8 @@
         "./scripts/configs/microsoft-updates.bat",
         "./scripts/configs/win-updates.ps1",
         "./scripts/installs/openssh.ps1",
-        "./scripts/installs/install_netfx.ps1",
         "./scripts/installs/install_dotnet45.ps1",
+        "./scripts/installs/install_wmf.ps1",
         "./resources/certs/oracle-cert.cer",
         "./resources/certs/gdig2.crt",
         "./resources/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -64,8 +64,8 @@
         "./scripts/configs/microsoft-updates.bat",
         "./scripts/configs/win-updates.ps1",
         "./scripts/installs/openssh.ps1",
-        "./scripts/installs/install_netfx.ps1",
         "./scripts/installs/install_dotnet45.ps1",
+        "./scripts/installs/install_wmf.ps1",
         "./resources/certs/oracle-cert.cer",
         "./resources/certs/gdig2.crt",
         "./resources/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -134,7 +134,8 @@
       "type":"powershell",
       "inline": [
         "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
-      ]
+      ],
+      "pause_before": "60s"
     },
     {
       "type": "windows-restart"
@@ -150,8 +151,7 @@
         "scripts/configs/create_users.bat",
         "scripts/installs/setup_iis.bat",
         "scripts/installs/setup_ftp_site.bat",
-        "scripts/chocolatey_installs/java.bat",
-        "scripts/chocolatey_installs/wmf.bat"
+        "scripts/chocolatey_installs/java.bat"
       ]
     },
     {
