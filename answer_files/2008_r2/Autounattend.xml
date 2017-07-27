@@ -256,9 +256,14 @@
                     <Order>26</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_netfx.ps1 -AutoStart</CommandLine>
-                    <Description>Install .NET 4.0</Description>
-                    <Order>27</Order>
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_dotnet45.ps1 -AutoStart</CommandLine>
+                    <Order>97</Order>
+                    <Description>Install .NET 4.5.1</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_wmf.ps1 -AutoStart</CommandLine>
+                    <Order>98</Order>
+                    <Description>Installing Windows Management Framework 5.0</Description>
                 </SynchronousCommand>
                  <!--WITHOUT WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
