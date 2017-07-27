@@ -36,6 +36,7 @@
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
                     <!--<Key>YC6KT-GKW9T-YTKYR-T4X34-R7VHC</Key>-->
+                    
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
             </UserData>
@@ -249,13 +250,28 @@
                     <Order>25</Order>
                     <Description>Disable password expiration for vagrant user</Description>
                 </SynchronousCommand>
-                <!-- WITHOUT WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
-					<CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\openssh.ps1 -AutoStart</CommandLine>
-					<Description>Install OpenSSH</Description>
-					<Order>99</Order>
-					<RequiresUserInput>true</RequiresUserInput>
-				</SynchronousCommand>
+                    <CommandLine>cmd.exe /c mkdir -p C:\vagrant\scripts</CommandLine>
+                    <Description>Create directory for vagrant files to avoid provisioner bug with packer.</Description>
+                    <Order>26</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_dotnet45.ps1 -AutoStart</CommandLine>
+                    <Order>97</Order>
+                    <Description>Install .NET 4.5.1</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\install_wmf.ps1 -AutoStart</CommandLine>
+                    <Order>98</Order>
+                    <Description>Installing Windows Management Framework 5.0</Description>
+                </SynchronousCommand>
+                 <!--WITHOUT WINDOWS UPDATES -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\openssh.ps1 -AutoStart</CommandLine>
+                    <Description>Install OpenSSH</Description>
+                    <Order>99</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
                 <!-- END WITHOUT WINDOWS UPDATES -->
                 <!-- WITH WINDOWS UPDATES -->
                 <!--<SynchronousCommand wcm:action="add">-->
