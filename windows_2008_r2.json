@@ -1,23 +1,71 @@
 {
   "builders": [
     {
-      "type": "virtualbox-iso",
+      "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": true,
-      "boot_wait": "2m",
+      "headless": false,
+      "boot_wait": "10m",
+      "communicator": "ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "Windows2008_64",
+      "guest_os_type": "winServer2008Standard-64",
+      "tools_upload_flavor": "windows",
       "disk_size": 61440,
       "floppy_files": [
         "{{user `autounattend`}}",
         "./scripts/configs/microsoft-updates.bat",
         "./scripts/configs/win-updates.ps1",
         "./scripts/installs/openssh.ps1",
+        "./scripts/installs/install_dotnet45.ps1",
+        "./scripts/installs/install_wmf.ps1",
+        "./resources/certs/oracle-cert.cer",
+        "./resources/certs/gdig2.crt",
+        "./resources/certs/comodorsadomainvalidationsecureserverca.crt",
+        "./resources/certs/comodorsacertificationauthority.crt",
+        "./resources/certs/addtrust_external_ca.cer",
+        "./resources/certs/baltimore_ca.cer",
+        "./resources/certs/digicert.cer",
+        "./resources/certs/equifax.cer",
+        "./resources/certs/globalsign.cer",
+        "./resources/certs/gte_cybertrust.cer",
+        "./resources/certs/microsoft_root_2011.cer",
+        "./resources/certs/thawte_primary_root.cer",
+        "./resources/certs/utn-userfirst.cer"
+      ],
+      "vm_name": "metasploitable3-win2k8",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "2",
+        "memsize": "4096",
+        "numvcpus": "2",
+        "scsi0.virtualDev": "lsisas1068"
+      }
+    },
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "headless": false,
+      "boot_wait": "10m",
+      "communicator": "ssh",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "2h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "guest_os_type": "Windows2008_64",
+      "disk_size": 61440,
+      "vm_name": "metasploitable3-win2k8",
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "./scripts/configs/microsoft-updates.bat",
+        "./scripts/configs/win-updates.ps1",
+        "./scripts/installs/openssh.ps1",
+        "./scripts/installs/install_dotnet45.ps1",
+        "./scripts/installs/install_wmf.ps1",
         "./resources/certs/oracle-cert.cer",
         "./resources/certs/gdig2.crt",
         "./resources/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -48,17 +96,108 @@
       ]
     }
   ],
-  "provisioners": [
+"provisioners": [
+    {
+      "type": "file",
+      "source": "scripts",
+      "destination": "C:/vagrant"
+    },
+    {
+      "type": "file",
+      "source": "resources",
+      "destination": "C:/vagrant"
+    },
     {
       "type": "shell",
       "remote_path": "/tmp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
+        "./scripts/configs/update_root_certs.bat",
         "./scripts/installs/vm-guest-tools.bat",
         "./scripts/configs/vagrant-ssh.bat",
         "./scripts/configs/disable-auto-logon.bat",
-        "./scripts/configs/enable-rdp.bat",
-        "./scripts/configs/update_root_certs.bat"
+        "./scripts/configs/enable-rdp.bat"
+      ]
+    },
+    {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "./scripts/configs/disable_firewall.bat"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type":"powershell",
+      "inline": [
+        "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
+      ],
+      "pause_before": "60s"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "scripts/installs/install_boxstarter.bat",
+        "scripts/chocolatey_installs/7zip.bat",
+        "scripts/configs/apply_password_settings.bat",
+        "scripts/configs/create_users.bat",
+        "scripts/installs/setup_iis.bat",
+        "scripts/installs/setup_ftp_site.bat",
+        "scripts/chocolatey_installs/java.bat"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "scripts/chocolatey_installs/tomcat.bat",
+        "scripts/installs/setup_apache_struts.bat",
+        "scripts/installs/setup_glassfish.bat",
+        "scripts/installs/start_glassfish_service.bat",
+        "scripts/installs/setup_jenkins.bat",
+        "scripts/chocolatey_installs/vcredist2008.bat",
+        "scripts/installs/install_wamp.bat",
+        "scripts/installs/start_wamp.bat",
+        "scripts/installs/install_wordpress.bat",
+        "scripts/installs/install_openjdk6.bat",
+        "scripts/installs/setup_jmx.bat",
+        "scripts/installs/install_ruby.bat",
+        "scripts/installs/install_devkit.bat"
+        ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+    "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "scripts/installs/install_rails_server.bat",
+        "scripts/installs/setup_rails_server.bat",
+        "scripts/installs/install_rails_service.bat",
+        "scripts/installs/setup_webdav.bat",
+        "scripts/installs/setup_mysql.bat",
+        "scripts/installs/install_manageengine.bat",
+        "scripts/installs/setup_axis2.bat",
+        "scripts/installs/install_backdoors.bat",
+        "scripts/installs/setup_snmp.bat",
+        "scripts/configs/configure_firewall.bat",
+        "scripts/installs/install_elasticsearch.bat",
+        "scripts/installs/install_flags.bat",
+        "scripts/configs/packer_cleanup.bat"
       ]
     }
   ],
