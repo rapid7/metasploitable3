@@ -1,2 +1,2 @@
-powershell -command "Start-Sleep -s 5"
+powershell -command "Start-Sleep -s 15"
 net start "domain1"
