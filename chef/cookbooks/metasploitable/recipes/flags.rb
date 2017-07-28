@@ -73,3 +73,8 @@ end
 file '/opt/docker/7_of_diamonds.zip' do
   action :delete
 end
+
+cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
+  source '/flags/2_of_spades.pcapng'
+  mode 600
+end
