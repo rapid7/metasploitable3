@@ -1,4 +1,4 @@
-rm "%CATALINA_HOME%\conf\tomcat-users.xml"
+del "%CATALINA_HOME%\conf\tomcat-users.xml"
 copy C:\vagrant\resources\apache_struts\tomcat-users.xml "%CATALINA_HOME%\conf\tomcat-users.xml"
 copy C:\vagrant\resources\apache_struts\server.xml "%CATALINA_HOME%\conf"
 
