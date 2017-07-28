@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+  synced_folders:
+    - [<%= File.join(ENV['PWD'], '..', '..')%>, '/tmp/repo-data']
+
+provisioner:
+  name: chef_zero
+  encrypted_data_bag_secret_key_path: 'secrets/fakey-mcfakerton'
+  data_bags_path: './data_bags'
+  product_name: chefdk
+
+platforms:
+  - name: ubuntu-16.04
+  - name: centos-7.3
+
+suites:
+  - name: default
+    run_list:
+      - recipe[test]
+    attributes:
