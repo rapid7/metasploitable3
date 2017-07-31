@@ -1,5 +1,5 @@
 $ip=get-WmiObject Win32_NetworkAdapterConfiguration|Where {$_.Ipaddress.length -gt 1} 
-$ipaddr = $ip[0].ipaddress[0]
+$ipaddr = $ip.ipaddress[0]
 Write-Host "Updating Wordpress IP to $ipaddr"
 
 $cmd = 'C:\wamp\bin\mysql\mysql5.5.20\bin\mysql.exe -u root --password="" -e "use wordpress; update wp_options set option_value=''http://'+$ipaddr+':8585/wordpress'' where option_name=''siteurl'';"'
