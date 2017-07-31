@@ -6,7 +6,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
-      "http_directory" : "{{template_dir}}/../http",
+      "http_directory" : "{{template_dir}}/../../http",
       "http_port_min" : 9001,
       "http_port_max" : 9001,
       "boot_command": [
@@ -44,7 +44,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
-      "http_directory" : "{{template_dir}}/../http",
+      "http_directory" : "{{template_dir}}/../../http",
       "http_port_min" : 9001,
       "http_port_max" : 9001,
       "boot_command": [
@@ -88,29 +88,10 @@
     {
       "type": "chef-solo",
       "cookbook_paths": [
-        "{{template_dir}}/../../chef/cookbooks"
+        "{{template_dir}}/../../../chef/cookbooks"
       ],
       "run_list": [
-        "metasploitable::vm_tools",
-        "metasploitable::mysql",
-        "metasploitable::apache_continuum",
-        "metasploitable::apache",
-        "metasploitable::php_545",
-        "metasploitable::phpmyadmin",
-        "metasploitable::proftpd",
-        "metasploitable::users",
-        "metasploitable::docker",
-        "metasploitable::samba",
-        "metasploitable::sinatra",
-        "metasploitable::unrealircd",
-        "metasploitable::chatbot",
-        "metasploitable::payroll_app",
-        "metasploitable::readme_app",
-        "metasploitable::cups",
-        "metasploitable::drupal",
-        "metasploitable::knockd",
-        "metasploitable::iptables",
-        "metasploitable::flags"
+        "metasploitable::vm_tools"
       ]
     }
   ],
@@ -118,7 +99,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{template_dir}}/../builds/ubuntu_1404_{{.Provider}}_{{user `box_version`}}.box"
+      "output": "{{template_dir}}/../../builds/ubuntu_1404_{{.Provider}}_{{user `box_version`}}_pro.box"
     }
   ],
   "variables": {

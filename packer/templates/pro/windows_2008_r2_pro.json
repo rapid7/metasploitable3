@@ -96,7 +96,7 @@
       ]
     }
   ],
-"provisioners": [
+  "provisioners": [
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}",
@@ -126,86 +126,13 @@
       "scripts": [
         "{{user `scripts_dir`}}/configs/disable_firewall.bat"
       ]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type":"powershell",
-      "inline": [
-        "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
-      ],
-      "pause_before": "60s"
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "{{user `scripts_dir`}}/installs/install_boxstarter.bat",
-        "{{user `scripts_dir`}}/chocolatey_installs/7zip.bat",
-        "{{user `scripts_dir`}}/configs/apply_password_settings.bat",
-        "{{user `scripts_dir`}}/configs/create_users.bat",
-        "{{user `scripts_dir`}}/installs/setup_iis.bat",
-        "{{user `scripts_dir`}}/installs/setup_ftp_site.bat",
-        "{{user `scripts_dir`}}/chocolatey_installs/java.bat"
-      ]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "{{user `scripts_dir`}}/chocolatey_installs/tomcat.bat",
-        "{{user `scripts_dir`}}/installs/setup_apache_struts.bat",
-        "{{user `scripts_dir`}}/installs/setup_glassfish.bat",
-        "{{user `scripts_dir`}}/installs/start_glassfish_service.bat",
-        "{{user `scripts_dir`}}/installs/setup_jenkins.bat",
-        "{{user `scripts_dir`}}/chocolatey_installs/vcredist2008.bat",
-        "{{user `scripts_dir`}}/installs/install_wamp.bat",
-        "{{user `scripts_dir`}}/installs/start_wamp.bat",
-        "{{user `scripts_dir`}}/installs/install_wordpress.bat",
-        "{{user `scripts_dir`}}/installs/install_openjdk6.bat",
-        "{{user `scripts_dir`}}/installs/setup_jmx.bat",
-        "{{user `scripts_dir`}}/installs/install_ruby.bat",
-        "{{user `scripts_dir`}}/installs/install_devkit.bat"
-        ]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-    "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "{{user `scripts_dir`}}/installs/install_rails_server.bat",
-        "{{user `scripts_dir`}}/installs/setup_rails_server.bat",
-        "{{user `scripts_dir`}}/installs/install_rails_service.bat",
-        "{{user `scripts_dir`}}/installs/setup_webdav.bat",
-        "{{user `scripts_dir`}}/installs/setup_mysql.bat",
-        "{{user `scripts_dir`}}/installs/install_manageengine.bat",
-        "{{user `scripts_dir`}}/installs/setup_axis2.bat",
-        "{{user `scripts_dir`}}/installs/install_backdoors.bat",
-        "{{user `scripts_dir`}}/installs/setup_snmp.bat",
-        "{{user `scripts_dir`}}/configs/configure_firewall.bat",
-        "{{user `scripts_dir`}}/installs/install_elasticsearch.bat",
-        "{{user `scripts_dir`}}/installs/install_flags.bat",
-        "{{user `scripts_dir`}}/configs/packer_cleanup.bat"
-      ]
     }
   ],
   "post-processors": [
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{template_dir}}/../builds/windows_2008_r2_{{.Provider}}_{{user `box_version`}}.box",
+      "output": "{{template_dir}}/../builds/windows_2008_r2_{{.Provider}}_{{user `box_version`}}_pro.box",
       "vagrantfile_template": "{{template_dir}}/vagrantfile-windows_2008_r2.template"
     }
   ],
@@ -213,9 +140,9 @@
     "iso_url": "http://download.microsoft.com/download/7/5/E/75EC4E54-5B02-42D6-8879-D8D3A25FBEF7/7601.17514.101119-1850_x64fre_server_eval_en-us-GRMSXEVAL_EN_DVD.iso",
     "iso_checksum_type": "md5",
     "iso_checksum": "4263be2cf3c59177c45085c0a7bc6ca5",
-    "autounattend": "{{template_dir}}/../answer_files/2008_r2/Autounattend.xml",
-    "scripts_dir": "{{template_dir}}/../../scripts",
-    "resources_dir": "{{template_dir}}/../../resources",
+    "autounattend": "{{template_dir}}/../../answer_files/2008_r2/Autounattend.xml",
+    "scripts_dir": "{{template_dir}}/../../../scripts",
+    "resources_dir": "{{template_dir}}/../../..resources",
     "box_version": "0.1.0"
   }
 }
