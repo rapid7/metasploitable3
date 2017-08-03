@@ -22,8 +22,9 @@ batch 'Extract DevKit' do
   EOH
 end
 
-execute 'Copy files' do
-  command 'copy /Y C:\Vagrant\resources\Rails_Server\devkit\dk.rb "C:\\Program Files\\Rails_Server\\devkit"'
+cookbook_file 'C:\Program Files\Rails_Server\devkit\dk.rb' do
+  source 'Rails_Server\devkit\dk.rb'
+  action :create
 end
 
 batch 'Install DevKit' do

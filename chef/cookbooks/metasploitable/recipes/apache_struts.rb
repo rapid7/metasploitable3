@@ -8,11 +8,14 @@ file "\%CATALINA_HOME\%\\conf\\tomcat-users.xml" do
   action :delete
 end
 
-batch 'Copy files' do
-  code <<-EOH
-    copy C:\\vagrant\\resources\\apache_struts\\tomcat-users.xml "%CATALINA_HOME%\\conf\\tomcat-users.xml"
-    copy C:\\vagrant\\resources\\apache_struts\\server.xml "%CATALINA_HOME%\\conf"
-  EOH
+cookbook_file "\%CATALINA_HOME\%\\conf\\tomcat-users.xml" do
+  source 'apache_struts\tomcat-users.xml'
+  action :create
+end
+
+cookbook_file "\%CATALINA_HOME\%\\conf\\server.xml" do
+  source 'apache_struts\server.xml'
+  action :create
 end
 
 windows_service 'Tomcat8' do

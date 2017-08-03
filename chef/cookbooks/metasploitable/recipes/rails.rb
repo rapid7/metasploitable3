@@ -4,8 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-batch 'Copy Gemrc' do
-  code 'copy /Y C:\Vagrant\resources\rails_server\gemrc C:\Users\vagrant\.gemrc'
+cookbook_file 'C:\Users\vagrant\.gemrc' do
+  source 'rails_server/gemrc'
+  action :create
 end
 
 gem_package 'rails' do

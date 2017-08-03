@@ -8,11 +8,14 @@ directory 'C:\Program Files\jenkins' do
   action :create
 end
 
-batch 'Copy files' do
-  code <<-EOH
-    copy C:\\vagrant\\resources\\jenkins\\jenkins.war "%ProgramFiles%\\jenkins"
-    copy C:\\vagrant\\resources\\jenkins\\jenkins.exe "%ProgramFiles%\\jenkins"
-  EOH
+cookbook_file "\%ProgramFiles\%\\jenkins\\jenkins.war" do
+  source 'resources\jenkins\jenkins.war'
+  action :create
+end
+
+cookbook_file "\%ProgramFiles\%\\jenkins\\jenkins.exe" do
+  source 'resources\jenkins\jenkins.exe'
+  action :create
 end
 
 execute "\"C:\\Program Files\\jenkins\\jenkins.exe\" -Service Install" do

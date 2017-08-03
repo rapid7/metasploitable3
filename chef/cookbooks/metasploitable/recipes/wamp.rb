@@ -12,11 +12,14 @@ execute 'Install WAMP Server' do
   command "C:\\Windows\\Temp\\wampserver2.2.d-x64.exe /verysilent"
 end
 
-batch 'Copy configuration' do
-  code <<-EOH
-    copy /Y "C:\\vagrant\\resources\\wamp\\httpd.conf" "C:\\wamp\\bin\\apache\\Apache2.2.21\\conf\\httpd.conf"
-    copy /Y "C:\\vagrant\\resources\\wamp\\phpmyadmin.conf" "C:\\wamp\\alias\\phpmyadmin.conf"
-    EOH
+cookbook_file 'C:\wamp\bin\apache\Apache2.2.21\conf\httpd.conf' do
+  source 'wamp/httpd.conf'
+  action :create
+end
+
+cookbook_file 'C:\wamp\alias\phpmyadmin.conf' do
+  source 'wamp/phpmyadmin.conf'
+  action :create
 end
 
 batch 'Configure permissions' do

@@ -8,8 +8,9 @@ directory "C:\\Program Files\\wordpress" do
   action :create
 end
 
-execute 'Copy IP updater' do
-  command "copy C:\\vagrant\\resources\\wordpress\\update_ip.ps1 \"C:\\Program Files\\wordpress\\update_ip.ps1\""
+cookbook_file 'C:\Program Files\wordpress\update_ip.ps1' do
+  source 'wordpress/update_ip.ps1'
+  action :create
 end
 
 execute 'Extract wordpress' do

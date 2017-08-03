@@ -8,14 +8,29 @@ directory 'C:\Program Files\jmx' do
   action :create
 end
 
-batch 'Copy required files' do
-  code <<-EOH
-    copy C:\\vagrant\\resources\\jmx\\Hello.class "%ProgramFiles%\\jmx"
-    copy C:\\vagrant\\resources\\jmx\\HelloMBean.class "%ProgramFiles%\\jmx"
-    copy C:\\vagrant\\resources\\jmx\\SimpleAgent.class "%ProgramFiles%\\jmx"
-    copy C:\\vagrant\\resources\\jmx\\jmx.exe "%ProgramFiles%\\jmx"
-    copy C:\\vagrant\\resources\\jmx\\start_jmx.bat "%ProgramFiles%\\jmx"
-  EOH
+cookbook_file 'C:\Program Files\jmx\Hello.class' do
+  source 'jmx\Hello.class'
+  action :create
+end
+
+cookbook_file 'C:\Program Files\jmx\HelloMBean.class' do
+  source 'jmx\HelloMBean.class'
+  action :create
+end
+
+cookbook_file 'C:\Program Files\jmx\SimpleAgent.class' do
+  source 'jmx\SimpleAgent.class'
+  action :create
+end
+
+cookbook_file 'C:\Program Files\jmx\jmx.exe' do
+  source 'jmx\jmx.exe'
+  action :create
+end
+
+cookbook_file 'C:\Program Files\jmx\start_jmx.bat' do
+  source 'jmx\start_jmx.bat'
+  action :create
 end
 
 execute 'Install JMX' do

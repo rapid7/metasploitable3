@@ -4,12 +4,18 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-file 'C:\wamp\bin\mysql\mysql5.5.20\my.ini' do
-  content IO.read('C:\vagrant\resources\mysql\my.ini')
+cookbook_file 'C:\wamp\bin\mysql\mysql5.5.20\my.ini' do
+  source 'mysql\my.ini'
+  action :create
+end
+
+cookbook_file 'C:\Windows\Temp\update_mysql_permissions.sql' do
+  source 'mysql\update_mysql_permissions.sql'
+  action :create
 end
 
 execute 'Update MySQL Permissions' do
-  command '"C:\wamp\bin\mysql\mysql5.5.20\bin\mysql.exe" -u root --password=""  wordpress < "C:\Vagrant\resources\mysql\update_mysql_permissions.sql"' 
+  command '"C:\wamp\bin\mysql\mysql5.5.20\bin\mysql.exe" -u root --password=""  wordpress < "C:\Windows\Temp\update_mysql_permissions.sql"' 
   action :run
 end
 

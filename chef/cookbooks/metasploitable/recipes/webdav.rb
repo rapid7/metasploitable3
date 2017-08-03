@@ -12,8 +12,8 @@ directory 'C:\wamp\www\uploads' do
   action :create
 end
 
-file 'C:\wamp\alias\httpd-dav.conf' do
-  content IO.read('C:\vagrant\resources\webdav\httpd-dav.conf')
+cookbook_file 'C:\wamp\alias\httpd-dav.conf' do
+  source 'webdav/httpd-dav.conf'
   action :create
 end
 
