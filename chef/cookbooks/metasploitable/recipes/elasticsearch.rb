@@ -18,7 +18,7 @@ execute 'Install ElasticSearch' do
   action :run
 end
 
-windows_service 'elasticsearch-service-x86' do
+windows_service 'elasticsearch-service-x64' do
   action :enable
   startup_type :automatic
 end
