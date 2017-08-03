@@ -5,7 +5,7 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 cookbook_file 'C:\Windows\Temp\secconfig.cfg' do
-  source 'security_settings\secconfig.cfg'
+  source 'security_settings/secconfig.cfg'
   action :create
 end
 

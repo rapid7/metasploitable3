@@ -8,17 +8,18 @@ directory 'C:\Program Files\jenkins' do
   action :create
 end
 
-cookbook_file "\%ProgramFiles\%\\jenkins\\jenkins.war" do
-  source 'resources\jenkins\jenkins.war'
+cookbook_file 'C:\Program Files\jenkins\jenkins.war' do
+  source 'jenkins/jenkins.war'
   action :create
 end
 
-cookbook_file "\%ProgramFiles\%\\jenkins\\jenkins.exe" do
-  source 'resources\jenkins\jenkins.exe'
+cookbook_file 'C:\Program Files\jenkins\jenkins.exe' do
+  source 'jenkins/jenkins.exe'
   action :create
 end
 
-execute "\"C:\\Program Files\\jenkins\\jenkins.exe\" -Service Install" do
+execute 'Install Jenkins' do
+  command '"C:\Program Files\jenkins\jenkins.exe" -Service Install'
   action :run
 end
 
@@ -26,4 +27,3 @@ windows_service 'jenkins' do
   action [:enable, :start]
   startup_type :automatic
 end
-

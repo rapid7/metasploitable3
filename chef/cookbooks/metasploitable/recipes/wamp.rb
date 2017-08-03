@@ -9,7 +9,7 @@ powershell_script 'Download WAMP server' do
 end
 
 execute 'Install WAMP Server' do
-  command "C:\\Windows\\Temp\\wampserver2.2.d-x64.exe /verysilent"
+  command 'C:\Windows\Temp\wampserver2.2.d-x64.exe /verysilent'
 end
 
 cookbook_file 'C:\wamp\bin\apache\Apache2.2.21\conf\httpd.conf' do
@@ -38,4 +38,3 @@ windows_service 'wampmysqld' do
   action [:start, :enable]
   startup_type :automatic
 end
-

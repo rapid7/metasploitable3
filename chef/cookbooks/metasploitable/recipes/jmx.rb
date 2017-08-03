@@ -9,27 +9,27 @@ directory 'C:\Program Files\jmx' do
 end
 
 cookbook_file 'C:\Program Files\jmx\Hello.class' do
-  source 'jmx\Hello.class'
+  source 'jmx/Hello.class'
   action :create
 end
 
 cookbook_file 'C:\Program Files\jmx\HelloMBean.class' do
-  source 'jmx\HelloMBean.class'
+  source 'jmx/HelloMBean.class'
   action :create
 end
 
 cookbook_file 'C:\Program Files\jmx\SimpleAgent.class' do
-  source 'jmx\SimpleAgent.class'
+  source 'jmx/SimpleAgent.class'
   action :create
 end
 
 cookbook_file 'C:\Program Files\jmx\jmx.exe' do
-  source 'jmx\jmx.exe'
+  source 'jmx/jmx.exe'
   action :create
 end
 
 cookbook_file 'C:\Program Files\jmx\start_jmx.bat' do
-  source 'jmx\start_jmx.bat'
+  source 'jmx/start_jmx.bat'
   action :create
 end
 

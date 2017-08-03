@@ -9,7 +9,7 @@ powershell_script 'Download Axis2' do
 end
 
 execute 'Extracting files' do
-  command '"C:\\Program Files\\7-Zip\\7z.exe" x "C:\\Windows\\Temp\\axis2-1.6.0-war.zip" -oC:\\axis2'
+  command '"C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\axis2-1.6.0-war.zip" -oC:\axis2'
   action :run
 end
 
@@ -18,9 +18,7 @@ execute 'Copy files' do
   action :run
 end
 
-directory "C:\\axis2" do
+directory 'C:\axis2' do
   recursive true
   action :delete
 end
-
-

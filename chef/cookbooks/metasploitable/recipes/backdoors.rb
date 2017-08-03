@@ -5,16 +5,16 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 cookbook_file 'C:\inetpub\wwwroot\caidao.asp' do
-  source 'backdoors\caidao.asp'
+  source 'backdoors/caidao.asp'
   action :create
 end
 
 cookbook_file 'C:\wamp\www\mma.php' do
-  source 'backdoors\mma.php'
+  source 'backdoors/mma.php'
   action :create
 end
 
 cookbook_file 'C:\wamp\www\meterpreter.php' do
-  source 'backdoors\meterpreter.php'
+  source 'backdoors/meterpreter.php'
   action :create
 end

@@ -4,17 +4,17 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-file "\%CATALINA_HOME\%\\conf\\tomcat-users.xml" do
+file 'C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-8.0.33\conf\tomcat-users.xml' do
   action :delete
 end
 
-cookbook_file "\%CATALINA_HOME\%\\conf\\tomcat-users.xml" do
-  source 'apache_struts\tomcat-users.xml'
+cookbook_file 'C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-8.0.33\conf\tomcat-users.xml' do
+  source 'apache_struts/tomcat-users.xml'
   action :create
 end
 
-cookbook_file "\%CATALINA_HOME\%\\conf\\server.xml" do
-  source 'apache_struts\server.xml'
+cookbook_file 'C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-8.0.33\conf\server.xml' do
+  source 'apache_struts/server.xml'
   action :create
 end
 
@@ -23,7 +23,7 @@ windows_service 'Tomcat8' do
   startup_type :automatic
 end
 
-execute 'Copy struts webapp' do
-  command "copy C:\\vagrant\\resources\\apache_struts\\struts2-rest-showcase.war \"\%CATALINA_HOME%\\webapps\\\""
-  action :run
+cookbook_file 'C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-8.0.33\webapps\struts2-rest-showcase.war' do
+  source 'apache_struts/struts2-rest-showcase.war'
+  action :create
 end

@@ -5,12 +5,12 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 cookbook_file 'C:\wamp\bin\mysql\mysql5.5.20\my.ini' do
-  source 'mysql\my.ini'
+  source 'mysql/my.ini'
   action :create
 end
 
 cookbook_file 'C:\Windows\Temp\update_mysql_permissions.sql' do
-  source 'mysql\update_mysql_permissions.sql'
+  source 'mysql/update_mysql_permissions.sql'
   action :create
 end
 

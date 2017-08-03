@@ -18,12 +18,12 @@ execute 'Copy files' do
 end
 
 cookbook_file 'C:\glassfish\glassfish4\glassfish\domains\domain1\config\admin-keyfile' do
-  source 'glassfish\admin-keyfile'
+  source 'glassfish/admin-keyfile'
   action :create
 end
 
 cookbook_file 'C:\glassfish\glassfish4\glassfish\domains\domain1\config\domain.xml' do
-  source 'glassfish\domain.xml'
+  source 'glassfish/domain.xml'
   action :create
 end
 
