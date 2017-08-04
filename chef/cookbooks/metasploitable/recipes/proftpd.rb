@@ -8,12 +8,23 @@
 
 include_recipe 'metasploitable::apache'
 
-bash "download, extract, and compile proftpd" do
+proftpd_tar = 'proftpd-1.3.5.tar.gz'
+
+remote_file "#{Chef::Config[:file_cache_path]}/#{proftpd_tar}" do
+  source "#{node[:proftpd][:download_url]}/#{proftpd_tar}"
+  mode 0644
+end
+
+execute "extract proftpd" do
+  cwd Chef::Config[:file_cache_path]
+  command 'tar zxfv proftpd-1.3.5.tar.gz'
+
+  not_if { ::File.exists?(File.join(Chef::Config[:file_cache_path], 'proftpd-1.3.5'))}
+end
+
+bash 'compile and install proftpd' do
+  cwd "#{Chef::Config[:file_cache_path]}/proftpd-1.3.5"
   code <<-EOH
-    cd /home/vagrant
-    wget "ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5.tar.gz"
-    tar zxfv proftpd-1.3.5.tar.gz
-    cd proftpd-1.3.5
     ./configure --prefix=/opt/proftpd --with-modules=mod_copy
     make
     make install

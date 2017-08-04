@@ -1,6 +1,14 @@
 {
   "builders": [
     {
+      "type": "amazon-ebs",
+      "region": "us-east-2",
+      "source_ami": "ami-69a1800c",
+      "instance_type": "t2.small",
+      "ssh_username": "ubuntu",
+      "ami_name": "metasploitable3-ub1404-{{user `box_version`}}"
+    },
+    {
       "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -92,13 +100,13 @@
       ],
       "run_list": [
         "metasploitable::vm_tools",
+        "metasploitable::users",
         "metasploitable::mysql",
         "metasploitable::apache_continuum",
         "metasploitable::apache",
         "metasploitable::php_545",
         "metasploitable::phpmyadmin",
         "metasploitable::proftpd",
-        "metasploitable::users",
         "metasploitable::docker",
         "metasploitable::samba",
         "metasploitable::sinatra",
@@ -116,8 +124,17 @@
   ],
   "post-processors": [
     {
+      "type": "amazon-import",
+      "region": "us-east-2",
+      "keep_input_artifact": true,
+      "s3_bucket_name": "metasploitable3",
+      "tags": {
+        "Description": "packer amazon-import {{user `box_version`}}"
+      }
+    },
+    {
       "type": "vagrant",
-      "keep_input_artifact": false,
+      "keep_input_artifact": true,
       "output": "{{template_dir}}/../builds/ubuntu_1404_{{.Provider}}_{{user `box_version`}}.box"
     }
   ],
@@ -125,6 +142,6 @@
     "iso_url": "http://old-releases.ubuntu.com/releases/14.04.1/ubuntu-14.04.1-server-amd64.iso",
     "iso_checksum_type": "md5",
     "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-    "box_version": "0.1.0"
+    "box_version": "0.1.2"
   }
 }
