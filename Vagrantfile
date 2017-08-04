@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
   config.vm.define "ub1404" do |ub1404|
     ub1404.vm.box = "metasploitable3-ub1404"
-    ub1404.vm.hostname = "metasploitable3_ub1404"
+    ub1404.vm.hostname = "metasploitable3-ub1404"
     config.ssh.username = 'vagrant'
     config.ssh.password = 'vagrant'
 
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "win2k8" do |win2k8|
     # Base configuration for the VM and provisioner
     win2k8.vm.box = "metasploitable3-win2k8"
-    win2k8.vm.hostname = "metasploitable3_win2k8"
+    win2k8.vm.hostname = "metasploitable3-win2k8"
     win2k8.vm.communicator = "winrm"
     win2k8.winrm.retry_limit = 60
     win2k8.winrm.retry_delay = 10

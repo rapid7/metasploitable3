@@ -28,7 +28,7 @@ execute 'unzip chatbot' do
 end
 
 execute 'chown chatbot' do
-  command 'chown -R vagrant:vagrant /opt/chatbot'
+  command "chown -R root:root /opt/chatbot"
 end
 
 execute 'chmod chatbot' do
