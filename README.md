@@ -15,7 +15,6 @@ Requirements:
 
 * [Packer](https://www.packer.io/intro/getting-started/install.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/) NOTE: Currently 1.9.1 is recommended as there are build issues with newer versions.
-* [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
@@ -29,7 +28,7 @@ To build manually:
 
 1. Clone this repo and navigate to the main directory.
 2. Run the command `vagrant box add jbarnett-r7/metasploitable3-win2k8`. This will download the 6.5+ GB box file from Vagrant cloud. This may take a while depending on your Internet connection.
-3. To start the VM, run the command `vagrant up`. This will start up the VM network. This takes about 5-10 minutes.
+3. To start the VM, run the command `vagrant up`. This will start up the VM network. This takes about 5-10 minutes. NOTE: Vagrant will attempt to use the correct virtualization platform automatically, but if you would like to use a specific provider you can use `vagrant up --provider=<provider>`. More info [here](https://www.vagrantup.com/docs/providers/basic_usage.html).
 4. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
 
 ## Vulnerabilities
