@@ -2,7 +2,6 @@ $ErrorActionPreference = "Stop"
 
 $virtualBoxMinVersion = "5.1.10"
 $vagrantMinVersion = "1.9.0"
-$vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
@@ -57,30 +56,6 @@ If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinV
 } else {
     Write-Host "Could not find a compatible version of Vagrant at C:\HashiCorp\Vagrant\bin\. Please download and install it from https://www.vagrantup.com/downloads.html."
     exit
-}
-
-$vagrantPlugins = cmd.exe /c "vagrant plugin list" | select-string -pattern "vagrant-reload"
-
-If (![string]::IsNullOrEmpty($vagrantPlugins)) {
-    $vagrantPlugins = $vagrantPlugins.ToString().Trim()
-    $vagrantreloadVersion = $vagrantPlugins.Replace("(", "")
-    $vagrantreloadVersion = $vagrantreloadVersion.Replace(")", "")
-    $vagrantreloadVersion = $vagrantreloadVersion.split(" ")[1]
-
-    If (CompareVersions -actualVersion $vagrantreloadVersion -expectedVersion $vagrantreloadMinVersion) {
-        Write-Host "Compatible version of vagrant-reload plugin found."
-    }
-} else {
-    Write-Host "Could not find a compatible version of vagrant-reload plugin. Attempting to install..."
-    cmd.exe /c "vagrant plugin install vagrant-reload"
-
-    # Hacky version of Try-Catch for non-terminating errors.
-    # See http://stackoverflow.com/questions/1142211/try-catch-does-not-seem-to-have-an-effect
-    if($?) {
-        Write-Host "The vagrant-reload plugin was successfully installed."
-    } else {
-        throw "Error installing vagrant-reload plugin. Please check the output above for any error messages."
-    }
 }
 
 Write-Host "All requirements found. Proceeding..."

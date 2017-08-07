@@ -2,8 +2,6 @@
 
 min_vbox_ver="5.1.10"
 min_vagrant_ver="1.9.0"
-min_packer_ver="0.10.0"
-min_vagrantreload_ver="0.0.1"
 
 function compare_versions {
     actual_version=$1
@@ -64,19 +62,6 @@ if compare_versions $(vagrant -v | cut -d' ' -f2) $min_vagrant_ver $vagrant_exac
 else
     echo "A compatible version of vagrant was not found. Please download and install it from https://www.vagrantup.com/downloads.html."
     exit 1
-fi
-
-if compare_versions $(vagrant plugin list | grep 'vagrant-reload' | cut -d' ' -f2 | tr -d '(' | tr -d ')') $min_vagrantreload_ver false; then
-    echo 'Compatible version of vagrant-reload plugin was found.'
-else
-    echo "A compatible version of vagrant-reload plugin was not found."
-    echo "Attempting to install..."
-    if vagrant plugin install vagrant-reload; then
-        echo "Successfully installed the vagrant-reload plugin."
-    else
-        echo "There was an error installing the vagrant-reload plugin. Please see the above output for more information."
-        exit 1
-    fi
 fi
 
 echo "All requirements found. Proceeding..."
