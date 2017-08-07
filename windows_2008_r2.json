@@ -14,7 +14,7 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "winServer2008Standard-64",
       "tools_upload_flavor": "windows",
-      "disk_size": 61440,
+      "disk_size": 30000,
       "floppy_files": [
         "{{user `autounattend`}}",
         "./scripts/configs/microsoft-updates.bat",
@@ -57,7 +57,7 @@
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "Windows2008_64",
-      "disk_size": 61440,
+      "disk_size": 30000,
       "vm_name": "metasploitable3-win2k8",
       "floppy_files": [
         "{{user `autounattend`}}",
