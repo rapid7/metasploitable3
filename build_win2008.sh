@@ -97,11 +97,11 @@ fi
 
 echo "All requirements found. Proceeding..."
 
-if ls | grep -q 'windows_2008_r2_virtualbox.box'; then
+if ls packer/builds/ | grep -q 'windows_2008_r2_virtualbox.box'; then
     echo "It looks like the vagrant box already exists. Skipping the Packer build."
 else
     echo "Building the Vagrant box..."
-    if $packer_bin build --only=virtualbox-iso windows_2008_r2.json; then
+    if $packer_bin build --only=virtualbox-iso packer/templates/windows_2008_r2.json; then
         echo "Box successfully built by Packer."
     else
         echo "Error building the Vagrant box using Packer. Please check the output above for any error messages."
@@ -111,11 +111,11 @@ fi
 
 echo "Attempting to add the box to Vagrant..."
 
-if vagrant box list | grep -q 'metasploitable3'; then
+if vagrant box list | grep -q 'metasploitable3-win2k8'; then
     echo 'metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant.'
     echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
 else
-    if vagrant box add windows_2008_r2_virtualbox.box --name metasploitable3; then
+    if vagrant box add packer/builds/windows_2008_r2_virtualbox.box --name metasploitable3-win2k8; then
         echo "Box successfully added to Vagrant."
     else
         echo "Error adding box to Vagrant. See the above output for any error messages."
