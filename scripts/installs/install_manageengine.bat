@@ -4,9 +4,9 @@ net stop "ManageEngine Desktop Central Server"
 net stop "MEDC Server Component - Apache"
 net stop "MEDC Server Component - Notification Server"
 icacls "C:\ManageEngine" /grant "NT Authority\LOCAL SERVICE:(OI)(CI)F" /T
-sc config "DesktopCentralServer" obj= "NT Authority\LOCAL SERVICE"
-sc config "MEDC Server Component - Notification Server" obj= "NT Authority\LOCAL SERVICE"
-sc config "MEDCServerComponent-Apache" obj= "NT Authority\LOCAL SERVICE"
+sc config "DesktopCentralServer" obj= "NT Authority\LOCAL SERVICE" type= own start= auto
+sc config "MEDC Server Component - Notification Server" obj= "NT Authority\LOCAL SERVICE" type= own start= auto
+sc config "MEDCServerComponent-Apache" obj= "NT Authority\LOCAL SERVICE" type= own start= auto
 net start "MEDC Server Component - Apache"
 net start "MEDC Server Component - Notification Server"
 net start "ManageEngine Desktop Central Server"
