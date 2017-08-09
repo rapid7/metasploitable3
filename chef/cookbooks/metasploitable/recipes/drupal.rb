@@ -10,6 +10,7 @@ include_recipe 'metasploitable::php_545'
 
 drupal_tar    = "drupal-#{node[:drupal][:version]}.tar.gz"
 coder_tar     = "coder-7.x-2.5.tar.gz"
+files_path    = File.join(Chef::Config[:file_cache_path], 'cookbooks', 'metasploitable', 'files', 'drupal')
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{drupal_tar}" do
   source "#{node[:drupal][:download_url]}/#{drupal_tar}"
@@ -42,7 +43,7 @@ end
 
 execute 'untar default site' do
   cwd node[:drupal][:sites_dir]
-  command "tar xvzf #{node[:drupal][:files_path]}/default_site.tar.gz"
+  command "tar xvzf #{File.join(files_path, 'default_site.tar.gz')}"
   not_if { ::File.exists?(File.join(node[:drupal][:default_site_dir], 'settings.php')) }
   not_if { ::File.directory?(File.join(node[:drupal][:default_site_dir], 'files')) }
 end
@@ -61,7 +62,7 @@ bash "create drupal database and inject data" do
   code <<-EOH
     mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="CREATE DATABASE drupal;"
     mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="GRANT SELECT, INSERT, DELETE, CREATE, DROP, INDEX, ALTER ON drupal.* TO 'root'@'localhost' IDENTIFIED BY 'sploitme';"
-    mysql -h 127.0.0.1 --user="root" --password="sploitme" drupal < #{File.join(node[:drupal][:files_path], 'drupal.sql')}
+    mysql -h 127.0.0.1 --user="root" --password="sploitme" drupal < #{File.join(files_path, 'drupal.sql')}
   EOH
   not_if "mysql -h 127.0.0.1 --user=\"root\" --password=\"sploitme\" --execute=\"SHOW DATABASES LIKE 'drupal'\" | grep -c drupal"
 end

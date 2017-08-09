@@ -7,6 +7,8 @@ include_recipe 'metasploitable::mysql'
 include_recipe 'metasploitable::apache'
 include_recipe 'metasploitable::php_545'
 
+poc_dir = "/home/#{node[:users][node[:users].keys.last][:username]}/poc/payroll_app/"
+
 cookbook_file '/var/www/html/payroll_app.php' do
   source 'payroll_app/payroll_app.php'
   mode '0755'
@@ -17,13 +19,13 @@ template '/tmp/payroll.sql' do
   mode '0755'
 end
 
-directory '/home/vagrant/poc/payroll_app/' do
+directory poc_dir do
   mode '0755'
-  owner 'vagrant'
+  owner node[:users][node[:users].keys.last][:username]
   recursive true
 end
 
-cookbook_file '/home/vagrant/poc/payroll_app/poc.rb' do
+cookbook_file "#{poc_dir}/poc.rb" do
   source 'payroll_app/poc.rb'
   mode '0755'
 end
