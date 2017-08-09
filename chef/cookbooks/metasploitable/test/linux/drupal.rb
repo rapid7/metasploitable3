@@ -1,7 +1,7 @@
 # InSpec Testing for Drupal
 
 describe command('curl http://localhost/drupal/') do
-  its('stdout') { should match /kali-metasploit-256\.png/ } # Make sure it has the icon
+  its('stdout') { should match /metasploitable3_logo\.png/ } # Make sure it has the icon
   its('stdout') { should match /Metasploitable FAQs/ } # Make sure it has the title
   its('stdout') { should match /What else is there to do here/ } # Make sure it has the content
 end
