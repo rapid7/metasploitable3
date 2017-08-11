@@ -26,11 +26,13 @@ service 'five_of_diamonds_srv' do
 end
 
 directory '/home/artoo_detoo/music' do
+  owner 'artoo_detoo'
   mode 700
 end
 
 cookbook_file '/home/artoo_detoo/music/10_of_clubs.wav' do
   source 'flags/10_of_clubs.wav'
+  owner 'artoo_detoo'
   mode 400
 end
 
@@ -66,7 +68,7 @@ bash 'build docker image for 7 of diamonds' do
   code <<-EOH
     cd /opt/docker
     docker build -t "7_of_diamonds" .
-    docker run -dit --restart always 7_of_diamonds
+    docker run -dit --restart always --name 7_of_diamonds 7_of_diamonds
   EOH
 end
 
@@ -76,5 +78,6 @@ end
 
 cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
   source '/flags/2_of_spades.pcapng'
+  owner 'leia_organa'
   mode 600
 end
