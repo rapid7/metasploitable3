@@ -4,10 +4,7 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-batch 'Install 7zip' do
-  code <<-EOH
-    chocolatey feature enable -n=allowGlobalConfirmation
-    choco install 7zip
-    chocolatey feature disable -n=allowGlobalConfirmation
-    EOH
+execute 'Install 7zip' do
+  command 'choco install -y 7zip'
+  action :run
 end
