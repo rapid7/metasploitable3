@@ -4,9 +4,11 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-batch 'Install Ruby' do
-  code <<-EOH
-    choco install -y ruby --version 2.3.3
-    refreshenv
-  EOH
+execute 'Install Ruby' do
+  command 'choco install -y ruby --version 2.3.3'
+  action :run
+end
+
+execute 'refreshenv' do
+  action :run
 end
