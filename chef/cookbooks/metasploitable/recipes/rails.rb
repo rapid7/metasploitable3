@@ -159,16 +159,23 @@ gem_package 'minitest' do
   options "--no-ri --no-rdoc"
 end
 
-batch 'Setup Rails Server' do
-  code <<-EOH
-    copy /Y C:\\Vagrant\\Resources\\rails_server\\sqlite3-1.3.11-x64-mingw32.gemspec C:\\tools\\ruby23\\lib\\ruby\\gems\\2.3.0\\specifications
-    C:\\tools\\ruby23\\bin\\rails.bat _4.1.1_ new "C:\\Program Files\\Rails_Server"
-  EOH
+file 'C:\tools\ruby23\lib\ruby\gems\2.3.0\specifications\sqlite3-1.3.11-x64-mingw32.gemspec' do
+  source 'rails_server/sqlite3-1.3.11-x64-mingw32.gemspec'
+  action :create
+end
+
+execute 'Create Rails server' do
+  command 'C:\tools\ruby23\bin\rails.bat _4.1.1_ new "C:\Program Files\Rails_Server"'
+  action :create
+end
+
+file 'C:\Program Files\Rails_Server\start_rails_server.bat' do
+  source 'rails_server/start_rails_server.bat'
+  action :create
 end
 
 batch 'Install Rails service' do
   code <<-EOH
-    copy C:\\Vagrant\\resources\\rails_server\\start_rails_server.bat "C:\\Program Files\\Rails_Server"
     schtasks /create /tn "rails" /tr "\"cmd.exe\" /c \'C:\\Program Files\\Rails_Server\\start_rails_server.bat\'" /sc onstart /NP /ru "SYSTEM"
     schtasks /Run /TN rails
   EOH
