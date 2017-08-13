@@ -123,7 +123,7 @@
       "remote_path": "/tmp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "./scripts/installs/vm-guest-tools.bat",
+        "./scripts/installs/vm-guest-tools.bat"
       ]
     },
     {
