@@ -98,14 +98,7 @@
   ],
 "provisioners": [
     {
-      "type": "file",
-      "source": "scripts",
-      "destination": "C:/vagrant"
-    },
-    {
-      "type": "file",
-      "source": "resources",
-      "destination": "C:/vagrant"
+      "type": "windows-restart"
     },
     {
       "type": "chef-solo",
