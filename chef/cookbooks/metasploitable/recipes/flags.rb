@@ -38,22 +38,22 @@ batch 'Three of Spades' do
 end
 
 cookbook_file 'C:\Windows\System32\kingofclubs.exe' do
-  source 'flags\kingofclubs.exe'
+  source 'flags/kingofclubs.exe'
   action :create
 end
 
 cookbook_file 'C:\Users\Public\Music\four_of_clubs.wav' do
-  source 'flags\four_of_clubs.wav'
+  source 'flags/four_of_clubs.wav'
   action :create
 end
 
 cookbook_file 'C:\inetpub\wwwroot\index.html' do
-  source 'flags\joker.html'
+  source 'flags/joker.html'
   action :create
 end
 
 cookbook_file 'C:\inetpub\wwwroot\hahaha.jpg' do
-  source 'flags\hahaha.jpg'
+  source 'flags/hahaha.jpg'
   action :create
 end
 
@@ -62,27 +62,27 @@ file 'C:\inetpub\wwwroot\iisstart.htm' do
 end
 
 cookbook_file 'C:\inetpub\wwwroot\seven_of_hearts.html' do
-  source 'flags\seven_of_hearts.html'
+  source 'flags/seven_of_hearts.html'
   action :create
 end
 
 cookbook_file 'C:\Users\Public\Documents\jack_of_hearts.docx' do
-  source 'flags\jack_of_hearts.docx'
+  source 'flags/jack_of_hearts.docx'
   action :create
 end
 
 cookbook_file 'C:\Users\Public\Documents\seven_of_spades.pdf' do
-  source 'flags\seven_of_spades.pdf'
+  source 'flags/seven_of_spades.pdf'
   action :create
 end
 
 cookbook_file 'C:\Users\Public\Pictures\ace_of_hearts.jpg' do
-  source 'flags\ace_of_hearts.jpg'
+  source 'flags/ace_of_hearts.jpg'
   action :create
 end
 
 cookbook_file 'C:\Users\Public\Pictures\ten_of_diamonds.png' do
-  source 'flags\ten_of_diamonds.png'
+  source 'flags/ten_of_diamonds.png'
   action :create
 end
 
@@ -92,11 +92,11 @@ execute 'Creating database' do
 end
 
 cookbook_file 'C:\Windows\Temp\queen_of_hearts.sql' do
-  source 'flags\queen_of_hearts.sql'
+  source 'flags/queen_of_hearts.sql'
   action :create
 end
 
-execute 'Initializing database'
+execute 'Initializing database' do
   command '"C:\wamp\bin\mysql\mysql5.5.20\bin\mysql.exe" -u root --password=""  cards < "C:\Windows\Temp\queen_of_hearts.sql"'
   action :run
 end
