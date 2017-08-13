@@ -32,7 +32,7 @@ powershell_script 'Sleep 30 secs' do
   code 'Start-Sleep -s 30'
 end
 
-windows_service 'elasticsearch-service-x86' do
+windows_service 'elasticsearch-service-x64' do
   action :start
 end
 
