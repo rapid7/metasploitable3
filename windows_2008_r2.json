@@ -109,7 +109,8 @@
         "recipe[metasploitable::vagrant_ssh]",
         "recipe[metasploitable::disable_auto_logon]",
         "recipe[metasploitable::enable_rdp]"
-      ]
+      ],
+      "pause_before": "30s"
     },
     {
       "type": "shell",
