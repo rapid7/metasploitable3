@@ -20,7 +20,7 @@ end
 
 cookbook_file '/tmp/chatbot.zip' do
   source 'chatbot/chatbot.zip'
-  mode '0777'
+  mode 0700
 end
 
 execute 'unzip chatbot' do
@@ -32,7 +32,7 @@ execute 'chown chatbot' do
 end
 
 execute 'chmod chatbot' do
-  command 'chmod -R 777 /opt/chatbot'
+  command 'chmod -R 700 /opt/chatbot'
 end
 
 execute 'install chatbot' do

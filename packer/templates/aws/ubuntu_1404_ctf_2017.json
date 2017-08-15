@@ -35,7 +35,8 @@
         "metasploitable::drupal",
         "metasploitable::knockd",
         "metasploitable::iptables",
-        "metasploitable::flags"
+        "metasploitable::flags",
+        "metasploitable::sshd"
       ]
     }
   ],

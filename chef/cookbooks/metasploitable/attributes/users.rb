@@ -4,59 +4,67 @@
 #
 
 default[:users][:leia_organa] = { username: 'leia_organa',
-                                  password: 'obiwan',
-                                  password_hash: '$1$2ny4/xaH$tAFV5fbEqHx2OkOPIQhpx0',
+                                  password: 'help_me_obiwan',
+                                  password_hash: '$1$N6DIbGGZ$LpERCRfi8IXlNebhQuYLK/',
                                   first_name: 'Leia',
                                   last_name: 'Organa',
-                                  salary: '9560'}
+                                  admin: true,
+                                  salary: '9560' }
 
 default[:users][:luke_skywalker] = { username: 'luke_skywalker',
-                                     password: 'password',
-                                     password_hash: '$1$n8tgrGRs$8xaS40CFS1J5iIAEmbnx50',
+                                     password: 'like_my_father_beforeme',
+                                     password_hash: '$1$/7D55Ozb$Y/aKb.UNrDS2w7nZVq.Ll/',
                                      first_name: 'Luke',
                                      last_name: 'Skywalker',
+                                     admin: true,
                                      salary: '1080'}
 
 default[:users][:han_solo] = { username: 'han_solo',
-                               password: 'sh00t-first',
-                               password_hash: '$1$L/2/AWAh$ZMUulbFhP2IesZ6xwBmaV0',
+                               password: 'nerf_herder',
+                               password_hash: '$1$6jIF3qTC$7jEXfQsNENuWYeO6cK7m1.',
                                first_name: 'Han',
                                last_name: 'Solo',
+                               admin: true,
                                salary: '1200'}
 
 default[:users][:artoo_detoo] = { username: 'artoo_detoo',
-                                  password: 'beep_b00p',
-                                  password_hash: '$1$DlEuqBUm$u71bKO9I603kDCqEphmon1',
+                                  password: 'b00p_b33p',
+                                  password_hash: '$1$tfvzyRnv$mawnXAR4GgABt8rtn7Dfv.',
                                   first_name: 'Artoo',
                                   last_name: 'Detoo',
+                                  admin: false,
                                   salary: '22222'}
 
 default[:users][:c_three_pio] = { username: 'c_three_pio',
-                                  password: 'pr0t0c0l',
-                                  password_hash: '$1$4JMoAFqs$b5MwsiCfOASdUKktx6wQ7/',
+                                  password: 'Pr0t0c07',
+                                  password_hash: '$1$lXx7tKuo$xuM4AxkByTUD78BaJdYdG.',
                                   first_name: 'C',
                                   last_name: 'Threepio',
+                                  admin: false,
                                   salary: '3200'}
 
 default[:users][:ben_kenobi] = { username: 'ben_kenobi',
-                                 password: 'thats_no_moon',
-                                 password_hash: '$1$vmHrrI9b$OyLulJjgi18GxgREG5V5c1',
+                                 password: 'thats_no_m00n',
+                                 password_hash: '$1$5nfRD/bA$y7ZZD0NimJTbX9FtvhHJX1',
                                  first_name: 'Ben',
                                  last_name: 'Kenobi',
+                                 admin: false,
                                  salary: '10000'}
 
 default[:users][:darth_vader] = { username: 'darth_vader',
-                                  password: 'd@rk_sid3',
-                                  password_hash: '$1$c7AfQJ86$zvcdz7pPate7GdCQ.yfTf0',
+                                  password: 'Dark_syD3',
+                                  password_hash: '$1$rLuMkR1R$YHumHRxhswnfO7eTUUfHJ.',
                                   first_name: 'Darth',
                                   last_name: 'Vader',
+                                  admin: false,
                                   salary: '6666'}
 
 default[:users][:anakin_skywalker] = { username: 'anakin_skywalker',
-                                       password: 'yipp33!!',
-                                       password_hash: '$1$AvIldIHu$o1s2OCU4n/qSCGQMKMgkH/',
+                                       password: 'but_master:(',
+                                       password_hash: '$1$jlpeszLc$PW4IPiuLTwiSH5YaTlRaB0',
                                        first_name: 'Anakin',
                                        last_name: 'Skywalker',
+                                       admin: false,
                                        salary: '1025'}
 
 default[:users][:jarjar_binks] = { username: 'jarjar_binks',
@@ -64,13 +72,15 @@ default[:users][:jarjar_binks] = { username: 'jarjar_binks',
                                    password_hash: '$1$SNokFi0c$F.SvjZQjYRSuoBuobRWMh1',
                                    first_name: 'Jar-Jar',
                                    last_name: 'Binks',
+                                   admin: false,
                                    salary: '2048'}
 
 default[:users][:lando_calrissian] = { username: 'lando_calrissian',
-                                       password: 'b@ckstab',
-                                       password_hash: '$1$8aWC7zHq$bz6K2rZVD7XlMNqBIIMGX.',
+                                       password: '@dm1n1str8r',
+                                       password_hash: '$1$Af1ek3xT$nKc8jkJ30gMQWeW/6.ono0',
                                        first_name: 'Lando',
                                        last_name: 'Calrissian',
+                                       admin: false,
                                        salary: '40000'}
 
 default[:users][:boba_fett] = { username: 'boba_fett',
@@ -78,32 +88,37 @@ default[:users][:boba_fett] = { username: 'boba_fett',
                                 password_hash: '$1$TjxlmV4j$k/rG1vb4.pj.z0yFWJ.ZD0',
                                 first_name: 'Boba',
                                 last_name: 'Fett',
+                                admin: false,
                                 salary: '20000'}
 
 default[:users][:jabba_hutt] = { username: 'jabba_hutt',
-                                 password: 'not-a-slug12',
-                                 password_hash: '$1$1q5jRHYC$LIp/8O/g9qg3NaeGOxGSl/',
+                                 password: 'my_kinda_skum',
+                                 password_hash: '$1$9rpNcs3v$//v2ltj5MYhfUOHYVAzjD/',
                                  first_name: 'Jaba',
                                  last_name: 'Hutt',
+                                 admin: false,
                                  salary: '65000'}
 
 default[:users][:greedo] = { username: 'greedo',
-                             password: 'hanShotFirst!',
-                             password_hash: '$1$1lmZ0rOJ$GITT5.sX0tvOQeC2/wWQF1',
+                             password: 'hanSh0tF1rst',
+                             password_hash: '$1$vOU.f3Tj$tsgBZJbBS4JwtchsRUW0a1',
                              first_name: 'Greedo',
                              last_name: 'Rodian',
+                             admin: false,
                              salary: '50000'}
 
 default[:users][:chewbacca] = { username: 'chewbacca',
-                                password: 'rwaaaaawr5',
-                                password_hash: '$1$AjU5ZLh9$WjO.j9fYh3yms3HSDBKya1',
+                                password: 'rwaaaaawr8',
+                                password_hash: '$1$.qt4t8zH$RdKbdafuqc7rYiDXSoQCI.',
                                 first_name: 'Chewbacca',
                                 last_name: '',
+                                admin: false,
                                 salary: '4500'}
 
 default[:users][:kylo_ren] = { username: 'kylo_ren',
-                               password: 'daddy_issues1',
-                               password_hash: '$1$Zcw3AKDA$1Mjgzmr/HpmFXuxUjj2Vv1',
+                               password: 'Daddy_Issues2',
+                               password_hash: '$1$rpvxsssI$hOBC/qL92d0GgmD/uSELx.',
                                first_name: 'Kylo',
                                last_name: 'Ren',
+                               admin: false,
                                salary: '6667'}
