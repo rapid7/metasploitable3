@@ -10,14 +10,14 @@ end
 
 template '/etc/knockd.conf' do
   source 'knockd/knockd.conf.erb'
-  mode '0600'
+  mode 0600
 end
 
 cookbook_file '/etc/default/knockd' do
   source 'knockd/knockd'
-  mode '0600'
+  mode 0600
 end
 
 service 'knockd' do
-  action :restart
+  action [:enable, :start]
 end
