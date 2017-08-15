@@ -1,8 +1,8 @@
-describe package('ruby23') do
+describe package('ruby2.3') do
   it { should be_installed }
 end
 
-describe package('ruby23-dev') do
+describe package('ruby2.3-dev') do
   it { should be_installed }
 end
 

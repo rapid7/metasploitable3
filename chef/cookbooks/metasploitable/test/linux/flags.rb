@@ -1,3 +1,5 @@
+require '../helpers/chat_test.rb'
+
 # Inspec Tests for Linux Flags
 
 describe file('/opt/knock_knock/five_of_diamonds') do
@@ -8,7 +10,7 @@ describe file('/opt/knock_knock/five_of_diamonds') do
   its('md5sum') { should eq 'b4542ea3449e164df583f39319e66655' }
 end
 
-describe file('/opt/init/five_of_diamonds_srv.conf') do
+describe file('/etc/init/five_of_diamonds_srv.conf') do
   it { should be_file }
   it { should be_executable }
   it { should be_owned_by 'root' }
@@ -59,5 +61,23 @@ end
 # King of Spades tests
 describe file('/opt/unrealircd/Unreal3.2/ircd.motd') do
   it { should be_file }
-  its('md5sum') { should eq '0d7cf1d19f9bc0b2ff791279a97bf5ce' }
+  its('md5sum') { should eq 'be373836982164f7b479f8c12cc03e90' }
+end
+
+# 5 of Hearts tests
+describe command('curl http://localhost/drupal/?q=node/2') do
+  its('stdout') { should match /5_of_hearts\.png/ } # Make sure it has the icon
+end
+
+# Ace of Clubs test
+# NOTE: The chatbot can get a little laggy if there is a lot of data in the log.
+# This can cause this test to fail incorrectly.
+# To remedy, clear the /var/www/log.html file on metasploitable and restart the chatbot service.
+describe 'ace_of_clubs' do
+  let(:host_ip) { command("ip addr | grep 'state UP' -A2 | grep 'eth0' | tail -n1 | awk '{print $2}' | cut -f1  -d'/'").stdout.strip }
+
+  it 'should print out the correct base64 flag' do
+    ct = ChatTest.new(host_ip)
+    expect(ct.check_chat_bot).to eq true #TODO: Make this output more meaningful. e.g. output what was returned and what was expected.
+  end
 end

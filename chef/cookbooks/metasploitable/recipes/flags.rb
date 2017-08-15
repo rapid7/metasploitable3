@@ -18,7 +18,7 @@ end
 
 cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
   source 'flags/five_of_diamonds_srv'
-  mode '777'
+  mode 777
 end
 
 service 'five_of_diamonds_srv' do
