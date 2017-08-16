@@ -38,7 +38,7 @@ end
 
 cookbook_file '/etc/joker.png' do
   source 'flags/joker.png'
-  mode 644
+  mode 600
 end
 
 bash "load 8 of hearts into DB" do
