@@ -12,7 +12,7 @@ bash 'download and extract UnrealIRCd' do
     wget -c -t 3 -O /tmp/Unreal3.2.8.1_backdoor.tar.gz https://www.exploit-db.com/apps/752e46f2d873c1679fa99de3f52a274d-Unreal3.2.8.1_backdoor.tar_.gz
     mkdir /opt/unrealircd
     tar xvfz /tmp/Unreal3.2.8.1_backdoor.tar.gz -C /opt/unrealircd
-    chmod 755 /opt/unrealircd/Unreal3.2
+    chmod 700 /opt/unrealircd/Unreal3.2
   EOH
 end
 
