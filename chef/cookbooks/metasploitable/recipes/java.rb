@@ -4,7 +4,6 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-execute 'Install Java' do
-  command 'choco install -y javaruntime-platformspecific'
-  action :run
+chocolatey_package 'javaruntime-platformspecific' do
+  action :install
 end

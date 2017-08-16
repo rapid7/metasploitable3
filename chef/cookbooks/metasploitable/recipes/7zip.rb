@@ -4,7 +4,6 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-execute 'Install 7zip' do
-  command 'choco install -y 7zip'
-  action :run
+chocolatey_package '7zip' do
+  action :install
 end

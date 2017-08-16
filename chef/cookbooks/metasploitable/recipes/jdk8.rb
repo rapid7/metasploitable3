@@ -4,9 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-execute 'Install JDK 8' do
-  command 'choco install -y jdk8'
-  action :run
+chocolatey_package 'jdk8' do
+  action :install
 end
 
 execute 'Refresh environment' do
