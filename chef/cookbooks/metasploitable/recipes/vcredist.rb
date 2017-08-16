@@ -5,6 +5,6 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 execute 'Install VCRedist' do
-  command 'choco install vcredist2008'
+  command 'choco install -y vcredist2008'
   action :run
 end
