@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::iis'
+include_recipe 'metasploitable::wamp'
+
 cookbook_file 'C:\inetpub\wwwroot\six_of_diamonds.zip' do
   source 'flags/six_of_diamonds.zip'
   action :create

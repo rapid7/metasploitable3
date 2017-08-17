@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::7zip'
+include_recipe 'metasploitable::jdk8'
+
 powershell_script 'Download ElasticSearch' do
   code '(New-Object System.Net.WebClient).DownloadFile(\'http://repo1.maven.org/maven2/org/elasticsearch/elasticsearch/1.1.1/elasticsearch-1.1.1.zip\', \'C:\Windows\Temp\elasticsearch-1.1.1.zip\')'
 end

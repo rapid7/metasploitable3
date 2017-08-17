@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::iis'
+include_recipe 'metasploitable::wamp'
+
 cookbook_file 'C:\inetpub\wwwroot\caidao.asp' do
   source 'backdoors/caidao.asp'
   action :create

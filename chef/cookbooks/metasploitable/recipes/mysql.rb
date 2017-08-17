@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::wamp'
+include_recipe 'metasploitable::wordpress'
+
 cookbook_file 'C:\wamp\bin\mysql\mysql5.5.20\my.ini' do
   source 'mysql/my.ini'
   action :create

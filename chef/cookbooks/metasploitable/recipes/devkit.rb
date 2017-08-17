@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::7zip'
+include_recipe 'metasploitable::ruby'
+
 directory 'C:\Program Files\Rails_Server' do
   action :create
 end

@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::java'
+include_recipe 'metasploitable::jdk8'
+
 directory 'C:\Program Files\jenkins' do
   action :create
 end

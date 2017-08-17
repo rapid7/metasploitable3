@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::devkit'
+
 cookbook_file 'C:\Users\vagrant\.gemrc' do
   source 'rails_server/gemrc'
   action :create

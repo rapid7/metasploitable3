@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::openjdk6'
+
 directory 'C:\Program Files\jmx' do
   action :create
 end

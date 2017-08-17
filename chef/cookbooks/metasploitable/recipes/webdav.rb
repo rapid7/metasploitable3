@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::wamp'
+
 windows_service 'wampapache' do
   action :stop
 end
