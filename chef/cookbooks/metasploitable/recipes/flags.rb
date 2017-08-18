@@ -101,6 +101,12 @@ else
   end
 
   # 8 of Clubs
+  random_directories = Array.new(20) { rand(1..100) }
+
+  cookbook_file File.join('home','anakin_skywalker',random_directories.join('/')) do
+    source 'flags/flag_images/8 of clubs.png'
+    mode 644
+  end
 
   # 3 of Hearts
   cookbook_file '/lost+found/3_of_hearts.png' do
