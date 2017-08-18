@@ -4,27 +4,7 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-include_recipe 'metasploitable::knockd'
-include_recipe 'metasploitable::docker'
-
-directory '/opt/knock_knock' do
-  mode 0700
-end
-
-cookbook_file '/opt/knock_knock/five_of_diamonds' do
-  source 'flags/five_of_diamonds'
-  mode 0700
-end
-
-cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
-  source 'flags/five_of_diamonds_srv'
-  mode 777
-end
-
-service 'five_of_diamonds_srv' do
-  action [:enable, :start]
-end
-
+# 10 of Clubs
 directory '/home/artoo_detoo/music' do
   owner 'artoo_detoo'
   mode 700
@@ -36,19 +16,8 @@ cookbook_file '/home/artoo_detoo/music/10_of_clubs.wav' do
   mode 400
 end
 
-cookbook_file '/etc/joker.png' do
-  source 'flags/joker.png'
-  mode 600
-end
-
-bash "load 8 of hearts into DB" do
-  code <<-EOH
-    mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="CREATE DATABASE super_secret_db;"
-    mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="GRANT SELECT, INSERT, DELETE, CREATE, DROP, INDEX, ALTER ON drupal.* TO 'root'@'localhost' IDENTIFIED BY 'sploitme';"
-    mysql -h 127.0.0.1 --user="root" --password="sploitme" super_secret_db < #{File.join(Chef::Config[:file_cache_path], 'cookbooks', 'metasploitable', 'files', 'flags', 'super_secret_db.sql')}
-  EOH
-  not_if "mysql -h 127.0.0.1 --user=\"root\" --password=\"sploitme\" --execute=\"SHOW DATABASES LIKE 'super_secret_db'\" | grep -c drupal"
-end
+# 7 of Diamonds
+include_recipe 'metasploitable::docker'
 
 directory '/opt/docker' do
   mode 700
@@ -76,8 +45,68 @@ file '/opt/docker/7_of_diamonds.zip' do
   action :delete
 end
 
-cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
-  source '/flags/2_of_spades.pcapng'
-  owner 'leia_organa'
-  mode 600
+if ENV['MS3_LINUX_HARD']
+  # 5 of Diamonds
+  include_recipe 'metasploitable::knockd'
+
+  directory '/opt/knock_knock' do
+    mode 0700
+  end
+
+  cookbook_file '/opt/knock_knock/five_of_diamonds' do
+    source 'flags/five_of_diamonds'
+    mode 0700
+  end
+
+  cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
+    source 'flags/five_of_diamonds_srv'
+    mode 777
+  end
+
+  service 'five_of_diamonds_srv' do
+    action [:enable, :start]
+  end
+
+  # 2 of Spades
+  cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
+    source '/flags/2_of_spades.pcapng'
+    owner 'leia_organa'
+    mode 600
+  end
+
+  # 8 of Hearts
+  include_recipe 'metasploitable::mysql'
+
+  bash "load 8 of hearts into DB" do
+    code <<-EOH
+    mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="CREATE DATABASE super_secret_db;"
+    mysql -h 127.0.0.1 --user="root" --password="sploitme" --execute="GRANT SELECT, INSERT, DELETE, CREATE, DROP, INDEX, ALTER ON drupal.* TO 'root'@'localhost' IDENTIFIED BY 'sploitme';"
+    mysql -h 127.0.0.1 --user="root" --password="sploitme" super_secret_db < #{File.join(Chef::Config[:file_cache_path], 'cookbooks', 'metasploitable', 'files', 'flags', 'super_secret_db.sql')}
+    EOH
+    not_if "mysql -h 127.0.0.1 --user=\"root\" --password=\"sploitme\" --execute=\"SHOW DATABASES LIKE 'super_secret_db'\" | grep -c drupal"
+  end
+
+  # Joker - red
+  cookbook_file '/etc/joker.png' do
+    source 'flags/joker.png'
+    mode 600
+  end
+else
+  # 10 of Spades
+
+  # 8 of Clubs
+
+  # 3 of Hearts
+
+  # 9 of Diamonds
+  directory '/home/kylo_ren/.secret_files/' do
+    mode 600
+  end
+
+  cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
+    source '/flags/my_recordings_do_not_open.iso'
+    mode 600
+  end
 end
+
+
