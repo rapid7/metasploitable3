@@ -93,6 +93,12 @@ if ENV['MS3_LINUX_HARD']
   end
 else
   # 10 of Spades
+  include_recipe 'metasploitable::readme_app'
+
+  cookbook_file '/opt/readme_app/public/images/10_of_spades.png' do
+    source 'flags/flag_images/10 of spades.png'
+    mode 644
+  end
 
   # 8 of Clubs
 
