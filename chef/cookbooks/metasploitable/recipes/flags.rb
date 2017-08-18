@@ -69,7 +69,7 @@ if ENV['MS3_LINUX_HARD']
 
   # 2 of Spades
   cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
-    source '/flags/2_of_spades.pcapng'
+    source 'flags/2_of_spades.pcapng'
     owner 'leia_organa'
     mode 600
   end
@@ -97,6 +97,10 @@ else
   # 8 of Clubs
 
   # 3 of Hearts
+  cookbook_file '/lost+found/3_of_hearts.png' do
+    source 'flags/flag_images/3 of hearts.png'
+    mode 600
+  end
 
   # 9 of Diamonds
   directory '/home/kylo_ren/.secret_files/' do
@@ -104,7 +108,7 @@ else
   end
 
   cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
-    source '/flags/my_recordings_do_not_open.iso'
+    source 'flags/my_recordings_do_not_open.iso'
     mode 600
   end
 end
