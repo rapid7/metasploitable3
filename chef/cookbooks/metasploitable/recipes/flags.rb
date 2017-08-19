@@ -102,8 +102,16 @@ else
 
   # 8 of Clubs
   random_directories = Array.new(20) { rand(1..100) }
+  prev_dirs = []
 
-  cookbook_file File.join('home','anakin_skywalker',random_directories.join('/')) do
+  random_directories.each do |dir|
+    directory File.join('home', 'anakin_skywalker', prev_dirs.join('/'), dir.to_s) do
+      mode 600
+    end
+    prev_dirs << dir
+  end
+
+  cookbook_file File.join('home', 'anakin_skywalker', random_directories.join('/'), '8_of_clubs.png') do
     source 'flags/flag_images/8 of clubs.png'
     mode 644
   end
