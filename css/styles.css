@@ -1,0 +1,22 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 50rem;
+  padding-top: 4.5rem;
+}
+
+.jumbotron {
+  text-align: center;
+  border-bottom: .05rem solid #e5e5e5;
+}
+
+.cb {
+  text-align: left;
+  padding-top: 2.5rem;
+  padding-left: 3.5rem;
+  font-size: 1.1rem;
+  font-weight: 30;
+}
+
+.other-color {
+    background: #e6e6ff;
+}

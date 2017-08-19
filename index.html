@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Metasploitable 3 - Custom Box Generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/styles.css" rel="stylesheet">
+    <script type="text/javascript">
+    function toggleAction(){
+      var axis = document.getElementById('axis').checked;
+      var struts = document.getElementById('struts').checked;
+      var caidao = document.getElementById('caidao').checked;
+      var elasticsearch = document.getElementById('elasticsearch').checked;
+      var glassfish = document.getElementById('glassfish').checked;
+      var iishttp = document.getElementById('iishttp').checked;
+      var iisftp = document.getElementById('iisftp').checked;
+      var jenkins = document.getElementById('jenkins').checked;
+      var jmx = document.getElementById('jmx').checked;
+      var mysql = document.getElementById('mysql').checked;
+      var rails = document.getElementById('rails').checked;
+      var snmp = document.getElementById('snmp').checked;
+      var tomcat = document.getElementById('tomcat').checked;
+      var webdav = document.getElementById('webdav').checked;
+      var wordpress = document.getElementById('wordpress').checked;
+      var test = '';
+      var initial = '<b>Copy the following text to a file at the location : <i>chef/cookbooks/custom_build.rb</i></b><br /><br />';
+      test += initial;
+      if(axis) {
+        test += 'include_recipe \'metasploitable::axis2\'<br />';
+      }
+      if(struts) {
+        test += 'include_recipe \'metasploitable::apache_struts\'<br />';
+      }
+      if(caidao) {
+        test += 'include_recipe \'metasploitable::backdoors\'<br />';
+      }
+      if(elasticsearch) {
+        test += 'include_recipe \'metasploitable::elasticsearch\'<br />';
+      }
+      if(glassfish) {
+        test += 'include_recipe \'metasploitable::glassfish\'<br />';
+      }
+      if(iishttp) {
+        test += 'include_recipe \'metasploitable::iis\'<br />';
+      }
+      if(iisftp) {
+        test += 'include_recipe \'metasploitable::ftp\'<br />';
+      }
+      if(jenkins) {
+        test += 'include_recipe \'metasploitable::jenkins\'<br />';
+      }
+      if(jmx) {
+        test += 'include_recipe \'metasploitable::jmx\'<br />';
+      }
+      if(mysql) {
+        test += 'include_recipe \'metasploitable::mysql\'<br />';
+      }
+      if(rails) {
+        test += 'include_recipe \'metasploitable::rails\'<br />';
+      }
+      if(snmp) {
+        test += 'include_recipe \'metasploitable::snmp\'<br />';
+      }
+      if(tomcat) {
+        test += 'include_recipe \'metasploitable::tomcat\'<br />';
+      }
+      if(webdav) {
+        test += 'include_recipe \'metasploitable::webdav\'<br />';
+      }
+      if(wordpress) {
+        test += 'include_recipe \'metasploitable::wordpress\'<br />';
+      }
+      test += '<br /><b>Use the command:</b> <i>packer build --only=virtualbox-iso packer/templates/pro/windows_2008_r2_pro.json</i><br />';
+        document.getElementById('myDIV').innerHTML = test;
+        document.getElementById('myDIV').scrollIntoView();
+    }
+    </script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Metasploitable 3</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Windows <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Linux</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Metasploitable 3 - Custom Box Generator</h1>
+        <p class="lead">This app allows you to create a customized Metasploitable 3 boxes</p>
+        <noscript>
+          <h2>Please enable JavaScript</h2>
+        </noscript>
+        <div class="cb">
+        <div class="checkbox">
+         <label><input type="checkbox" id="axis" value="">Apache Axis2</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="struts" value="">Apache Struts</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="caidao" value="">Chinese Caidao (Backdoor)</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="elasticsearch" value="">ElasticSearch</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="glassfish" value="">Glassfish</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="iishttp" value="">IIS - HTTP</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="iisftp" value="">IIS - FTP</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="jenkins" value="">Jenkins</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="jmx" value="">JMX</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="mengine" value="">ManageEngine</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="mysql" value="">MySQL</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="psexec" value="">psexec</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="phpmyadmin" value="">PHPMyAdmin</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="rails" value="">Rails Service</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="snmp" value="">SNMP</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="tomcat" value="">Tomcat</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="webdav" value="">WebDAV</label>
+        </div>
+        <div class="checkbox">
+         <label><input type="checkbox" id="wordpress" value="">WordPress</label>
+        </div>
+      </div>
+        <button class="btn btn-lg btn-primary" role="button" onclick="toggleAction()">Generate</a>
+      </div>
+      <div class="jumbotron other-color">
+      <div id="myDIV" class="cb">
+        <b>Please select the required vulnerabilities and click generate.</b>
+      </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
