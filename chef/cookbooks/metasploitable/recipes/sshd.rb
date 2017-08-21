@@ -6,7 +6,7 @@
 
 cookbook_file '/etc/ssh/sshd_config' do
   source 'sshd/sshd_config'
-  mode 0644
+  mode '0644'
 end
 
 service 'ssh' do
