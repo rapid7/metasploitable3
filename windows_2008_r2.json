@@ -185,9 +185,6 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "scripts/installs/install_rails_server.bat",
-        "scripts/installs/setup_rails_server.bat",
-        "scripts/installs/install_rails_service.bat",
         "scripts/installs/setup_webdav.bat",
         "scripts/installs/setup_mysql.bat",
         "scripts/installs/install_manageengine.bat",
