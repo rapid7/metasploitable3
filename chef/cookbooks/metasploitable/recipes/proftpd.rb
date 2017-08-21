@@ -12,7 +12,7 @@ proftpd_tar = 'proftpd-1.3.5.tar.gz'
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{proftpd_tar}" do
   source "#{node[:proftpd][:download_url]}/#{proftpd_tar}"
-  mode 0644
+  mode '0644'
 end
 
 execute "extract proftpd" do

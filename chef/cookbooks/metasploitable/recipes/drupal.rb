@@ -14,12 +14,12 @@ files_path    = File.join(Chef::Config[:file_cache_path], 'cookbooks', 'metasplo
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{drupal_tar}" do
   source "#{node[:drupal][:download_url]}/#{drupal_tar}"
-  mode 00644
+  mode '0644'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{coder_tar}" do
   source "#{node[:drupal][:download_url]}/#{coder_tar}"
-  mode 00644
+  mode '0644'
 end
 
 directory node[:drupal][:install_dir] do

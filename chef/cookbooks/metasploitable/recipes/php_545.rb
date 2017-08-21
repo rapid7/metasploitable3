@@ -28,12 +28,12 @@ end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{php_tar}" do
   source "#{node[:php545][:download_url]}/#{php_tar}"
-  mode 0644
+  mode '0644'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/libxml29_compat.patch" do
   source "https://mail.gnome.org/archives/xml/2012-August/txtbgxGXAvz4N.txt"
-  mode 0644
+  mode '0644'
 end
 
 execute "extract php" do

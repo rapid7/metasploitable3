@@ -20,7 +20,7 @@ end
 
 cookbook_file '/tmp/chatbot.zip' do
   source 'chatbot/chatbot.zip'
-  mode 0700
+  mode '0700'
 end
 
 execute 'unzip chatbot' do
