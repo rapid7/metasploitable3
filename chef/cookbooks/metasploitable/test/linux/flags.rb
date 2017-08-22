@@ -20,6 +20,10 @@ describe file('/opt/unrealircd/Unreal3.2/ircd.motd') do
   its('md5sum') { should eq 'be373836982164f7b479f8c12cc03e90' }
 end
 
+describe processes('/opt/unrealircd/Unreal3.2/src/ircd') do
+  its('users') { should eq ['boba_fett'] }
+end
+
 # 5 of Hearts tests
 describe command('curl http://localhost/drupal/?q=node/2') do
   its('stdout') { should match /5_of_hearts\.png/ } # Make sure it has the icon

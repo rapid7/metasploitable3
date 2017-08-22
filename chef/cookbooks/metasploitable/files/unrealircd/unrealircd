@@ -16,7 +16,7 @@ NAME=unrealircd
 
 do_start()
 {
-   /opt/unrealircd/Unreal3.2/unreal start
+   sudo -u boba_fett /opt/unrealircd/Unreal3.2/unreal start
 }
 
 do_stop()
