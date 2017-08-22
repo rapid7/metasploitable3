@@ -7,12 +7,14 @@
 # 10 of Clubs
 directory '/home/artoo_detoo/music' do
   owner 'artoo_detoo'
+  group 'users'
   mode '700'
 end
 
 cookbook_file '/home/artoo_detoo/music/10_of_clubs.wav' do
   source 'flags/10_of_clubs.wav'
   owner 'artoo_detoo'
+  group 'users'
   mode '400'
 end
 
@@ -116,6 +118,8 @@ else
   cookbook_file File.join('home', 'anakin_skywalker', random_directories.join('/'), '8_of_clubs.png') do
     source 'flags/flag_images/8 of clubs.png'
     mode '644'
+    owner 'anakin_skywalker'
+    group 'users'
   end
 
   # 3 of Hearts
