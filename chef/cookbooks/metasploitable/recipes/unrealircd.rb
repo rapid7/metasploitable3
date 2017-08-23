@@ -71,3 +71,7 @@ execute 'start unrealircd service' do
   # This should ideally be a service resource but for some reason chef doesn't start the service properly when it is.
   command '/etc/init.d/unrealircd start'
 end
+
+service 'unrealircd' do
+  action :enable
+end

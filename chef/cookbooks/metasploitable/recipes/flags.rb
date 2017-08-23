@@ -8,31 +8,31 @@
 directory '/home/artoo_detoo/music' do
   owner 'artoo_detoo'
   group 'users'
-  mode '700'
+  mode '0700'
 end
 
 cookbook_file '/home/artoo_detoo/music/10_of_clubs.wav' do
   source 'flags/10_of_clubs.wav'
   owner 'artoo_detoo'
   group 'users'
-  mode '400'
+  mode '0400'
 end
 
 # 7 of Diamonds
 include_recipe 'metasploitable::docker'
 
 directory '/opt/docker' do
-  mode '700'
+  mode '0700'
 end
 
 cookbook_file '/opt/docker/Dockerfile' do
   source '/flags/Dockerfile'
-  mode '700'
+  mode '0700'
 end
 
 cookbook_file '/opt/docker/7_of_diamonds.zip' do
   source '/flags/7_of_diamonds.zip'
-  mode '700'
+  mode '0700'
 end
 
 bash 'build docker image for 7 of diamonds' do
@@ -52,17 +52,17 @@ if ENV['MS3_LINUX_HARD']
   include_recipe 'metasploitable::knockd'
 
   directory '/opt/knock_knock' do
-    mode '700'
+    mode '0700'
   end
 
   cookbook_file '/opt/knock_knock/five_of_diamonds' do
     source 'flags/five_of_diamonds'
-    mode '700'
+    mode '0700'
   end
 
   cookbook_file '/etc/init/five_of_diamonds_srv.conf' do
     source 'flags/five_of_diamonds_srv'
-    mode '777'
+    mode '0777'
   end
 
   service 'five_of_diamonds_srv' do
@@ -73,7 +73,7 @@ if ENV['MS3_LINUX_HARD']
   cookbook_file '/home/leia_organa/2_of_spades.pcapng' do
     source 'flags/2_of_spades.pcapng'
     owner 'leia_organa'
-    mode '600'
+    mode '0600'
   end
 
   # 8 of Hearts
@@ -91,7 +91,7 @@ if ENV['MS3_LINUX_HARD']
   # Joker - red
   cookbook_file '/etc/joker.png' do
     source 'flags/joker.png'
-    mode '600'
+    mode '0600'
   end
 else
   # 10 of Spades
@@ -99,7 +99,7 @@ else
 
   cookbook_file '/opt/readme_app/public/images/10_of_spades.png' do
     source 'flags/flag_images/10 of spades.png'
-    mode '644'
+    mode '0644'
   end
 
   # 8 of Clubs
@@ -108,7 +108,7 @@ else
 
   random_directories.each do |dir|
     directory File.join('home', 'anakin_skywalker', prev_dirs.join('/'), dir.to_s) do
-      mode '600'
+      mode '0600'
       owner 'anakin_skywalker'
       group 'users'
     end
@@ -117,7 +117,7 @@ else
 
   cookbook_file File.join('home', 'anakin_skywalker', random_directories.join('/'), '8_of_clubs.png') do
     source 'flags/flag_images/8 of clubs.png'
-    mode '644'
+    mode '0644'
     owner 'anakin_skywalker'
     group 'users'
   end
@@ -125,19 +125,19 @@ else
   # 3 of Hearts
   cookbook_file '/lost+found/3_of_hearts.png' do
     source 'flags/flag_images/3 of hearts.png'
-    mode '600'
+    mode '0600'
   end
 
   # 9 of Diamonds
   directory '/home/kylo_ren/.secret_files/' do
-    mode '600'
+    mode '0600'
     owner 'kylo_ren'
     group 'users'
   end
 
   cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
     source 'flags/my_recordings_do_not_open.iso'
-    mode '600'
+    mode '0600'
     owner 'kylo_ren'
     group 'users'
   end
