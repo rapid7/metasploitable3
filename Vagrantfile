@@ -1,22 +1,24 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  # Base configuration for the VM and provisioner
-  config.vm.box = "metasploitable3"
-  config.vm.hostname = "metasploitable3"
-  config.vm.communicator = "winrm"
-  config.winrm.retry_limit = 60
-  config.winrm.retry_delay = 10
+    config.vm.box = "mtest"
+    config.vm.hostname = "metasploitable3"
+    config.vm.communicator = "winrm"
+    config.winrm.retry_limit = 60
+    config.winrm.retry_delay = 10
 
-  config.vm.network "private_network", type: "dhcp"
+    config.vm.network "private_network", type: "dhcp"
 
-  # Configure Firewall to open up vulnerable services
-  case ENV['MS3_DIFFICULTY']
-  when 'easy'
-    config.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
-  else
-    config.vm.provision :shell, path: "scripts/configs/enable_firewall.bat"
-    config.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
-  end
+    config.omnibus.chef_version = :latest
+
+    # Provision with Chef Solo
+    #
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = [ 'chef/cookbooks' ]
+
+      chef.json = { 'metasploitable' => {
+          # Customizations here
+        }
+      }
+
+      chef.add_recipe "metasploitable::mysql"
+    end
 end
