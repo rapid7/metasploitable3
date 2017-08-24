@@ -6,7 +6,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
-      "boot_wait": "10m",
+      "boot_wait": "5m",
       "communicator": "ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -49,7 +49,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
-      "boot_wait": "10m",
+      "boot_wait": "5m",
       "communicator": "ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -136,6 +136,14 @@
     },
     {
       "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "./scripts/configs/packer_cleanup.bat"
+      ]
     }
   ],
   "post-processors": [
