@@ -130,14 +130,14 @@ else
 
   # 9 of Diamonds
   directory '/home/kylo_ren/.secret_files/' do
-    mode '0600'
+    mode '0610'
     owner 'kylo_ren'
     group 'users'
   end
 
   cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
     source 'flags/my_recordings_do_not_open.iso'
-    mode '0600'
+    mode '0610'
     owner 'kylo_ren'
     group 'users'
   end
