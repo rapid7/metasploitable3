@@ -89,6 +89,16 @@ cookbook_file 'C:\Users\Public\Pictures\ten_of_diamonds.png' do
   action :create
 end
 
+cookbook_file 'C:\Windows\Temp\jack_of_diamonds.b64' do
+  source 'flags/jack_of_diamonds.b64'
+  action :create
+end
+
+execute 'Placing flag' do
+  command 'type C:\Windows\Temp\jack_of_diamonds.b64 > jack_of_diamonds.png:jack_of_diamonds.txt'
+  action :run
+end
+
 execute 'Creating database' do
   command '"C:\wamp\bin\mysql\mysql5.5.20\bin\mysql.exe" -u root --password=""  -e "create database cards;"'
   action :run
