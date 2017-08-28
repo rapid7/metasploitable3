@@ -135,7 +135,6 @@
       "guest_os_type": "windows",
       "cookbook_paths": ["chef/cookbooks"],
       "run_list": [
-        "recipe[metasploitable::boxstarter]",
         "recipe[metasploitable::7zip]",
         "recipe[metasploitable::password_settings]",
         "recipe[metasploitable::create_users]",
