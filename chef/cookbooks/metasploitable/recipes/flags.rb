@@ -8,21 +8,21 @@
 directory '/home/artoo_detoo/music' do
   owner 'artoo_detoo'
   group 'users'
-  mode '0700'
+  mode '0770'
 end
 
 cookbook_file '/home/artoo_detoo/music/10_of_clubs.wav' do
   source 'flags/10_of_clubs.wav'
   owner 'artoo_detoo'
   group 'users'
-  mode '0400'
+  mode '0410'
 end
 
 # 7 of Diamonds
 include_recipe 'metasploitable::docker'
 
 directory '/opt/docker' do
-  mode '0700'
+  mode '0770'
 end
 
 cookbook_file '/opt/docker/Dockerfile' do
@@ -93,6 +93,7 @@ if ENV['MS3_LINUX_HARD']
     source 'flags/joker.png'
     mode '0600'
   end
+
 else
   # 10 of Spades
   include_recipe 'metasploitable::readme_app'
@@ -108,7 +109,7 @@ else
 
   random_directories.each do |dir|
     directory File.join('home', 'anakin_skywalker', prev_dirs.join('/'), dir.to_s) do
-      mode '0600'
+      mode '0770'
       owner 'anakin_skywalker'
       group 'users'
     end
@@ -141,6 +142,11 @@ else
     owner 'kylo_ren'
     group 'users'
   end
+
+  execute 'build locate database' do
+    command 'updatedb'
+  end
 end
+
 
 

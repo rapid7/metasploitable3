@@ -125,6 +125,6 @@
     "iso_url": "http://old-releases.ubuntu.com/releases/14.04.1/ubuntu-14.04.1-server-amd64.iso",
     "iso_checksum_type": "md5",
     "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-    "box_version": "0.1.2"
+    "box_version": "0.1.5"
   }
 }
