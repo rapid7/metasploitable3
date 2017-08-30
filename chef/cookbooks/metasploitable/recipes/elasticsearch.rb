@@ -4,9 +4,6 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-include_recipe 'metasploitable::7zip'
-include_recipe 'metasploitable::jdk8'
-
 powershell_script 'Download ElasticSearch' do
   code '(New-Object System.Net.WebClient).DownloadFile(\'http://repo1.maven.org/maven2/org/elasticsearch/elasticsearch/1.1.1/elasticsearch-1.1.1.zip\', \'C:\Windows\Temp\elasticsearch-1.1.1.zip\')'
 end
@@ -18,6 +15,7 @@ end
 
 execute 'Install ElasticSearch' do
   command '"C:\Program Files\elasticsearch-1.1.1\bin\service.bat" install'
+  environment ({"JAVA_HOME" => "C:\\Program Files\\Java\\jdk1.8.0_144"})
   action :run
 end
 
@@ -39,11 +37,18 @@ windows_service 'elasticsearch-service-x64' do
   action :start
 end
 
+powershell_script 'Sleep 5 secs' do
+  code 'Start-Sleep -s 5'
+end
+
 powershell_script 'Test response' do
-  code '$req = [System.Net.HttpWebRequest]::Create(\'http://localhost:9200/metasploitable3/\'); $req.method = \'PUT\'; $req.GetResponse()'
+  code "$req = [System.Net.HttpWebRequest]::Create('http://localhost:9200/metasploitable3/'); $req.method = 'PUT'; $req.GetResponse()"
+end
+
+powershell_script 'Sleep 5 secs' do
+  code 'Start-Sleep -s 5'
 end
 
 powershell_script 'Test' do
-  code 'powershell -Command "$body = [System.Text.Encoding]::ASCII.GetBytes(\'{\"user\":\"kimchy\", \"post_date\": \"2009-11-15T14:12:12\", \"message\": \"Elasticsearch\" }\'); $req = [System.Net.HttpWebRequest]::Create(\'http://localhost:9200/metasploitable3/message/1\'); $req.method = \'PUT\'; $req.ContentType = \'application/x-www-form-urlencoded\'; $stream = $req.GetRequestStream(); $stream.Write($body, 0, $body.Length); $stream.close(); $req.GetResponse()"'
+  code "$body = [System.Text.Encoding]::ASCII.GetBytes('{\"user\":\"kimchy\", \"post_date\": \"2009-11-15T14:12:12\", \"message\": \"Elasticsearch\" }'); $req = [System.Net.HttpWebRequest]::Create('http://localhost:9200/metasploitable3/message/1'); $req.method = 'PUT'; $req.ContentType = 'application/x-www-form-urlencoded'; $stream = $req.GetRequestStream(); $stream.Write($body, 0, $body.Length); $stream.close(); $req.GetResponse()"
 end
-
