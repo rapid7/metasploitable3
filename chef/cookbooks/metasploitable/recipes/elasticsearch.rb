@@ -19,6 +19,7 @@ end
 execute 'Install ElasticSearch' do
   command '"C:\Program Files\elasticsearch-1.1.1\bin\service.bat" install'
   environment ({"JAVA_HOME" => "C:\\Program Files\\Java\\jdk1.8.0_144"})
+  only_if { ::File.exist?('C:\Program Files\Java\jdk1.8.0_144\bin\java.exe') }
   action :run
 end
 
