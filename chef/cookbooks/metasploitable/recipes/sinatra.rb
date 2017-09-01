@@ -9,6 +9,8 @@
 include_recipe 'metasploitable::sinatra'
 include_recipe 'metasploitable::ruby23'
 
+server_path = node['ec2'] ? 'aws' : 'virtualbox'
+
 directory '/opt/sinatra' do
   mode '0777'
 end
@@ -28,7 +30,7 @@ cookbook_file '/opt/sinatra/server' do
 end
 
 cookbook_file '/opt/sinatra/.server' do
-  source 'sinatra/server'
+  source "sinatra/#{server_path}/server"
   mode '0777'
 end
 
