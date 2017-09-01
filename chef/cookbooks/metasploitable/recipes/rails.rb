@@ -161,17 +161,17 @@ gem_package 'minitest' do
   options "--no-ri --no-rdoc"
 end
 
-file 'C:\tools\ruby23\lib\ruby\gems\2.3.0\specifications\sqlite3-1.3.11-x64-mingw32.gemspec' do
+cookbook_file 'C:\tools\ruby23\lib\ruby\gems\2.3.0\specifications\sqlite3-1.3.11-x64-mingw32.gemspec' do
   source 'rails_server/sqlite3-1.3.11-x64-mingw32.gemspec'
   action :create
 end
 
 execute 'Create Rails server' do
   command 'C:\tools\ruby23\bin\rails.bat _4.1.1_ new "C:\Program Files\Rails_Server"'
-  action :create
+  action :run
 end
 
-file 'C:\Program Files\Rails_Server\start_rails_server.bat' do
+cookbook_file 'C:\Program Files\Rails_Server\start_rails_server.bat' do
   source 'rails_server/start_rails_server.bat'
   action :create
 end

@@ -7,31 +7,27 @@
 include_recipe 'metasploitable::7zip'
 include_recipe 'metasploitable::ruby'
 
-directory 'C:\Program Files\Rails_Server' do
-  action :create
-end
-
-directory 'C:\Program Files\Rails_Server\devkit' do
+directory 'C:\RubyDevKit' do
   action :create
 end
 
 powershell_script "Download DevKit" do
-  code "(New-Object System.Net.WebClient).DownloadFile('http://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe', 'C:\\Program Files\\Rails_Server\\devkit\\devkit.exe')"
+  code "(New-Object System.Net.WebClient).DownloadFile('http://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe', 'C:\\RubyDevKit\\devkit.exe')"
 end
 
 batch 'Extract DevKit' do
-  code '"C:\Program Files\7-Zip\7z.exe" x "C:\Program Files\Rails_Server\devkit\devkit.exe" -o"C:\Program Files\Rails_Server\devkit\"'
+  code '"C:\Program Files\7-Zip\7z.exe" x "C:\RubyDevKit\devkit.exe" -o"C:\RubyDevKit\"'
 end
 
-cookbook_file 'C:\Program Files\Rails_Server\devkit\dk.rb' do
+cookbook_file 'C:\RubyDevKit\dk.rb' do
   source 'rails_server/devkit/dk.rb'
   action :create
 end
 
 batch 'Install DevKit' do
   code <<-EOH    
-    C:\\tools\\ruby23\\bin\\ruby.exe "C:\\Program Files\\Rails_Server\\devkit\\dk.rb" init
-    C:\\tools\\ruby23\\bin\\ruby.exe "C:\\Program Files\\Rails_Server\\devkit\\dk.rb" install
-    "C:\\Program Files\\Rails_Server\\devkit\\devkitvars.bat"
+    C:\\tools\\ruby23\\bin\\ruby.exe "C:\\RubyDevKit\\dk.rb" init
+    C:\\tools\\ruby23\\bin\\ruby.exe "C:\\RubyDevKit\\dk.rb" install
+    "C:\\RubyDevKit\\devkitvars.bat"
   EOH
 end
