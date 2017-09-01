@@ -6,8 +6,9 @@
 
 include_recipe 'metasploitable::7zip'
 
-powershell_script 'Download OpenJDK' do
-  code '(New-Object System.Net.WebClient).DownloadFile(\'https://github.com/downloads/alexkasko/openjdk-unofficial-builds/openjdk-1.6.0-unofficial-b27-windows-amd64.zip\', \'C:\Windows\Temp\openjdk-1.6.0-unofficial-b27-windows-amd64.zip\')'
+remote_file 'C:\Windows\Temp\openjdk-1.6.0-unofficial-b27-windows-amd64.zip' do
+  source 'https://github.com/downloads/alexkasko/openjdk-unofficial-builds/openjdk-1.6.0-unofficial-b27-windows-amd64.zip'
+  action :create
 end
 
 batch 'Install OpenJDK' do

@@ -11,8 +11,9 @@ directory 'C:\RubyDevKit' do
   action :create
 end
 
-powershell_script "Download DevKit" do
-  code "(New-Object System.Net.WebClient).DownloadFile('http://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe', 'C:\\RubyDevKit\\devkit.exe')"
+remote_file 'C:\RubyDevKit\devkit.exe' do
+  source 'http://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe'
+  action :create
 end
 
 batch 'Extract DevKit' do

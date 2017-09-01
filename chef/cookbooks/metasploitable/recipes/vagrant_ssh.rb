@@ -12,6 +12,7 @@ directory 'C:\\Users\\vagrant\\.ssh\\authorized_keys' do
   action :create
 end
 
-powershell_script 'download_public_key' do
-  code "(New-Object System.Net.WebClient).DownloadFile(\'http://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub\', \'C:\\Users\\vagrant\\.ssh\\authorized_keys\\vagrant.pub\')"
+remote_file 'C:\Users\vagrant\.ssh\authorized_keys\vagrant.pub' do
+  source 'http://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub'
+  action :create
 end

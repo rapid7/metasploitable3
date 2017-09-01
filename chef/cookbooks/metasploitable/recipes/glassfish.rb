@@ -8,8 +8,9 @@ directory 'C:\\glassfish' do
   action :create
 end
 
-powershell_script 'Download GlassFish' do
-  code "(New-Object System.Net.WebClient).DownloadFile('http://download.java.net/glassfish/4.0/release/glassfish-4.0.zip', 'C:\\Windows\\Temp\\glassfish4.zip')" 
+remote_file 'C:\Windows\Temp\glassfish4.zip' do
+  source 'http://download.java.net/glassfish/4.0/release/glassfish-4.0.zip'
+  action :create
 end
 
 execute 'Copy files' do

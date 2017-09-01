@@ -6,8 +6,9 @@
 
 include_recipe 'metasploitable::vcredist'
 
-powershell_script 'Download WAMP server' do
-  code '(New-Object System.Net.WebClient).DownloadFile(\'https://sourceforge.net/projects/wampserver/files/WampServer 2/WampServer 2.2/wampserver2.2d-x64.exe\', \'C:\Windows\Temp\wampserver2.2.d-x64.exe\')'
+remote_file 'C:\Windows\Temp\wampserver2.2.d-x64.exe' do
+  source 'https://sourceforge.net/projects/wampserver/files/WampServer 2/WampServer 2.2/wampserver2.2d-x64.exe'
+  action :create
 end
 
 execute 'Install WAMP Server' do
