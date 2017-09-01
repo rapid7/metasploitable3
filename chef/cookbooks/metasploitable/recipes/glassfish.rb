@@ -35,9 +35,11 @@ windows_service 'domain1' do
   action [:enable, :start]
 end
 
-powershell_script 'Sleep for 10 seconds' do
-  guard_interpreter :powershell_script
-  code 'Start-Sleep -s 10'
+ruby_block 'Sleep for 15 secs' do
+  block do
+    sleep(15)
+  end
+  action :run
 end
 
 windows_service 'domain1' do
