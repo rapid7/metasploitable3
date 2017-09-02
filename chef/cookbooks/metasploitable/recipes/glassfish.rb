@@ -4,6 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::7zip'
+include_recipe 'metasploitable::jdk8'
+
 directory 'C:\\glassfish' do
   action :create
 end
@@ -28,8 +31,9 @@ cookbook_file 'C:\glassfish\glassfish4\glassfish\domains\domain1\config\domain.x
   action :create
 end
 
-execute "C:\\glassfish\\glassfish4\\bin\\asadmin.bat create-service domain1" do
+execute 'C:\glassfish\glassfish4\bin\asadmin.bat create-service domain1' do
   action :run
+  environment ({'Path' => 'C:\Program Files\Java\jdk1.8.0_144\bin'})
 end
 
 windows_service 'domain1' do

@@ -4,6 +4,7 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::7zip'
 include_recipe 'metasploitable::tomcat'
 
 remote_file 'C:\Windows\Temp\axis2-1.6.0-war.zip' do

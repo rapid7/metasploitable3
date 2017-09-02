@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'metasploitable::password_settings'
+
 user 'leia_organa' do
   password 'help_me_obiw@n'
   action :create

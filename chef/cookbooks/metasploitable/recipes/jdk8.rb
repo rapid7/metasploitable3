@@ -6,6 +6,7 @@
 
 chocolatey_package 'jdk8' do
   action :install
+  timeout 5000
 end
 
 execute 'Refresh environment' do

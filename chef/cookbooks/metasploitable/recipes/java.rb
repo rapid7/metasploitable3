@@ -6,4 +6,5 @@
 
 chocolatey_package 'javaruntime-platformspecific' do
   action :install
+  timeout 5000
 end
