@@ -183,3 +183,7 @@ batch 'Install Rails service' do
   EOH
 end
 
+execute 'Add firewall rule' do
+  command 'netsh advfirewall firewall add rule name="Open Port 3000 for Rails Server" dir=in action=allow protocol=TCP localport=3000'
+  action :run
+end

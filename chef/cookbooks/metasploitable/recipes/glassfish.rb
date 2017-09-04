@@ -57,3 +57,13 @@ batch 'Configure files' do
     sc config "domain1" obj= "NT Authority\\LOCAL SERVICE"
   EOH
 end
+
+execute 'Update firwall rule for port 4848' do
+  command 'netsh advfirewall firewall add rule name="Open Port 4848 for GlassFish" dir=in action=allow protocol=TCP localport=4848'
+  action :run
+end
+
+execute 'Update firewall rule for port 8080' do
+  command 'netsh advfirewall firewall add rule name="Open Port 8080 for GlassFish" dir=in action=allow protocol=TCP localport=8080'
+  action :run
+end

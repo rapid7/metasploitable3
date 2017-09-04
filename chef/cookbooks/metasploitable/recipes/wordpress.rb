@@ -54,3 +54,8 @@ end
 batch 'Set attributes' do
   code 'attrib -r +s C:\wamp\www\wordpress'
 end
+
+execute 'Update firewall rule' do
+  command 'netsh advfirewall firewall add rule name="Open Port 8585 for Wordpress and phpMyAdmin" dir=in action=allow protocol=TCP localport=8585'
+  action :run
+end

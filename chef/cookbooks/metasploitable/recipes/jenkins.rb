@@ -30,3 +30,8 @@ windows_service 'jenkins' do
   action [:enable, :start]
   startup_type :automatic
 end
+
+execute 'Update firewall rule' do
+  command 'netsh advfirewall firewall add rule name="Open Port 8484 for Jenkins" dir=in action=allow protocol=TCP localport=8484'
+  action :run
+end

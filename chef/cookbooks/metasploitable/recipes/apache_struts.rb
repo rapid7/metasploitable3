@@ -30,3 +30,8 @@ cookbook_file 'C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-
   source 'apache_struts/struts2-rest-showcase.war'
   action :create
 end
+
+execute 'Update firewall rule' do
+  command 'netsh advfirewall firewall add rule name="Open Port 8282 for Apache Struts" dir=in action=allow protocol=TCP localport=8282'
+  action :run
+end

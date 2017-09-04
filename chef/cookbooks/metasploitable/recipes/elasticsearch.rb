@@ -66,3 +66,8 @@ end
 powershell_script 'Test' do
   code "$body = [System.Text.Encoding]::ASCII.GetBytes('{\"user\":\"kimchy\", \"post_date\": \"2009-11-15T14:12:12\", \"message\": \"Elasticsearch\" }'); $req = [System.Net.HttpWebRequest]::Create('http://localhost:9200/metasploitable3/message/1'); $req.method = 'PUT'; $req.ContentType = 'application/x-www-form-urlencoded'; $stream = $req.GetRequestStream(); $stream.Write($body, 0, $body.Length); $stream.close(); $req.GetResponse()"
 end
+
+execute 'All firewall rule' do
+  command 'netsh advfirewall firewall add rule name="Open Port 9200 for ElasticSearch" dir=in action=allow protocol=TCP localport=9200'
+  action :run
+end
