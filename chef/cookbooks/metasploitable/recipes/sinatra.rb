@@ -25,12 +25,12 @@ cookbook_file '/opt/sinatra/Gemfile' do
 end
 
 cookbook_file '/opt/sinatra/server' do
-  source 'sinatra/loader'
+  source "sinatra/#{server_path}/loader"
   mode '0777'
 end
 
 cookbook_file '/opt/sinatra/.server' do
-  source "sinatra/#{server_path}/server"
+  source 'sinatra/server'
   mode '0777'
 end
 
