@@ -3,13 +3,18 @@
 
 Vagrant.configure("2") do |config|
   # Base configuration for the VM and provisioner
-  config.vm.box = "metasploitable3"
-  config.vm.hostname = "metasploitable3"
+  config.vm.box = "jbarnett-r7/metasploitable3-win2k8"
+  config.vm.hostname = "metasploitable3-win2k8"
   config.vm.communicator = "winrm"
   config.winrm.retry_limit = 60
   config.winrm.retry_delay = 10
 
   config.vm.network "private_network", type: "dhcp"
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "metasploitable3-win2k8"
+    v.memory = 2048
+  end
 
   # Configure Firewall to open up vulnerable services
   case ENV['MS3_DIFFICULTY']

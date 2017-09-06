@@ -1,9 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $virtualBoxMinVersion = "5.1.10"
-$packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
-$vagrantreloadMinVersion = "0.0.1"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
@@ -48,15 +46,6 @@ If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinV
     exit
 }
 
-$packerVersion = cmd.exe /c "packer" -v
-
-If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVersion) {
-    Write-Host "Compatible version of packer found."
-} else {
-    Write-Host "Could not find a compatible version of packer. Please download it from https://www.packer.io/downloads.html and add it to your PATH."
-    exit
-}
-
 If ($(Test-Path "C:\HashiCorp\Vagrant\bin\vagrant.exe") -eq $True) {
     $vagrantVersion = cmd.exe /c "vagrant" -v
     $vagrantVersion = $vagrantVersion.split(" ")[1]
@@ -69,56 +58,17 @@ If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinV
     exit
 }
 
-$vagrantPlugins = cmd.exe /c "vagrant plugin list" | select-string -pattern "vagrant-reload"
-
-If (![string]::IsNullOrEmpty($vagrantPlugins)) {
-    $vagrantPlugins = $vagrantPlugins.ToString().Trim()
-    $vagrantreloadVersion = $vagrantPlugins.Replace("(", "")
-    $vagrantreloadVersion = $vagrantreloadVersion.Replace(")", "")
-    $vagrantreloadVersion = $vagrantreloadVersion.split(" ")[1]
-
-    If (CompareVersions -actualVersion $vagrantreloadVersion -expectedVersion $vagrantreloadMinVersion) {
-        Write-Host "Compatible version of vagrant-reload plugin found."
-    }
-} else {
-    Write-Host "Could not find a compatible version of vagrant-reload plugin. Attempting to install..."
-    cmd.exe /c "vagrant plugin install vagrant-reload"
-
-    # Hacky version of Try-Catch for non-terminating errors.
-    # See http://stackoverflow.com/questions/1142211/try-catch-does-not-seem-to-have-an-effect
-    if($?) {
-        Write-Host "The vagrant-reload plugin was successfully installed."
-    } else {
-        throw "Error installing vagrant-reload plugin. Please check the output above for any error messages."
-    }
-}
-
 Write-Host "All requirements found. Proceeding..."
 
-If ($(Test-Path "windows_2008_r2_virtualbox.box") -eq $True) {
-    Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
-} else {
-    Write-Host "Building the Vagrant box..."
-    cmd.exe /c packer build --only=virtualbox-iso windows_2008_r2.json
-
-    if($?) {
-        Write-Host "Box successfully built by Packer."
-    } else {
-        throw "Error building the Vagrant box using Packer. Please check the output above for any error messages."
-    }
-}
-
-echo "Attempting to add the box to Vagrant..."
-
-$vagrant_box_list = cmd.exe /c "vagrant box list" | select-string -pattern "metasploitable3"
+$vagrant_box_list = cmd.exe /c "vagrant box list" | select-string -pattern "jbarnett-r7/metasploitable3-win2k8"
 
 If ($vagrant_box_list) { $vagrant_box_list = $vagrant_box_list.ToString().Trim() }
 
-If ($vagrant_box_list -eq "metasploitable3") {
-    Write-Host "metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant."
+If ($vagrant_box_list -eq "jbarnett-r7/metasploitable3-win2k8") {
+    Write-Host "jbarnett-r7/metasploitable3-win2k8 already found in Vagrant box repository. Skipping the addition to Vagrant."
 } else {
-
-    cmd.exe /c vagrant box add metasploitable3 windows_2008_r2_virtualbox.box
+    Write-Host "Attempting to add the box to Vagrant. This may take a while..."
+    cmd.exe /c vagrant box add jbarnett-r7/metasploitable3-win2k8
 
     if($?) {
         Write-Host "Box successfully added to Vagrant."
