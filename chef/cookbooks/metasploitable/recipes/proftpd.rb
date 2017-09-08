@@ -31,6 +31,10 @@ bash 'compile and install proftpd' do
   EOH
 end
 
+execute 'add hostname to /etc/hosts' do
+  command "echo #{node[:ipaddress]} #{node[:hostname]} >> /etc/hosts"
+end
+
 cookbook_file '/etc/init.d/proftpd' do
   source 'proftpd/proftpd'
   mode '760'
