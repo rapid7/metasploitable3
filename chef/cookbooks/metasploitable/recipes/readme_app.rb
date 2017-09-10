@@ -12,6 +12,8 @@ include_recipe 'metasploitable::nodejs'
 package 'git'
 
 directory '/opt/readme_app' do
+  owner 'chewbacca'
+  group 'users'
   mode '0644'
 end
 
@@ -24,12 +26,18 @@ end
 
 template '/opt/readme_app/start.sh' do
   source 'readme_app/start.sh.erb'
-  mode '0700'
 end
 
 cookbook_file '/etc/init/readme_app.conf' do
   source 'readme_app/readme_app.conf'
   mode '0644'
+end
+
+script 'set permissions' do
+  code <<-EOH
+    find . -type d | xargs chmod 0755
+    find . -type f | xargs chmod 0644
+  EOH
 end
 
 service 'readme_app' do
