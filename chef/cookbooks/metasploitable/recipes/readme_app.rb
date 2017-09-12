@@ -33,10 +33,12 @@ cookbook_file '/etc/init/readme_app.conf' do
   mode '0644'
 end
 
-script 'set permissions' do
+bash 'set permissions' do
   code <<-EOH
-    find . -type d | xargs chmod 0755
-    find . -type f | xargs chmod 0644
+    chown -R chewbacca:users /opt/readme_app
+    find /opt/readme_app -type d | xargs chmod 0755
+    find /opt/readme_app -type f | xargs chmod 0644
+    chmod 0755 /opt/readme_app/start.sh
   EOH
 end
 

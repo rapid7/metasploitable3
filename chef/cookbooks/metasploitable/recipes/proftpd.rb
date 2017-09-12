@@ -40,6 +40,39 @@ cookbook_file '/etc/init.d/proftpd' do
   mode '760'
 end
 
+# Setup the IP Renewer
+cookbook_file '/opt/proftpd/proftpd_ip_renewer.rb' do
+  source 'proftpd/proftpd_ip_renewer.rb'
+  mode '744'
+  owner 'root'
+  group 'root'
+end
+
+cookbook_file '/etc/init/proftpd_ip_renewer.conf' do
+  source 'proftpd/proftpd_ip_renewer.conf'
+  mode '0644'
+end
+
+cookbook_file '/opt/proftpd/hosts_renewer.rb' do
+  source 'proftpd/hosts_renewer.rb'
+  mode '744'
+  owner 'root'
+  group 'root'
+end
+
+cookbook_file '/etc/init/hosts_renewer.conf' do
+  source 'proftpd/hosts_renewer.conf'
+  mode '0644'
+end
+
 service 'proftpd' do
+  action [:enable, :start]
+end
+
+service 'proftpd_ip_renewer' do
+  action [:enable, :start]
+end
+
+service 'hosts_renewer' do
   action [:enable, :start]
 end
