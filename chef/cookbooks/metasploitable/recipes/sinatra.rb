@@ -29,11 +29,6 @@ cookbook_file '/opt/sinatra/server' do
   mode '0777'
 end
 
-cookbook_file '/opt/sinatra/.server' do
-  source 'sinatra/server'
-  mode '0777'
-end
-
 cookbook_file '/etc/init/sinatra.conf' do
   source 'sinatra/sinatra.conf'
   mode '0777'
