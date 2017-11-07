@@ -47,6 +47,60 @@ file '/opt/docker/7_of_diamonds.zip' do
   action :delete
 end
 
+# Easy mode flags
+# 10 of Spades
+include_recipe 'metasploitable::readme_app'
+
+cookbook_file '/opt/readme_app/public/images/10_of_spades.png' do
+  source 'flags/flag_images/10 of spades.png'
+  mode '0644'
+end
+
+# 8 of Clubs
+random_directories = Array.new(20) { rand(1..100) }
+prev_dirs = []
+
+random_directories.each do |dir|
+  directory File.join('home', 'anakin_skywalker', prev_dirs.join('/'), dir.to_s) do
+    mode '0770'
+    owner 'anakin_skywalker'
+    group 'users'
+  end
+  prev_dirs << dir
+end
+
+cookbook_file File.join('home', 'anakin_skywalker', random_directories.join('/'), '8_of_clubs.png') do
+  source 'flags/flag_images/8 of clubs.png'
+  mode '0644'
+  owner 'anakin_skywalker'
+  group 'users'
+end
+
+# 3 of Hearts
+cookbook_file '/lost+found/3_of_hearts.png' do
+  source 'flags/flag_images/3 of hearts.png'
+  mode '0600'
+end
+
+# 9 of Diamonds
+directory '/home/kylo_ren/.secret_files/' do
+  mode '0610'
+  owner 'kylo_ren'
+  group 'users'
+end
+
+cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
+  source 'flags/my_recordings_do_not_open.iso'
+  mode '0610'
+  owner 'kylo_ren'
+  group 'users'
+end
+
+execute 'build locate database' do
+  command 'updatedb'
+end
+
+# Hard mode flags
 if ENV['MS3_LINUX_HARD']
   # 5 of Diamonds
   include_recipe 'metasploitable::knockd'
@@ -93,60 +147,4 @@ if ENV['MS3_LINUX_HARD']
     source 'flags/joker.png'
     mode '0600'
   end
-
-else
-  # 10 of Spades
-  include_recipe 'metasploitable::readme_app'
-
-  cookbook_file '/opt/readme_app/public/images/10_of_spades.png' do
-    source 'flags/flag_images/10 of spades.png'
-    mode '0644'
-  end
-
-  # 8 of Clubs
-  random_directories = Array.new(20) { rand(1..100) }
-  prev_dirs = []
-
-  random_directories.each do |dir|
-    directory File.join('home', 'anakin_skywalker', prev_dirs.join('/'), dir.to_s) do
-      mode '0770'
-      owner 'anakin_skywalker'
-      group 'users'
-    end
-    prev_dirs << dir
-  end
-
-  cookbook_file File.join('home', 'anakin_skywalker', random_directories.join('/'), '8_of_clubs.png') do
-    source 'flags/flag_images/8 of clubs.png'
-    mode '0644'
-    owner 'anakin_skywalker'
-    group 'users'
-  end
-
-  # 3 of Hearts
-  cookbook_file '/lost+found/3_of_hearts.png' do
-    source 'flags/flag_images/3 of hearts.png'
-    mode '0600'
-  end
-
-  # 9 of Diamonds
-  directory '/home/kylo_ren/.secret_files/' do
-    mode '0610'
-    owner 'kylo_ren'
-    group 'users'
-  end
-
-  cookbook_file '/home/kylo_ren/.secret_files/my_recordings_do_not_open.iso' do
-    source 'flags/my_recordings_do_not_open.iso'
-    mode '0610'
-    owner 'kylo_ren'
-    group 'users'
-  end
-
-  execute 'build locate database' do
-    command 'updatedb'
-  end
 end
-
-
-
