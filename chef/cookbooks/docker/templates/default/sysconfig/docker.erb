@@ -1,0 +1,19 @@
+# /etc/sysconfig/docker
+#
+# Other arguments to pass to the docker daemon process
+# These will be parsed by the sysv initscript and appended
+# to the arguments list passed to docker
+
+other_args="<%= @docker_daemon_opts %>"
+
+# If you need Docker to use an HTTP proxy, it can also be specified here.
+<% if @config.http_proxy %>
+export http_proxy="<%= @config.http_proxy %>"
+<% end %>
+<% if @config.https_proxy %>
+export https_proxy="<%= @config.https_proxy %>"
+<% end %>
+
+<% if @config.no_proxy %>
+export no_proxy="<%= @config.no_proxy %>"
+<% end %>

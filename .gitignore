@@ -1,5 +1,6 @@
 .vagrant/
 packer_cache/
+packer/builds/
 *.exe
 *.msi
 *.msu

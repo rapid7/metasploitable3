@@ -1,0 +1,5 @@
+description 'Run vulnerable custom http on 8989'
+author 'metasploitable3'
+
+start on runlevel [2345]
+exec "/opt/knock_knock/five_of_diamonds"
