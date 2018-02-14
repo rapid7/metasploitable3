@@ -42,7 +42,7 @@ if [ $(uname) = "Darwin" ]; then
     vagrant_exact_match=false
 elif [ $(uname) = "Linux" ]; then
     vagrant_exact_match=false
-    if (cat /etc/*-release | grep -q 'DISTRIB_ID=Arch')|(cat /etc/os-release | grep -q 'ID=arch'); then
+    if (cat /etc/*-release | grep -q 'DISTRIB_ID=Arch')|(cat /etc/os-release | grep -Pq 'ID=(arch|"antergos")'); then
         packer_bin="packer-io"
     fi
 fi

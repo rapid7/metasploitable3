@@ -4,6 +4,7 @@ $virtualBoxMinVersion = "5.1.10"
 $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
+$packer = "packer"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
@@ -48,7 +49,7 @@ If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinV
     exit
 }
 
-$packerVersion = cmd.exe /c "packer" -v
+$packerVersion = cmd.exe /c $packer -v
 
 If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVersion) {
     Write-Host "Compatible version of packer found."
@@ -99,7 +100,7 @@ If ($(Test-Path "windows_2008_r2_virtualbox.box") -eq $True) {
     Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
 } else {
     Write-Host "Building the Vagrant box..."
-    cmd.exe /c packer build --only=virtualbox-iso windows_2008_r2.json
+    cmd.exe /c $packer build --only=virtualbox-iso windows_2008_r2.json
 
     if($?) {
         Write-Host "Box successfully built by Packer."
