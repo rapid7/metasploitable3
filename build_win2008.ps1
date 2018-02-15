@@ -6,6 +6,11 @@ $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer"
 
+Param (
+    [Parameter(Mandatory=$true)]
+    [string]$os
+)
+
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
         If ($actualVersion -eq $expectedVersion) {
