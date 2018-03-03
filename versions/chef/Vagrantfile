@@ -1,0 +1,46 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "mtest"
+    config.vm.hostname = "metasploitable3"
+    config.vm.communicator = "winrm"
+    config.winrm.retry_limit = 60
+    config.winrm.retry_delay = 10
+
+    config.vm.network "private_network", type: "dhcp"
+
+    # Provision with Chef Solo
+    #
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = [ 'chef/cookbooks' ]
+
+      chef.json = { 'metasploitable' => {
+          # Customizations here
+        }
+      }
+
+      chef.add_recipe "metasploitable::7zip"
+      chef.add_recipe "metasploitable::password_settings"
+      chef.add_recipe "metasploitable::create_users"
+      chef.add_recipe "metasploitable::iis"
+      chef.add_recipe "metasploitable::ftp"
+      chef.add_recipe "metasploitable::java"
+      chef.add_recipe "metasploitable::tomcat"
+      chef.add_recipe "metasploitable::apache_struts"
+      chef.add_recipe "metasploitable::glassfish"
+      chef.add_recipe "metasploitable::jenkins"
+      chef.add_recipe "metasploitable::vcredist"
+      chef.add_recipe "metasploitable::wamp"
+      chef.add_recipe "metasploitable::wordpress"
+      chef.add_recipe "metasploitable::openjdk6"
+      chef.add_recipe "metasploitable::jmx"
+      chef.add_recipe "metasploitable::ruby"
+      chef.add_recipe "metasploitable::devkit"
+      chef.add_recipe "metasploitable::rails"
+      chef.add_recipe "metasploitable::webdav"
+      chef.add_recipe "metasploitable::mysql"
+      chef.add_recipe "metasploitable::axis2"
+      chef.add_recipe "metasploitable::backdoors"
+      chef.add_recipe "metasploitable::snmp"
+      chef.add_recipe "metasploitable::elasticsearch"
+      chef.add_recipe "metasploitable::flags"
+    end
+end

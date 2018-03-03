@@ -98,37 +98,27 @@
   ],
 "provisioners": [
     {
-      "type": "file",
-      "source": "scripts",
-      "destination": "C:/vagrant"
+      "type": "windows-restart"
     },
     {
-      "type": "file",
-      "source": "resources",
-      "destination": "C:/vagrant"
+      "type": "chef-solo",
+      "guest_os_type": "windows",
+      "cookbook_paths": ["chef/cookbooks"],
+      "run_list": [
+        "recipe[metasploitable::root_certs]",
+        "recipe[metasploitable::vagrant_ssh]",
+        "recipe[metasploitable::disable_auto_logon]",
+        "recipe[metasploitable::enable_rdp]"
+      ],
+      "pause_before": "30s"
     },
     {
       "type": "shell",
       "remote_path": "/tmp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "./scripts/configs/update_root_certs.bat",
-        "./scripts/installs/vm-guest-tools.bat",
-        "./scripts/configs/vagrant-ssh.bat",
-        "./scripts/configs/disable-auto-logon.bat",
-        "./scripts/configs/enable-rdp.bat"
+        "./scripts/installs/vm-guest-tools.bat"
       ]
-    },
-    {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "./scripts/configs/disable_firewall.bat"
-      ]
-    },
-    {
-      "type": "windows-restart"
     },
     {
       "type":"powershell",
@@ -141,63 +131,56 @@
       "type": "windows-restart"
     },
     {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "scripts/installs/install_boxstarter.bat",
-        "scripts/chocolatey_installs/7zip.bat",
-        "scripts/configs/apply_password_settings.bat",
-        "scripts/configs/create_users.bat",
-        "scripts/installs/setup_iis.bat",
-        "scripts/installs/setup_ftp_site.bat",
-        "scripts/chocolatey_installs/java.bat"
+      "type": "chef-solo",
+      "guest_os_type": "windows",
+      "cookbook_paths": ["chef/cookbooks"],
+      "run_list": [
+        "recipe[metasploitable::7zip]",
+        "recipe[metasploitable::password_settings]",
+        "recipe[metasploitable::create_users]",
+        "recipe[metasploitable::iis]",
+        "recipe[metasploitable::ftp]",
+        "recipe[metasploitable::java]"
       ]
     },
     {
       "type": "windows-restart"
     },
     {
-      "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "scripts/chocolatey_installs/tomcat.bat",
-        "scripts/installs/setup_apache_struts.bat",
-        "scripts/installs/setup_glassfish.bat",
-        "scripts/installs/start_glassfish_service.bat",
-        "scripts/installs/setup_jenkins.bat",
-        "scripts/chocolatey_installs/vcredist2008.bat",
-        "scripts/installs/install_wamp.bat",
-        "scripts/installs/start_wamp.bat",
-        "scripts/installs/install_wordpress.bat",
-        "scripts/installs/install_openjdk6.bat",
-        "scripts/installs/setup_jmx.bat",
-        "scripts/installs/install_ruby.bat",
-        "scripts/installs/install_devkit.bat"
-        ]
+      "type": "chef-solo",
+      "guest_os_type": "windows",
+      "cookbook_paths": ["chef/cookbooks"],
+      "run_list": [
+        "recipe[metasploitable::tomcat]",
+        "recipe[metasploitable::apache_struts]",
+        "recipe[metasploitable::glassfish]",
+        "recipe[metasploitable::jenkins]",
+        "recipe[metasploitable::vcredist]",
+        "recipe[metasploitable::wamp]",
+        "recipe[metasploitable::wordpress]",
+        "recipe[metasploitable::openjdk6]",
+        "recipe[metasploitable::jmx]",
+        "recipe[metasploitable::ruby]",
+        "recipe[metasploitable::devkit]"
+      ]
     },
     {
       "type": "windows-restart"
     },
     {
-    "type": "windows-shell",
-      "remote_path": "C:/Windows/Temp/script.bat",
-      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "scripts/installs/install_rails_server.bat",
-        "scripts/installs/setup_rails_server.bat",
-        "scripts/installs/install_rails_service.bat",
-        "scripts/installs/setup_webdav.bat",
-        "scripts/installs/setup_mysql.bat",
-        "scripts/installs/install_manageengine.bat",
-        "scripts/installs/setup_axis2.bat",
-        "scripts/installs/install_backdoors.bat",
-        "scripts/installs/setup_snmp.bat",
-        "scripts/configs/configure_firewall.bat",
-        "scripts/installs/install_elasticsearch.bat",
-        "scripts/installs/install_flags.bat",
-        "scripts/configs/packer_cleanup.bat"
+      "type": "chef-solo",
+      "guest_os_type": "windows",
+      "cookbook_paths": ["chef/cookbooks"],
+      "run_list": [
+        "recipe[metasploitable::rails]",
+        "recipe[metasploitable::webdav]",
+        "recipe[metasploitable::mysql]",
+        "recipe[metasploitable::axis2]",
+        "recipe[metasploitable::backdoors]",
+        "recipe[metasploitable::snmp]",
+        "recipe[metasploitable::elasticsearch]",
+        "recipe[metasploitable::flags]",
+        "recipe[metasploitable::cleaner]"
       ]
     }
   ],
