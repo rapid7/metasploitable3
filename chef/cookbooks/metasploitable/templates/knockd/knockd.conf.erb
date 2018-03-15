@@ -1,0 +1,16 @@
+[options]
+        UseSyslog
+<% administrator_members = node[:users].keys.find_all { |user| node[:users][user][:admin] == true } %>
+[openFlag]
+        sequence    = <%= administrator_members.map { |u| node[:users][u][:salary] }.join(',') %>
+        seq_timeout = 15
+        command     = /sbin/iptables -I INPUT 1 -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
+        tcpflags    = syn
+        cmd_timeout = 30
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
+
+[closeFlag]
+        sequence    = <%= administrator_members.map { |u| node[:users][u][:salary] }.reverse.join(',') %>
+        seq_timeout = 15
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport <%= node[:flags][:five_of_diamonds][:vuln_port] %> -j ACCEPT
+        tcpflags    = syn

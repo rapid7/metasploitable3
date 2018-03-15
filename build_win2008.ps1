@@ -96,11 +96,11 @@ If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
 Write-Host "All requirements found. Proceeding..."
 
-If ($(Test-Path "windows_2008_r2_virtualbox.box") -eq $True) {
+If ($(Test-Path "packer\templates\windows_2008_r2_virtualbox.box") -eq $True) {
     Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
 } else {
     Write-Host "Building the Vagrant box..."
-    cmd.exe /c $packer build --only=virtualbox-iso windows_2008_r2.json
+    cmd.exe /c $packer build --only=virtualbox-iso packer\templates\windows_2008_r2.json
 
     if($?) {
         Write-Host "Box successfully built by Packer."
@@ -111,15 +111,15 @@ If ($(Test-Path "windows_2008_r2_virtualbox.box") -eq $True) {
 
 echo "Attempting to add the box to Vagrant..."
 
-$vagrant_box_list = cmd.exe /c "vagrant box list" | select-string -pattern "metasploitable3"
+$vagrant_box_list = cmd.exe /c "vagrant box list" | select-string -pattern "metasploitable3-win2k8"
 
 If ($vagrant_box_list) { $vagrant_box_list = $vagrant_box_list.ToString().Trim() }
 
-If ($vagrant_box_list -eq "metasploitable3") {
-    Write-Host "metasploitable3 already found in Vagrant box repository. Skipping the addition to Vagrant."
+If ($vagrant_box_list -eq "metasploitable3-win2k8") {
+    Write-Host "metasploitable3-win2k8 already found in Vagrant box repository. Skipping the addition to Vagrant."
 } else {
 
-    cmd.exe /c vagrant box add metasploitable3 windows_2008_r2_virtualbox.box
+    cmd.exe /c vagrant box add metasploitable3-win2k8 packer\builds\windows_2008_r2_virtualbox.box
 
     if($?) {
         Write-Host "Box successfully added to Vagrant."

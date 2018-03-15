@@ -1,0 +1,36 @@
+[Unit]
+Description=Docker Application Container Engine
+Documentation=http://docs.docker.com
+After=network.target
+
+[Service]
+Type=notify
+<% if @config.http_proxy %>
+Environment="HTTP_PROXY=<%= @config.http_proxy %>"
+<% end %>
+<% if @config.https_proxy %>
+Environment="HTTPS_PROXY=<%= @config.https_proxy %>"
+<% end %>
+<% if @config.no_proxy %>
+Environment="NO_PROXY=<%= @config.no_proxy %>"
+<% end %>
+<% if @config.tmpdir %>
+Environment="TMPDIR=<%= @config.tmpdir %>"
+<% end %>
+<% if @config.ipv4_forward %>
+ExecStartPre=/sbin/sysctl -w net.ipv4.ip_forward=1
+<% end %>
+<% if @config.ipv6_forward %>
+ExecStartPre=/sbin/sysctl -w net.ipv6.conf.all.forwarding=1
+<% end %>
+ExecStart=<%= @docker_daemon_cmd %>
+ExecStartPost=<%= @docker_wait_ready %>
+Restart=always
+MountFlags=<%= @docker_mount_flags %>
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+<%= @systemd_args  %>
+
+[Install]
+WantedBy=multi-user.target
