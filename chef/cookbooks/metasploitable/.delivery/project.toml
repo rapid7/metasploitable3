@@ -1,0 +1,36 @@
+# Delivery Prototype for Local Phases Execution
+#
+# The purpose of this file is to prototype a new way to execute
+# phases locally on your workstation. The delivery-cli will read
+# this file and execute the command(s) that are configured for
+# each phase. You can customize them by just modifying the phase
+# key on this file.
+#
+# By default these phases are configured for Cookbook Workflow only
+#
+# As this is still a prototype we are not modifying the current
+# config.json file and it will continue working as usual.
+
+[local_phases]
+unit = "chef exec rspec spec/"
+lint = "chef exec cookstyle"
+# Foodcritic includes rules only appropriate for community cookbooks
+# uploaded to Supermarket. We turn off any rules tagged "supermarket"
+# by default. If you plan to share this cookbook you should remove
+# '-t ~supermarket' below to enable supermarket rules.
+syntax = "chef exec foodcritic . --exclude spec -f any -t ~supermarket"
+provision = "chef exec kitchen create"
+deploy = "chef exec kitchen converge"
+smoke = "chef exec kitchen verify"
+# The functional phase is optional, you can define it by uncommenting
+# the line below and running the command: `delivery local functional`
+# functional = ""
+cleanup = "chef exec kitchen destroy"
+
+# Remote project.toml file
+#
+# Specify a remote URI location for the `project.toml` file.
+# This is useful for teams that wish to centrally manage the behavior
+# of the `delivery local` command across many different projects.
+#
+# remote_file = "https://url/project.toml"

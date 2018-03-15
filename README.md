@@ -21,9 +21,9 @@ Requirements:
 
 To build automatically:
 
-1. Run the build_win2008.sh script if using bash, or build_win2008.ps1 if using Windows.
-2. If the command completes successfully, run 'vagrant up'.
-3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
+1. On Linux/OSX run `./build.sh win2008` to build the Windows box or `./build.sh ub1404` to build the Linux box. On Windows, run `build_win2008.ps1` in a powershell terminal to build the Windows box.
+2. If the command completes successfully, run `vagrant up`.
+3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: `vagrant` and P: `vagrant`.
 
 To build manually:
 

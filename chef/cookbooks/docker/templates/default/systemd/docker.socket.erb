@@ -1,0 +1,12 @@
+[Unit]
+Description=Docker Socket for the API
+PartOf=<%= @docker_name %>.service
+
+[Socket]
+ListenStream=<%= @docker_socket %>
+SocketMode=0660
+SocketUser=root
+SocketGroup=docker
+
+[Install]
+WantedBy=sockets.target
