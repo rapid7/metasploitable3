@@ -87,6 +87,7 @@
   "provisioners": [
     {
       "type": "chef-solo",
+      "version": "13.8.5",
       "cookbook_paths": [
         "{{template_dir}}/../../chef/cookbooks"
       ],
