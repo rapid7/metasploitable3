@@ -5,6 +5,7 @@ $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer"
+$boxVersion = "0.1.0"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
@@ -30,23 +31,34 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
     return $True
 }
 
-$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
-If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
-    $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
-    $vboxVersion = $vboxVersion.split("r")[0]
-} else {
-    Write-Host "VirtualBox is not installed (or not in the expected location of $expectedVBoxLocation\)"
-    Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
-}
+$hyperv = Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -Online
 
-If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
-    Write-Host "Compatible version of VirtualBox found."
+# Check if supported virtualization is present
+If($hyperv.State = "Enabled") {
+    Write-Host "Using Hyper-V as provider."
+    $provider = "hyperv"
+    # If a powershell script is being run on a box with Hyper-V enabled, we can safely assume this is the intended target
 } else {
-    Write-Host "A compatible version of VirtualBox was not found."
-    Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
-    Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
+    $expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+    If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
+        $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
+        $vboxVersion = $vboxVersion.split("r")[0]
+        If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
+            Write-Host "Compatible version of VirtualBox found, using as provider."
+            $provider = "virtualbox"
+        } else {
+            Write-Host "A compatible version of VirtualBox was not found."
+            Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
+            Write-Host "Please download and install it from https://www.virtualbox.org/"
+            exit
+        }
+    } else {
+        Write-Host "Neither Hyper-V nor VirtualBox was found (or not in the expected location of $expectedVBoxLocation\)"
+        Write-Host "Follow these instructions if you want to use Hyper-V:"
+        Write-Host "https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v"
+        Write-Host "Or download and install VirtualBox from https://www.virtualbox.org/"
+        exit
+    }
 }
 
 $packerVersion = cmd.exe /c $packer -v
@@ -96,11 +108,13 @@ If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
 Write-Host "All requirements found. Proceeding..."
 
-If ($(Test-Path "packer\templates\windows_2008_r2_virtualbox.box") -eq $True) {
+$boxPath = "packer\builds\windows_2008_r2_" + $provider + "_" + $boxVersion + ".box"
+
+If ($(Test-Path $boxPath) -eq $True) {
     Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
 } else {
     Write-Host "Building the Vagrant box..."
-    cmd.exe /c $packer build --only=virtualbox-iso packer\templates\windows_2008_r2.json
+    cmd.exe /c $packer build --only=$provider-iso packer\templates\windows_2008_r2.json
 
     if($?) {
         Write-Host "Box successfully built by Packer."
@@ -119,7 +133,7 @@ If ($vagrant_box_list -eq "metasploitable3-win2k8") {
     Write-Host "metasploitable3-win2k8 already found in Vagrant box repository. Skipping the addition to Vagrant."
 } else {
 
-    cmd.exe /c vagrant box add metasploitable3-win2k8 packer\builds\windows_2008_r2_virtualbox.box
+    cmd.exe /c vagrant box add metasploitable3-win2k8 $boxPath
 
     if($?) {
         Write-Host "Box successfully added to Vagrant."
