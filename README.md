@@ -19,13 +19,16 @@ Requirements:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
-To build automatically:
+### To build automatically:
 
-1. On Linux/OSX run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. On Windows, run `build_win2008.ps1` in a powershell terminal to build the Windows box.
-2. If the command completes successfully, run `vagrant up`.
+1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. 
+   - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
+2. If both the boxes were successfully built, run `vagrant up` to start both. To start any one VM, you can use:
+    - `vagrant up ub1404` : to start the Linux box
+    - `vagrant up win2k8` : to start the Windows box
 3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: `vagrant` and P: `vagrant`.
 
-To build manually:
+### To build manually:
 
 1. Clone this repo and navigate to the main directory.
 2. Build the base VM image by running `packer build --only=<provider>-iso windows_2008_r2.json` where `<provider>` is your preferred virtualization platform. Currently `virtualbox` and `vmware` providers are supported. This will take a while the first time you run it since it has to download the OS installation ISO.
