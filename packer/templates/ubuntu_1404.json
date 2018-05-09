@@ -27,7 +27,7 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
-      "guest_os_type": "Ubuntu_64",
+      "guest_os_type": "ubuntu-64",
       "tools_upload_flavor": "linux",
       "disk_size": 40000,
       "vm_name": "metasploitable3-ub1404",
