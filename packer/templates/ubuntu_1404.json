@@ -1,6 +1,44 @@
 {
   "builders": [
     {
+      "type": "qemu",
+      "accelerator": "kvm",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "headless": false,
+      "http_directory" : "{{template_dir}}/../http",
+      "http_port_min" : 9001,
+      "http_port_max" : 9001,
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz",
+        " auto=true",
+        " priority=critical",
+        " initrd=/install/initrd.gz",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- ",
+        "<enter>"
+      ],
+      "boot_wait": "5s",
+      "communicator": "ssh",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "2h",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "disk_size": 40000,
+      "format": "qcow2",
+      "vm_name": "metasploitable3-ub1404",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "qemuargs": [
+        [ "-m", "4096M" ],
+        [ "-smp", "cores=2" ]
+      ]
+    },
+    {
       "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 min_vbox_ver="5.1.10"
+min_qemu_ver="2.11.1"
 min_vagrant_ver="1.9.0"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
@@ -66,19 +67,33 @@ elif [ $(uname) = "Linux" ]; then
     fi
 fi
 
-if [ -x "$(which VBoxManage)" ] ; then
+if [ -x "$(which VBoxManage 2> /dev/null)" ] ; then
     current_vbox_ver=$(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g')
     if compare_versions $current_vbox_ver $min_vbox_ver false; then
         echo "Compatible version of VirtualBox found."
+        packer_build_only=virtualbox-iso
+        packer_build_output=virtualbox
     else
         echo "A compatible version of VirtualBox was not found."
         echo "Current Version=[$current_vbox_ver], Minimum Version=[$min_vbox_ver]"
         echo "Please download and install it from https://www.virtualbox.org/"
         exit 1
     fi
+elif [ -x "$(which qemu-kvm 2> /dev/null)" ] ; then
+    current_qemu_ver=$(qemu-kvm --version | head -1 | sed -re 's/^.*version ([0-9\.]*).*/\1/')
+    if compare_versions $current_qemu_ver $min_qemu_ver false; then
+        echo "Compatible version of qemu-kvm found."
+        packer_build_only=qemu
+        packer_build_output=libvirt
+    else
+        echo "A compatible version of qemu-kvm was not found."
+        echo "Current Version=[$current_qemu_ver], Minimum Version=[$min_qemu_ver]"
+        echo "Please upgrade, or update min_qemu_ver to test with earlier version."
+        exit 1
+    fi
 else
-    echo "VirtualBox is not installed (or not added to the path)."
-    echo "Please download and install it from https://www.virtualbox.org/"
+    echo "Neither VirtualBox nor qemu-kvm is not installed (or added to the path)."
+    echo "Please download and install one of them (VirtualBox: https://www.virtualbox.org/)."
     exit 1
 fi
 
@@ -121,7 +136,7 @@ if ls $packer_build_path | grep -q "$search_string"; then
     echo "It looks like the vagrant box already exists. Skipping the Packer build."
 else
     echo "Building the Vagrant box..."
-    if $packer_bin build --only=virtualbox-iso packer/templates/$os_full.json; then
+    if $packer_bin build --only="$packer_build_only" packer/templates/$os_full.json; then
         echo "Box successfully built by Packer."
     else
         echo "Error building the Vagrant box using Packer. Please check the output above for any error messages."
@@ -135,7 +150,7 @@ if vagrant box list | grep -q metasploitable3-"$os_short"; then
     echo "metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
     echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
 else
-    if vagrant box add $packer_build_path/"$os_full"_virtualbox_"$box_version".box --name metasploitable3-$os_short; then
+    if vagrant box add $packer_build_path/"$os_full"_"$packer_build_output"_"$box_version".box --name metasploitable3-$os_short; then
         echo "Box successfully added to Vagrant."
     else
         echo "Error adding box to Vagrant. See the above output for any error messages."
