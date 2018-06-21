@@ -144,7 +144,7 @@ for provider in virtualbox-iso qemu; do
     search_string="$os_full"_"$provider"_"$box_version"
     mkdir -p "$packer_build_path"
     if ls $packer_build_path | grep -q "$search_string"; then
-	echo "It looks like the $provider vagrant box already exists. Skipping the build." 
+	echo "It looks like the $provider vagrant box already exists. Skipping the build."
     elif [ "$build_qemu" = true ] || [ "$build_virtualbox" = true ]; then
 	echo "Building the Vagrant boxes..."
 	if $packer_bin build packer/templates/$os_full.json; then

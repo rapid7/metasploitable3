@@ -40,5 +40,5 @@ if [ "$have_tools" = true ]; then
     else
 	echo "Downloading and extracting virtio stable drivers."
 	wget -c "${virtio_uri}" -O .virtio-stable.vfd && 7z x -oresources/drivers/virtio .virtio-stable.vfd txtsetup.oem disk1 amd64/Win2008
-    fi 
+    fi
 fi
