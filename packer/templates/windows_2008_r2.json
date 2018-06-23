@@ -94,12 +94,12 @@
           "2"
         ]
       ]
-    },                                                          
-    {                                                        
-      "type": "qemu",                             
-      "iso_url": "{{user `iso_url`}}",                 
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",                       
-      "iso_checksum": "{{user `iso_checksum`}}",                        
+    },
+    {
+      "type": "qemu",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
       "boot_wait": "10m",
       "communicator": "ssh",
