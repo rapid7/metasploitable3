@@ -154,7 +154,6 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-	    exit 1
       "output": "{{template_dir}}/../builds/ubuntu_1404_{{.Provider}}_{{user `box_version`}}.box"
     }
   ],
