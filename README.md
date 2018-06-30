@@ -19,6 +19,19 @@ Requirements:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet connection
 
+Installation instructions for Ubuntu 18.04
+
+1. sudo apt update && sudo apt install packer
+
+2. wget -c https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
+
+3. sudo dpkg -i vagrant_2.0.3_x86_64.deb
+
+4. vagrant plugin install vagrant-reload
+
+5. build automatically or manually.
+
+
 To build automatically:
 
 1. Run the build_win2008.sh script if using bash, or build_win2008.ps1 if using Windows.
