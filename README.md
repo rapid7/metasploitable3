@@ -29,7 +29,7 @@ To build manually:
 
 1. Clone this repo and navigate to the main directory.
 2. Build the base VM image by running `packer build --only=<provider>-iso ./packer/templates/windows_2008_r2.json` where `<provider>` is your preferred virtualization platform. Currently `virtualbox` and `vmware` providers are supported. This will take a while the first time you run it since it has to download the OS installation ISO.
-3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add windows_2008_r2_<provider>.box --name=metasploitable3`.
+3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add packer/builds/windows_2008_r2_<provider>_0.1.0.box --name=metasploitable3`.
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
 5. To start the VM, run the command `vagrant up`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
