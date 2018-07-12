@@ -6,6 +6,7 @@ msiexec /qb /i C:\Windows\Temp\7zInstaller-x64.msi
 if "%PACKER_BUILDER_TYPE%" equ "vmware-iso" goto :vmware
 if "%PACKER_BUILDER_TYPE%" equ "virtualbox-iso" goto :virtualbox
 if "%PACKER_BUILDER_TYPE%" equ "parallels-iso" goto :parallels
+if "%PACKER_BUILDER_TYPE%" equ "hyperv-first-boot" goto :hyperv
 goto :done
 
 :vmware
@@ -40,11 +41,22 @@ goto :done
 
 :parallels
 if exist "C:\Users\vagrant\prl-tools-win.iso" (
-	move /Y C:\Users\vagrant\prl-tools-win.iso C:\Windows\Temp
-	cmd /C "C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\prl-tools-win.iso -oC:\Windows\Temp\parallels
-	cmd /C C:\Windows\Temp\parallels\PTAgent.exe /install_silent
-	rd /S /Q "c:\Windows\Temp\parallels"
+    move /Y C:\Users\vagrant\prl-tools-win.iso C:\Windows\Temp
+    cmd /C "C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\prl-tools-win.iso -oC:\Windows\Temp\parallels
+    cmd /C C:\Windows\Temp\parallels\PTAgent.exe /install_silent
+    rd /S /Q "c:\Windows\Temp\parallels"
 )
+goto :done
+
+:hyperv
+if not exist "C:\Windows\Temp\vmguest.iso" (
+    echo "Downloading and installing Hyper-V tools"
+    powershell -Command "(New-Object System.Net.WebClient).DownloadFile('https://content.deltik.org/mirror/os/windows/vmguest.iso', 'C:\Windows\Temp\vmguest.iso')" <NUL
+    cmd /C "C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\vmguest.iso -oC:\Windows\Temp\hyperv
+    cmd /c C:\Windows\Temp\hyperv\support\x86\setup.exe /quiet
+    rd /S /Q "c:\Windows\Temp\hyperv"
+)
+goto :done
 
 :done
 msiexec /qb /x C:\Windows\Temp\7zInstaller-x64.msi
