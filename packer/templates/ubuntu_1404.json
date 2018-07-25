@@ -92,7 +92,6 @@
         "{{template_dir}}/../../chef/cookbooks"
       ],
       "run_list": [
-        "metasploitable::vm_tools",
         "metasploitable::users",
         "metasploitable::mysql",
         "metasploitable::apache_continuum",
@@ -123,9 +122,9 @@
     }
   ],
   "variables": {
-    "iso_url": "http://old-releases.ubuntu.com/releases/14.04.1/ubuntu-14.04.1-server-amd64.iso",
-    "iso_checksum_type": "md5",
-    "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+    "iso_url": "http://old-releases.ubuntu.com/releases/14.04.0/ubuntu-14.04-server-amd64.iso",
+    "iso_checksum_type": "sha256",
+    "iso_checksum": "ababb88a492e08759fddcf4f05e5ccc58ec9d47fa37550d63931d0a5fa4f7388",
     "box_version": "0.1.12"
   }
 }
