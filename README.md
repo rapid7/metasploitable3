@@ -19,19 +19,22 @@ Requirements:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or libvirt/qemu-kvm
 * Internet connection
 
-To build automatically:
+### To build automatically:
 
-1. On Linux/OSX run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp. On Windows, run `build_win2008.ps1` in a powershell terminal to build the Windows box.
-2. If the command completes successfully, run `vagrant up`.
+1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
+   - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
+2. If both the boxes were successfully built, run `vagrant up` to start both. To start any one VM, you can use:
+    - `vagrant up ub1404` : to start the Linux box
+    - `vagrant up win2k8` : to start the Windows box
 3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: `vagrant` and P: `vagrant`.
 
-To build manually:
+### To build manually:
 
 1. Clone this repo and navigate to the main directory.
 2. Build the base VM image by running `packer build --only=<provider>-iso ./packer/templates/windows_2008_r2.json` where `<provider>` is your preferred virtualization platform. Currently `virtualbox` and `vmware` providers are supported. This will take a while the first time you run it since it has to download the OS installation ISO.
-3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add windows_2008_r2_<provider>.box --name=metasploitable3`.
+3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add packer/builds/windows_2008_r2_<provider>_0.1.0.box --name=metasploitable3-win2k8`.
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
-5. To start the VM, run the command `vagrant up`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
+5. To start the VM, run the command `vagrant up win2k8`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
 
 Videos:

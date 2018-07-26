@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
     # Configure Firewall to open up vulnerable services
     case ENV['MS3_DIFFICULTY']
       when 'easy'
-        config.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
+        win2k8.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
       else
         win2k8.vm.provision :shell, path: "scripts/configs/enable_firewall.bat"
         win2k8.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
