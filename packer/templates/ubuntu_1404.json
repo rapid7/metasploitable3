@@ -115,7 +115,8 @@
       "vm_name": "metasploitable3-ub1404",
       "qemuargs": [
         ["-m", "4096"],
-        ["-smp", "2"]
+        ["-smp", "2"],
+        ["-display", "gtk"]
       ]
     }
   ],
