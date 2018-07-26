@@ -16,12 +16,12 @@ Requirements:
 * [Packer](https://www.packer.io/intro/getting-started/install.html)
 * [Vagrant](https://www.vagrantup.com/docs/installation/)
 * [Vagrant Reload Plugin](https://github.com/aidanns/vagrant-reload#installation)
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or libvirt/qemu-kvm
 * Internet connection
 
 ### To build automatically:
 
-1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. 
+1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
    - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
 2. If both the boxes were successfully built, run `vagrant up` to start both. To start any one VM, you can use:
     - `vagrant up ub1404` : to start the Linux box
