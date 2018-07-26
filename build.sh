@@ -67,12 +67,14 @@ elif [ $(uname) = "Linux" ]; then
     fi
 fi
 
+providers=""
+
 if [ -x "$(which VBoxManage)" ] ; then
     current_vbox_ver=$(VBoxManage -v | sed -e 's/r.*//g' -e 's/_.*//g')
     if compare_versions $current_vbox_ver $min_vbox_ver false; then
         echo "Compatible version of VirtualBox found."
         echo "Virtualbox images will be built."
-        build_vbox=true
+        providers="virtualbox $providers"
     else
         echo "Compatible version of VirtualBox was not found."
         echo "Current Version=[$current_vbox_ver], Minimum Version=[$min_vbox_ver]"
@@ -104,14 +106,16 @@ else
     exit 1
 fi
 
-if compare_versions $(vagrant plugin list | grep 'vagrant-libvirt' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantlibvirt_ver false; then
-    echo 'Compatible version of vagrant-libvirt plugin was found.'
-    echo 'KVM image will be built.'
-    build_qemu=true
-    echo 'Fetching virtio drivers required for build'
-    ./packer/scripts/virtio-win-drivers.sh
-else
-    echo "Compatible version of vagrant-libvirt plugin was not found."
+if [ $(uname) = "Linux" ]; then
+  if compare_versions $(vagrant plugin list | grep 'vagrant-libvirt' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantlibvirt_ver false; then
+      echo 'Compatible version of vagrant-libvirt plugin was found.'
+      echo 'KVM image will be built.'
+      providers="libvirt $providers"
+      echo 'Fetching virtio drivers required for build'
+      ./packer/scripts/virtio-win-drivers.sh
+  else
+      echo "Compatible version of vagrant-libvirt plugin was not found."
+  fi
 fi
 
 if compare_versions $(vagrant plugin list | grep 'vagrant-reload' | cut -d' ' -f2 | tr -d '(' | tr -d ')') $min_vagrantreload_ver false; then
@@ -127,35 +131,31 @@ else
     fi
 fi
 
-if [ "$build_vbox" != true ] && [ "$build_qemu" != true ]; then
-    echo "Neither VirtualBox or libvirt packer support is present. Aborting."
+if [ "$providers" == "" ]; then
+    echo "No virtual machine providers found, aborting"
     exit 1
 fi
 
 echo "Requirements found. Proceeding..."
 
-for provider in virtualbox libvirt; do
+for provider in $providers; do
     search_string="$os_full"_"$provider"_"$box_version"
     mkdir -p "$packer_build_path"
     if [ -e $packer_build_path/$search_string.box ]; then
-        echo "It looks like the $provider vagrant box already exists. Skipping the build."
-    elif [ "$build_qemu" = "true" ] || [ "$build_vbox" = "true" ]; then
-        echo "Building the Vagrant boxes..."
-        if $packer_bin build packer/templates/$os_full.json; then
-            echo "Boxes successfully built by Packer."
-        else
-            echo "Error building the Vagrant boxes using Packer. Please check the output above for any error messages."
-            exit 1
-        fi
-    else
-        echo "No available providers found to build box"
-        exit 1
+      echo "It looks like the $provider vagrant box already exists. Skipping the build."
     fi
+      echo "Building the Vagrant box for $provider..."
+      if $packer_bin build -only $provider-iso packer/templates/$os_full.json; then
+          echo "Boxes successfully built by Packer."
+      else
+          echo "Error building the Vagrant boxes using Packer. Please check the output above for any error messages."
+          exit 1
+      fi
 done
 
 echo "Attempting to add the box to Vagrant..."
 
-for provider in virtualbox libvirt; do
+for provider in $providers; do
     if vagrant box list | grep -q metasploitable3-"$os_short"-"$provider"; then
         echo "metasploitable3-$os_short-$provider already found in Vagrant box repository. Skipping the addition to Vagrant."
         echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
