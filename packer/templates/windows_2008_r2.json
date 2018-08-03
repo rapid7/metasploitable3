@@ -247,27 +247,27 @@
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/disable_firewall.bat",
-      "destination": "C:/vagrant/startup"
+      "destination": "C:/startup"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/enable_firewall.bat",
-      "destination": "C:/vagrant/startup"
+      "destination": "C:/startup"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/configure_firewall.bat",
-      "destination": "C:/vagrant/startup"
+      "destination": "C:/startup"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/installs/install_share_autorun.bat",
-      "destination": "C:/vagrant/startup"
+      "destination": "C:/startup"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/installs/setup_linux_share.bat",
-      "destination": "C:/vagrant/startup"
+      "destination": "C:/startup"
     }
   ],
   "post-processors": [

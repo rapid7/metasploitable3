@@ -30,15 +30,15 @@ Vagrant.configure("2") do |config|
     # Configure Firewall to open up vulnerable services
     case ENV['MS3_DIFFICULTY']
       when 'easy'
-        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\disable_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\startup\\disable_firewall.bat"
       else
-        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\enable_firewall.bat"
-        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\configure_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\startup\\enable_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\startup\\configure_firewall.bat"
     end
 
     # Insecure share from the Linux machine
-    win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\install_share_autorun.bat"
-    win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\setup_linux_share.bat"
-    win2k8.vm.provision :shell, inline: "rm -rf C:\\vagrant\\startup" # Cleanup startup scripts
+    win2k8.vm.provision :shell, inline: "C:\\startup\\install_share_autorun.bat"
+    win2k8.vm.provision :shell, inline: "C:\\startup\\setup_linux_share.bat"
+    win2k8.vm.provision :shell, inline: "rm C:\\startup\\*" # Cleanup startup scripts
   end
 end
