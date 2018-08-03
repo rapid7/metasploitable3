@@ -4,6 +4,16 @@ Metasploitable3 is a VM that is built from the ground up with a large amount of 
 
 Metasploitable3 is released under a BSD-style license. See COPYING for more details.
 
+## Quick-start
+
+To use the prebuilt images provided at https://app.vagrantup.com/rapid7/ create a new local metasploitable workspace:
+```
+mkdir metasploitable3-workspace
+cd metasploitable3-workspace
+curl -O https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile && vagrant up
+```
+Or clone this repository and build your own box.
+
 ## Building Metasploitable 3
 System Requirements:
 * OS capable of running all of the required applications listed below

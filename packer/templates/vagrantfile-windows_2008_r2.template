@@ -4,6 +4,7 @@
 Vagrant.require_version ">= 1.6.2"
 
 Vagrant.configure("2") do |config|
+    config.vm.synced_folder '.', '/vagrant', disabled: true
     config.vm.define "vagrant-windows-2008-r2"
     config.vm.box = "windows_2008_r2"
     config.vm.communicator = "winrm"

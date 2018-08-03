@@ -156,12 +156,12 @@ done
 echo "Attempting to add the box to Vagrant..."
 
 for provider in $providers; do
-    if vagrant box list | grep -q metasploitable3-"$os_short"-"$provider"; then
-        echo "metasploitable3-$os_short-$provider already found in Vagrant box repository. Skipping the addition to Vagrant."
+    if vagrant box list | grep -q rapid7/metasploitable3-"$os_short"; then
+        echo "rapid7/metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
         echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
     else
         if [ -z $box_import ]; then
-            if vagrant box add $packer_build_path/"$os_full"_"$provider"_"$box_version".box --name metasploitable3-$os_short; then
+            if vagrant box add $packer_build_path/"$os_full"_"$provider"_"$box_version".box --name rapid7/metasploitable3-$os_short; then
             echo "Box successfully added to Vagrant."
             else
             echo "Error adding box to Vagrant. See the above output for any error messages."
