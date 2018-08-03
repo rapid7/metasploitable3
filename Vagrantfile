@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
   config.vm.synced_folder '.', '/vagrant', disabled: true
   config.vm.define "ub1404" do |ub1404|
-    ub1404.vm.box = "metasploitable3-ub1404"
+    ub1404.vm.box = "rapid7/metasploitable3-ub1404"
     ub1404.vm.hostname = "metasploitable3-ub1404"
     config.ssh.username = 'vagrant'
     config.ssh.password = 'vagrant'
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "win2k8" do |win2k8|
     # Base configuration for the VM and provisioner
-    win2k8.vm.box = "metasploitable3-win2k8"
+    win2k8.vm.box = "rapid7/metasploitable3-win2k8"
     win2k8.vm.hostname = "metasploitable3-win2k8"
     win2k8.vm.communicator = "winrm"
     win2k8.winrm.retry_limit = 60
@@ -30,16 +30,15 @@ Vagrant.configure("2") do |config|
     # Configure Firewall to open up vulnerable services
     case ENV['MS3_DIFFICULTY']
       when 'easy'
-        win2k8.vm.provision :shell, path: "scripts/configs/disable_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\disable_firewall.bat"
       else
-        win2k8.vm.provision :shell, path: "scripts/configs/enable_firewall.bat"
-        win2k8.vm.provision :shell, path: "scripts/configs/configure_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\enable_firewall.bat"
+        win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\configure_firewall.bat"
     end
 
     # Insecure share from the Linux machine
-    win2k8.vm.provision :shell, path: "scripts/installs/install_share_autorun.bat"
-    win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
-    win2k8.vm.provision :shell, path: "scripts/installs/setup_linux_share.bat"
-    win2k8.vm.provision :shell, inline: "rm C:\\tmp\\vagrant-shell.bat" # Hack for this bug: https://github.com/mitchellh/vagrant/issues/7614
+    win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\install_share_autorun.bat"
+    win2k8.vm.provision :shell, inline: "C:\\vagrant\\startup\\setup_linux_share.bat"
+    win2k8.vm.provision :shell, inline: "rm -rf C:\\vagrant\\startup" # Cleanup startup scripts
   end
 end

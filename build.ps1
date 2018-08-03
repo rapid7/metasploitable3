@@ -154,14 +154,14 @@ function InstallBox($os_full, $os_short)
     echo "Attempting to add metasploitable3-$os_short box to Vagrant..."
     $vagrant_box_list = cmd.exe /c "vagrant box list"
 
-    If ($vagrant_box_list -match "metasploitable3-$os_short") {
-        Write-Host "metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
+    If ($vagrant_box_list -match "rapid7/metasploitable3-$os_short") {
+        Write-Host "rapid7/metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
     } else {
 
-        cmd.exe /c vagrant box add metasploitable3-$os_short packer\builds\$($os_full)_virtualbox_$boxversion.box
+        cmd.exe /c vagrant box add packer\builds\$($os_full)_virtualbox_$boxversion.box --name rapid7/metasploitable3-$os_short
     
         if($?) {
-            Write-Host "metasploitable3-$os_short box successfully added to Vagrant."
+            Write-Host "rapid7/metasploitable3-$os_short box successfully added to Vagrant."
         } else {
             throw "Error adding metasploitable3-$os_short box to Vagrant. See the above output for any error messages."
         }
