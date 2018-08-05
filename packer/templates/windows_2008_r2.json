@@ -245,29 +245,35 @@
       ]
     },
     {
+      "type":"powershell",
+      "inline": [
+        "mkdir -p C:/startup"
+      ]
+    },
+    {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/disable_firewall.bat",
-      "destination": "C:/startup"
+      "destination": "C:/startup/disable_firewall.bat"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/enable_firewall.bat",
-      "destination": "C:/startup"
+      "destination": "C:/startup/enable_firewall.bat"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/configs/configure_firewall.bat",
-      "destination": "C:/startup"
+      "destination": "C:/startup/configure_firewall.bat"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/installs/install_share_autorun.bat",
-      "destination": "C:/startup"
+      "destination": "C:/startup/install_share_autorun.bat"
     },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}/installs/setup_linux_share.bat",
-      "destination": "C:/startup"
+      "destination": "C:/startup/setup_linux_share.bat"
     }
   ],
   "post-processors": [
