@@ -110,7 +110,7 @@ if [ $(uname) = "Linux" ]; then
   if compare_versions $(vagrant plugin list | grep 'vagrant-libvirt' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantlibvirt_ver false; then
       echo 'Compatible version of vagrant-libvirt plugin was found.'
       echo 'KVM image will be built.'
-      providers="libvirt $providers"
+      providers="qemu $providers"
       echo 'Fetching virtio drivers required for build'
       ./packer/scripts/virtio-win-drivers.sh
   else
@@ -145,7 +145,11 @@ for provider in $providers; do
       echo "It looks like the $provider vagrant box already exists. Skipping the build."
     fi
       echo "Building the Vagrant box for $provider..."
-      if $packer_bin build -only $provider-iso packer/templates/$os_full.json; then
+      packer_provider="$provider-iso"
+      if [ $provider = "qemu" ]; then
+        packer_provider=$provider
+      fi
+      if $packer_bin build -only $packer_provider packer/templates/$os_full.json; then
           echo "Boxes successfully built by Packer."
       else
           echo "Error building the Vagrant boxes using Packer. Please check the output above for any error messages."
