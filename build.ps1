@@ -32,34 +32,42 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
 }
 
 Write-Host "";
-$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+If($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -Online).State = "Enabled") {
 
-If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
-
-    $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
-    $vboxVersion = $vboxVersion.split("r")[0]
-
+    Write-Host "Using Hyper-V as provider."
+    $provider = "hyperv"
+    
 } else {
-
-    Write-Host "VirtualBox is not installed (or not in the expected location of $expectedVBoxLocation\)"
-    Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
-
+    
+    $expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+    If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
+    
+        $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
+        $vboxVersion = $vboxVersion.split("r")[0]
+        
+        If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
+            Write-Host "Compatible version of VirtualBox found, using as provider."
+            $provider = "virtualbox"
+            
+        } else {
+        
+            Write-Host "A compatible version of VirtualBox was not found."
+            Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
+            Write-Host "Please download and install it from https://www.virtualbox.org/"
+            exit
+            
+        }
+        
+    } else {
+        Write-Host "Neither Hyper-V nor VirtualBox was found (or not in the expected location of $expectedVBoxLocation\)"
+        Write-Host "Follow these instructions if you want to use Hyper-V:"
+        Write-Host "https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v"
+        Write-Host "Or download and install VirtualBox from https://www.virtualbox.org/"
+        exit
+        
+    }
 }
 
-
-If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
-
-    Write-Host "Compatible version of VirtualBox found."
-
-} else {
-
-    Write-Host "A compatible version of VirtualBox was not found."
-    Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
-    Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
-
-}
 
 $packerVersion = cmd.exe /c $packer -v
 
@@ -135,14 +143,14 @@ function InstallBox($os_full, $os_short)
     $boxversion = $boxversion.toString().trim().split('"')[3]
 
     Write-Host "Building metasploitable3-$os_short Vagrant box..."
-
-    If ($(Test-Path "packer\builds\$($os_full)_virtualbox_$boxversion.box") -eq $True) {
+    
+    If ($(Test-Path "packer\builds\$($os_full)_$($provider)_$boxversion.box") -eq $True) {
 
         Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
     
     } else {
 
-        cmd.exe /c $packer build --only=virtualbox-iso packer\templates\$os_full.json
+        cmd.exe /c $packer build --only=$provider-iso packer\templates\$os_full.json
 
         if($?) {
           Write-Host "Box successfully built by Packer."
@@ -158,7 +166,7 @@ function InstallBox($os_full, $os_short)
         Write-Host "rapid7/metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
     } else {
 
-        cmd.exe /c vagrant box add packer\builds\$($os_full)_virtualbox_$boxversion.box --name rapid7/metasploitable3-$os_short
+        cmd.exe /c vagrant box add packer\builds\$($os_full)_$($provider)_$boxversion.box --name rapid7/metasploitable3-$os_short
     
         if($?) {
             Write-Host "rapid7/metasploitable3-$os_short box successfully added to Vagrant."
@@ -167,7 +175,6 @@ function InstallBox($os_full, $os_short)
         }
     }
 }
-
 
 
 Write-Host "All requirements found. Proceeding..."
