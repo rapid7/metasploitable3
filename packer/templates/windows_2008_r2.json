@@ -1,6 +1,44 @@
 {
   "builders": [
     {
+      "type": "hyperv-iso",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "communicator": "ssh",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_timeout":"2h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "boot_wait": "10m",
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "{{user `scripts_dir`}}/configs/microsoft-updates.bat",
+        "{{user `scripts_dir`}}/configs/win-updates.ps1",
+        "{{user `scripts_dir`}}/installs/openssh.ps1",
+        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1",
+        "{{user `scripts_dir`}}/installs/install_wmf.ps1",
+        "{{user `scripts_dir`}}/installs/vm-guest-tools.bat",
+        "{{user `resources_dir`}}/certs/oracle-cert.cer",
+        "{{user `resources_dir`}}/certs/gdig2.crt",
+        "{{user `resources_dir`}}/certs/comodorsadomainvalidationsecureserverca.crt",
+        "{{user `resources_dir`}}/certs/comodorsacertificationauthority.crt",
+        "{{user `resources_dir`}}/certs/addtrust_external_ca.cer",
+        "{{user `resources_dir`}}/certs/baltimore_ca.cer",
+        "{{user `resources_dir`}}/certs/digicert.cer",
+        "{{user `resources_dir`}}/certs/equifax.cer",
+        "{{user `resources_dir`}}/certs/globalsign.cer",
+        "{{user `resources_dir`}}/certs/gte_cybertrust.cer",
+        "{{user `resources_dir`}}/certs/microsoft_root_2011.cer",
+        "{{user `resources_dir`}}/certs/thawte_primary_root.cer",
+        "{{user `resources_dir`}}/certs/utn-userfirst.cer"
+      ],
+      "vm_name": "metasploitable3-win2k8",
+      "cpu": "2",
+      "ram_size": "4096",
+      "enable_dynamic_memory": "false"
+    },
+    {
       "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -141,6 +179,12 @@
     }
   ],
 "provisioners": [
+    {
+      "type": "file",
+      "source": "{{user `scripts_dir`}}",
+      "destination": "C:/vagrant",
+      "pause_before": "2m"
+    },
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}",
