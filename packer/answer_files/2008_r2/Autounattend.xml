@@ -279,6 +279,12 @@
                     <Order>99</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c "set PACKER_BUILDER_TYPE=hyperv-first-boot&amp;&amp;a:\vm-guest-tools.bat</CommandLine>
+                    <Description>Install VM tools for Hyper-V (currently the only provisioner which will add this script)</Description>
+                    <Order>100</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
                 <!-- END WITHOUT WINDOWS UPDATES -->
                 <!-- WITH WINDOWS UPDATES -->
                 <!--<SynchronousCommand wcm:action="add">-->
