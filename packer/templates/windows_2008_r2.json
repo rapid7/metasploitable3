@@ -290,6 +290,7 @@
     },
     {
       "type":"powershell",
+	  "execute_command": "powershell -executionpolicy bypass \"& { if (Test-Path variable:global:ProgressPreference){\\$ProgressPreference='SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit \\$LastExitCode }\"",
       "inline": [
         "mkdir -p C:/startup"
       ]
