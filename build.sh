@@ -4,6 +4,7 @@ min_vbox_ver="5.1.10"
 min_vagrant_ver="1.9.0"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
+min_vagrantvmware_ver="0.0.1"
 min_vagrantlibvirt_ver="0.0.1"
 packer_bin="packer"
 packer_build_path="packer/builds"
@@ -116,6 +117,12 @@ if [ $(uname) = "Linux" ]; then
   else
       echo "Compatible version of vagrant-libvirt plugin was not found."
   fi
+fi
+
+if compare_versions $(vagrant plugin list | grep 'vagrant-vmware' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantvmware_ver false; then
+  echo 'Compatible version of vagrant-vmware plugin was found.'
+  echo 'VMware image will be built'
+  providers="vmware $providers"
 fi
 
 if compare_versions $(vagrant plugin list | grep 'vagrant-reload' | cut -d' ' -f2 | tr -d '(' | tr -d ')') $min_vagrantreload_ver false; then
