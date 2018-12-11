@@ -12,7 +12,7 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "winServer2008Standard-64",
+      "guest_os_type": "windows7srv-64",
       "tools_upload_flavor": "windows",
       "disk_size": 61440,
       "floppy_files": [
