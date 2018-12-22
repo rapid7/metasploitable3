@@ -4,6 +4,7 @@ min_vbox_ver="5.1.10"
 min_vagrant_ver="1.9.0"
 min_packer_ver="0.10.0"
 min_vagrantreload_ver="0.0.1"
+min_vagrantvmware_ver="0.0.1"
 min_vagrantlibvirt_ver="0.0.1"
 packer_bin="packer"
 packer_build_path="packer/builds"
@@ -17,6 +18,11 @@ case "$1" in
     windows2008) echo "building windows 2008"
                  os_full="windows_2008_r2"
                  os_short="win2k8"
+                 ;;
+
+    windows2012) echo "building windows 2012"
+                 os_full="windows_2012_r2"
+                 os_short="win2012"
                  ;;
 
     *)           echo "Invalid OS. Valid options are 'ubuntu1404' and 'windows2008'"
@@ -118,7 +124,13 @@ if [ $(uname) = "Linux" ]; then
   fi
 fi
 
-if compare_versions $(vagrant plugin list | grep 'vagrant-reload' | cut -d' ' -f2 | tr -d '(' | tr -d ')') $min_vagrantreload_ver false; then
+if compare_versions $(vagrant plugin list | grep 'vagrant-vmware' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantvmware_ver false; then
+	  echo 'Compatible version of vagrant-vmware plugin was found.'
+	  echo 'VMware image will be built'
+	  providers="vmware $providers"
+	fi
+	
+if compare_versions $(vagrant plugin list | grep 'vagrant-reload' | cut -d' ' -f2 | tr -d '(' | tr -d ')' | tr -d ',') $min_vagrantreload_ver false; then
     echo 'Compatible version of vagrant-reload plugin was found.'
 else
     echo "Compatible version of vagrant-reload plugin was not found."
