@@ -31,11 +31,13 @@ Requirements:
 
 ### To build automatically:
 
-1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
+1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows 2008 box, run `./build.sh windows2012` to build the Windows 2012 box, run `./build.sh windows2016` to build the Windows 2016 box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
    - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
 2. If both the boxes were successfully built, run `vagrant up` to start both. To start any one VM, you can use:
     - `vagrant up ub1404` : to start the Linux box
-    - `vagrant up win2k8` : to start the Windows box
+    - `vagrant up win2k8` : to start the Windows 2008 box
+    - `vagrant up win2k12` : to start the Windows 2012 box
+    - `vagrant up win2k16` : to start the Windows 2016 box
 3. When this process completes, you should be able to open the VM within VirtualBox and login. The default credentials are U: `vagrant` and P: `vagrant`.
 
 ### To build manually:
