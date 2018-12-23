@@ -25,6 +25,11 @@ case "$1" in
                  os_short="win2012"
                  ;;
 
+    windows2016) echo "building windows 2016"
+                 os_full="windows_2016"
+                 os_short="win2016"
+                 ;;
+
     *)           echo "Invalid OS. Valid options are 'ubuntu1404' and 'windows2008'"
                  exit 1
                  ;;
