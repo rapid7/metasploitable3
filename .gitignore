@@ -10,3 +10,5 @@ resources/drivers/
 *.box
 *.iso
 *.vfd
+output-vmware-iso/
+iso/
