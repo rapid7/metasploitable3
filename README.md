@@ -32,6 +32,7 @@ Requirements:
 ### To build automatically:
 
 1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows 2008 box, run `./build.sh windows2012` to build the Windows 2012 box, run `./build.sh windows2016` to build the Windows 2016 box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
+   **Note** Automatic build for Windows 2012, 2016, and 2019 are only available on Linux/OSX. In order to build Server 2019 you must find the iso yourself as the iso is not yet available as a download in Microsoft's Evaluation Center. Once you download the iso open the windows_2019.json file and at the bottom update the name of the iso in the url section and update the checksum value.
    - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
 2. If both the boxes were successfully built, run `vagrant up` to start both. To start any one VM, you can use:
     - `vagrant up ub1404` : to start the Linux box
