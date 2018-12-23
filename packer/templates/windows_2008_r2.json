@@ -12,7 +12,7 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "winServer2008Standard-64",
+      "guest_os_type": "windows7srv-64",
       "tools_upload_flavor": "windows",
       "disk_size": 61440,
       "floppy_files": [
@@ -189,11 +189,11 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
+        "{{user `scripts_dir`}}/installs/setup_iis.bat",
         "{{user `scripts_dir`}}/installs/install_boxstarter.bat",
         "{{user `scripts_dir`}}/chocolatey_installs/7zip.bat",
         "{{user `scripts_dir`}}/configs/apply_password_settings.bat",
         "{{user `scripts_dir`}}/configs/create_users.bat",
-        "{{user `scripts_dir`}}/installs/setup_iis.bat",
         "{{user `scripts_dir`}}/installs/setup_ftp_site.bat",
         "{{user `scripts_dir`}}/chocolatey_installs/java.bat"
       ]
