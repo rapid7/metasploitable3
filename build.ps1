@@ -1,10 +1,13 @@
 ﻿$ErrorActionPreference = "Stop"
 
 $virtualBoxMinVersion = "5.1.10"
+$vmwareMinVersion = "15.0.0"
 $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
+$vagrantVMwareMinVersion = "0.0.1"
 $packer = "packer"
+$providers = New-Object 'System.Collections.Generic.List[String]'
 
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
@@ -43,22 +46,50 @@ If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
 
     Write-Host "VirtualBox is not installed (or not in the expected location of $expectedVBoxLocation\)"
     Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
 
 }
-
 
 If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
 
     Write-Host "Compatible version of VirtualBox found."
+    $providers.Add('virtualbox')
 
 } else {
 
     Write-Host "A compatible version of VirtualBox was not found."
     Write-Host "Current Version=[$vboxVersion], Minimum Version=[$virtualBoxMinVersion]"
     Write-Host "Please download and install it from https://www.virtualbox.org/"
-    exit
 
+}
+
+$expectedVMwareLocation = "C:\Program Files (x86)\VMware\VMware Workstation"
+
+If ($(Test-Path "$expectedVMwareLocation\vmware.exe") -eq $True) {
+
+    $vmwareVersion = cat 'C:\Program Files (x86)\VMware\VMware Workstation\vixwrapper-product-config.txt' | Select-String -Pattern "Workstation and Player"
+    $vmwareVersion = $vmwareVersion.ToString().Trim()
+    $vmwareVersion = $vmwareVersion.Replace("# Workstation and Player ", "")
+} else {
+    Write-Host "VMware Workstation is not installed (or not in the expected lcoation of $expectedVMwareLocation\)"
+    Write-Host "Please download and install it from https://www.vmware.com"
+}
+
+If (CompareVersions -actualVersion $vmwareVersion -expectedVersion $vmwareMinVersion -exactMatch $False) {
+
+    Write-Host "Compatible version of VMware Workstation found."
+    $providers.Add('vmware')
+
+} else {
+
+    Write-Host "A compatible version of VMware Workstation was not found."
+    Write-Host "Current Version=[$vmwareVersion], Minimum Version=[$vmwareMinVersion]"
+    Write-Host "Please download and install it from https://www.vmware.com/"
+
+}
+
+If ($providers.Count -eq 0){
+    Write-Host "No compatible virtual solution found please download VirtualBox or VMware"
+    exit
 }
 
 $packerVersion = cmd.exe /c $packer -v
@@ -129,41 +160,79 @@ If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
 }
 
-function InstallBox($os_full, $os_short)
-{
-    $boxversion = Get-Content .\packer\templates\$os_full.json | Select-String -Pattern "box_version" | Select-String -Pattern "[0-9]\.[0-9]\.[0-9]+"
-    $boxversion = $boxversion.toString().trim().split('"')[3]
+$vagrantPlugins = cmd.exe /c "vagrant plugin list" | select-string -pattern "vagrant-vmware-desktop"
 
-    Write-Host "Building metasploitable3-$os_short Vagrant box..."
 
-    If ($(Test-Path "packer\builds\$($os_full)_virtualbox_$boxversion.box") -eq $True) {
+If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
-        Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
-    
-    } else {
+    $vagrantPlugins = $vagrantPlugins.ToString().Trim()
+    $vagrantVMwareVersion = $vagrantPlugins.Replace("(", "")
+    $vagrantVMwareVersion = $vagrantVMwareVersion.Replace(")", "")
+    $vagrantVMwareVersion = $vagrantVMwareVersion.split(" ")[1]
 
-        cmd.exe /c $packer build --only=virtualbox-iso packer\templates\$os_full.json
 
-        if($?) {
-          Write-Host "Box successfully built by Packer."
-        } else {
-         throw "Error building the Vagrant box using Packer. Please check the output above for any error messages."
-        }
+    If (CompareVersions -actualVersion $vagrantVMwareVersion -expectedVersion $vagrantVMwareMinVersion) {
+
+        Write-Host "Compatible version of vagrant-vmware-desktop plugin found."
+
     }
 
-    echo "Attempting to add metasploitable3-$os_short box to Vagrant..."
-    $vagrant_box_list = cmd.exe /c "vagrant box list"
+} else {
 
-    If ($vagrant_box_list -match "rapid7/metasploitable3-$os_short") {
-        Write-Host "rapid7/metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
+    Write-Host "Could not find a compatible version of vagrant-reload plugin. Attempting to install..."
+    cmd.exe /c "vagrant plugin install vagrant-vmware-desktop"
+
+
+    # Hacky version of Try-Catch for non-terminating errors.
+    # See http://stackoverflow.com/questions/1142211/try-catch-does-not-seem-to-have-an-effect
+
+    if($?) {
+        Write-Host "The vagrant-vmware-desktop plugin was successfully installed."
     } else {
+        throw "Error installing vagrant-vmware-desktop plugin. Please check the output above for any error messages."
+    }
 
-        cmd.exe /c vagrant box add packer\builds\$($os_full)_virtualbox_$boxversion.box --name rapid7/metasploitable3-$os_short
+}
+
+function InstallBox($os_full, $os_short)
+{
+    Foreach ($provider in $providers) {
     
-        if($?) {
-            Write-Host "rapid7/metasploitable3-$os_short box successfully added to Vagrant."
+    	Write-Host "Starting to build for provider $provider"
+        $boxversion = Get-Content .\packer\templates\$os_full.json | Select-String -Pattern "box_version" | Select-String -Pattern "[0-9]\.[0-9]\.[0-9]+"
+        $boxversion = $boxversion.toString().trim().split('"')[3]
+
+        Write-Host "Building metasploitable3-$os_short Vagrant box..."
+
+        If ($(Test-Path "packer\builds\$($os_full)_$provider_$boxversion.box") -eq $True) {
+
+            Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
+    
         } else {
-            throw "Error adding metasploitable3-$os_short box to Vagrant. See the above output for any error messages."
+
+            cmd.exe /c $packer build --only=$provider-iso packer\templates\$os_full.json
+
+            if($?) {
+              Write-Host "Box successfully built by Packer."
+            } else {
+             throw "Error building the Vagrant box using Packer. Please check the output above for any error messages."
+            }
+        }
+
+        echo "Attempting to add metasploitable3-$os_short box to Vagrant..."
+        $vagrant_box_list = cmd.exe /c "vagrant box list"
+
+        If ($vagrant_box_list -match "metasploitable3-$os_short") {
+            Write-Host "metasploitable3-$os_short already found in Vagrant box repository. Skipping the addition to Vagrant."
+        } else {
+
+            cmd.exe /c vagrant box add packer\builds\$($os_full)_$provider_$boxversion.box --name metasploitable3-$os_short
+    
+            if($?) {
+                Write-Host "metasploitable3-$os_short box successfully added to Vagrant."
+            } else {
+                throw "Error adding metasploitable3-$os_short box to Vagrant. See the above output for any error messages."
+            }
         }
     }
 }
