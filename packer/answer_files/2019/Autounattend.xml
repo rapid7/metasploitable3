@@ -61,6 +61,7 @@
             </ImageInstall>
             <UserData>
                 <ProductKey>
+                    <Key />
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
