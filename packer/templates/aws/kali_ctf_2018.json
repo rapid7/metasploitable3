@@ -1,0 +1,26 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-07360d1b1c9e13198",
+      "instance_type": "t2.medium",
+      "ssh_username": "ec2-user",
+      "associate_public_ip_address": true,
+      "ssh_interface": "public_ip",
+      "subnet_id": "subnet-0c2bb7925125ea5da",
+      "iam_instance_profile": "ssm_param_access",
+      "ami_name": "metasploitable3-kali_2018-{{user `box_version`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "{{user `scripts_dir`}}/installs/install_ixia_agent.sh"
+    }
+  ],
+  "variables": {
+    "scripts_dir": "{{template_dir}}/../../../scripts",
+    "box_version": "0.0.2"
+  }
+}
