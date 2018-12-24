@@ -219,7 +219,7 @@ function InstallBox($os_full, $os_short)
             }
         }
 
-        echo "Attempting to add metasploitable3-$os_short box to Vagrant..."
+        Write-Output "Attempting to add metasploitable3-$os_short box to Vagrant..."
         $vagrant_box_list = cmd.exe /c "vagrant box list"
 
         If ($vagrant_box_list -match "metasploitable3-$os_short") {
