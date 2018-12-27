@@ -12,3 +12,4 @@ resources/drivers/
 *.vfd
 output-vmware-iso/
 iso/
+packer/templates/*_edited.json
