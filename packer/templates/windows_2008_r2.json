@@ -193,7 +193,6 @@
         "{{user `scripts_dir`}}/chocolatey_installs/7zip.bat",
         "{{user `scripts_dir`}}/configs/apply_password_settings.bat",
         "{{user `scripts_dir`}}/configs/create_users.bat",
-        "{{user `scripts_dir`}}/installs/setup_iis.bat",
         "{{user `scripts_dir`}}/installs/setup_ftp_site.bat",
         "{{user `scripts_dir`}}/chocolatey_installs/java.bat"
       ]
