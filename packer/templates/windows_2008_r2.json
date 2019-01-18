@@ -157,7 +157,6 @@
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "{{user `scripts_dir`}}/configs/update_root_certs.bat",
-        "{{user `scripts_dir`}}/installs/vm-guest-tools.bat",
         "{{user `scripts_dir`}}/configs/vagrant-ssh.bat",
         "{{user `scripts_dir`}}/configs/disable-auto-logon.bat",
         "{{user `scripts_dir`}}/configs/enable-rdp.bat"
@@ -240,7 +239,15 @@
         "{{user `scripts_dir`}}/installs/setup_snmp.bat",
         "{{user `scripts_dir`}}/configs/configure_firewall.bat",
         "{{user `scripts_dir`}}/installs/install_elasticsearch.bat",
-        "{{user `scripts_dir`}}/installs/install_flags.bat",
+        "{{user `scripts_dir`}}/installs/install_flags.bat"
+      ]
+    },
+    {
+      "type": "shell",
+      "remote_path": "/tmp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/vm-guest-tools.bat",
         "{{user `scripts_dir`}}/configs/packer_cleanup.bat"
       ]
     },
