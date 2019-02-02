@@ -1,36 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
-    <servicing>
-        <package action="configure">
-            <assemblyIdentity name="Microsoft-Windows-Foundation-Package" version="6.1.7601.17514" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="" />
-            <selection name="IIS-CommonHttpFeatures" state="true" />
-            <selection name="IIS-NetFxExtensibility" state="true" />
-            <selection name="IIS-ASPNET" state="true" />
-            <selection name="IIS-ASP" state="true" />
-            <selection name="IIS-CGI" state="true" />
-            <selection name="IIS-WebServerRole" state="true" />
-            <selection name="IIS-WebServer" state="true" />
-            <selection name="IIS-ApplicationDevelopment" state="true" />
-            <selection name="IIS-ISAPIExtensions" state="true" />
-            <selection name="IIS-ISAPIFilter" state="true" />
-            <selection name="IIS-ServerSideIncludes" state="true" />
-            <selection name="IIS-Security" state="true" />
-            <selection name="IIS-RequestFiltering" state="true" />
-            <selection name="IIS-DefaultDocument" state="true" />
-            <selection name="IIS-FTPServer" state="true" />
-            <selection name="IIS-FTPSvc" state="true" />
-            <selection name="IIS-FTPExtensibility" state="true" />
-        </package>
-    </servicing>
+    <servicing/>
     <settings pass="windowsPE">
         <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DriverPaths>
                 <PathAndCredentials wcm:keyValue="1" wcm:action="add">
                     <Path>A:\</Path>
                 </PathAndCredentials>
-            </DriverPaths>
-        </component>
-        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	    </DriverPaths>
+	</component>
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
@@ -64,6 +43,7 @@
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
                     <!--<Key>YC6KT-GKW9T-YTKYR-T4X34-R7VHC</Key>-->
+                    
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
             </UserData>
@@ -84,7 +64,7 @@
                 </OSImage>
             </ImageInstall>
         </component>
-        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <SetupUILanguage>
                 <UILanguage>en-US</UILanguage>
             </SetupUILanguage>
@@ -101,7 +81,7 @@
         </component>
     </settings>
     <settings pass="oobeSystem">
-        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <UserAccounts>
                 <AdministratorPassword>
                     <Value>vagrant</Value>
@@ -292,7 +272,7 @@
                     <Order>98</Order>
                     <Description>Installing Windows Management Framework 5.0</Description>
                 </SynchronousCommand>
-                <!--WITHOUT WINDOWS UPDATES -->
+                 <!--WITHOUT WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\openssh.ps1 -AutoStart</CommandLine>
                     <Description>Install OpenSSH</Description>
@@ -302,15 +282,15 @@
                 <!-- END WITHOUT WINDOWS UPDATES -->
                 <!-- WITH WINDOWS UPDATES -->
                 <!--<SynchronousCommand wcm:action="add">-->
-                <!--<CommandLine>cmd.exe /c a:\microsoft-updates.bat</CommandLine>-->
-                <!--<Order>98</Order>-->
-                <!--<Description>Enable Microsoft Updates</Description>-->
+                    <!--<CommandLine>cmd.exe /c a:\microsoft-updates.bat</CommandLine>-->
+                    <!--<Order>98</Order>-->
+                    <!--<Description>Enable Microsoft Updates</Description>-->
                 <!--</SynchronousCommand>-->
                 <!--<SynchronousCommand wcm:action="add">-->
-                <!--<CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1 -MaxUpdatesPerCycle 30</CommandLine>-->
-                <!--<Description>Install Windows Updates</Description>-->
-                <!--<Order>100</Order>-->
-                <!--<RequiresUserInput>true</RequiresUserInput>-->
+                    <!--<CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1 -MaxUpdatesPerCycle 30</CommandLine>-->
+                    <!--<Description>Install Windows Updates</Description>-->
+                    <!--<Order>100</Order>-->
+                    <!--<RequiresUserInput>true</RequiresUserInput>-->
                 <!--</SynchronousCommand>-->
                 <!-- END WITH WINDOWS UPDATES -->
             </FirstLogonCommands>
@@ -325,22 +305,22 @@
             <!-- Rename computer here. -->
             <ComputerName>vagrant-2008R2</ComputerName>
             <TimeZone>Pacific Standard Time</TimeZone>
-            <RegisteredOwner />
+            <RegisteredOwner/>
         </component>
-        <component name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
         </component>
-        <component name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <!--  Disable IE ESC.  -->
             <IEHardenAdmin>false</IEHardenAdmin>
             <IEHardenUser>false</IEHardenUser>
         </component>
-        <component name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <DoNotOpenInitialConfigurationTasksAtLogon>true</DoNotOpenInitialConfigurationTasksAtLogon>
         </component>
-        <component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <SkipAutoActivation>true</SkipAutoActivation>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:d:/sources/install.wim#Windows Server 2008 R2 SERVERSTANDARD" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage xmlns:cpi="urn:schemas-microsoft-com:cpi" cpi:source="catalog:d:/sources/install_windows server 2008 r2 serverdatacenter.clg"/>
 </unattend>
