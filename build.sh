@@ -150,7 +150,7 @@ for provider in $providers; do
     mkdir -p "$packer_build_path"
     if [ -e $packer_build_path/$search_string.box ]; then
       echo "It looks like the $provider vagrant box already exists. Skipping the build."
-    fi
+    else
       echo "Building the Vagrant box for $provider..."
       packer_provider="$provider-iso"
       if [ $provider = "qemu" ]; then
@@ -162,6 +162,7 @@ for provider in $providers; do
           echo "Error building the Vagrant boxes using Packer. Please check the output above for any error messages."
           exit 1
       fi
+    fi
 done
 
 echo "Attempting to add the box to Vagrant..."
