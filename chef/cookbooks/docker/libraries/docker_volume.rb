@@ -1,12 +1,10 @@
 module DockerCookbook
   class DockerVolume < DockerBase
-    require 'docker'
-
     resource_name :docker_volume
 
     property :driver, String, desired_state: false
-    property :host, [String, nil], default: lazy { default_host }, desired_state: false
-    property :opts, [String, Array, nil], desired_state: false
+    property :host, [String, nil], default: lazy { ENV['DOCKER_HOST'] }, desired_state: false
+    property :opts, Hash, desired_state: false
     property :volume, Docker::Volume, desired_state: false
     property :volume_name, String, name_property: true
 
@@ -19,15 +17,18 @@ module DockerCookbook
     end
 
     action :create do
-      converge_by "creating volume #{volume_name}" do
-        Docker::Volume.create(volume_name, {}, connection)
-      end if volume.nil?
+      converge_by "creating volume #{new_resource.volume_name}" do
+        opts = {}
+        opts['Driver'] = driver if property_is_set?(:driver)
+        opts['DriverOpts'] = opts if property_is_set?(:opts)
+        Docker::Volume.create(new_resource.volume_name, opts, connection)
+      end if current_resource.nil?
     end
 
     action :remove do
-      converge_by "removing volume #{volume_name}" do
-        volume.remove
-      end unless volume.nil?
+      converge_by "removing volume #{new_resource.volume_name}" do
+        current_resource.volume.remove
+      end unless current_resource.nil?
     end
   end
 end

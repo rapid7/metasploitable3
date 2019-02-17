@@ -34,24 +34,18 @@ end script
 
 script
     # modify these in /etc/default/$UPSTART_JOB (/etc/default/docker)
-    DOCKER=<%= @dockerd_bin_link %>
-    DOCKER_OPTS=
     if [ -f /etc/default/$UPSTART_JOB ]; then
         . /etc/default/$UPSTART_JOB
     fi
-    exec "$DOCKER" <%= @docker_daemon_arg %> $DOCKER_OPTS --raw-logs
+    exec <%= @docker_daemon_cmd %> <%= @docker_raw_logs_arg %>
 end script
 
 post-start script
-  DOCKER_OPTS=
-  if [ -f /etc/default/$UPSTART_JOB ]; then
-    . /etc/default/$UPSTART_JOB
-  fi
   <%= @docker_wait_ready %>
   if [ $? -eq 0 ]; then
     echo "<%= @docker_socket %> is up"
   else
-    echo "<%= @docker_socket %> failed to come start"
+    echo "<%= @docker_socket %> failed to start"
     exit 1
   fi
 end script
