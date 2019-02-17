@@ -4,6 +4,8 @@
 #
 
 docker_service 'default' do
+  install_method 'package'
+  version '18.06.1'
   action [:create, :start]
   group 'docker'
 end
