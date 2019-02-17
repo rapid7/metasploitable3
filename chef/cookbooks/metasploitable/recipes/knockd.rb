@@ -18,6 +18,10 @@ cookbook_file '/etc/default/knockd' do
   mode '0600'
 end
 
+execute 'remove_carriage_returns' do
+    command "sed -i -e 's/\r//g' /etc/default/knockd"
+end
+
 service 'knockd' do
   action [:enable, :start]
 end

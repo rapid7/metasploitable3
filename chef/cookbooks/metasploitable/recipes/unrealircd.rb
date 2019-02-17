@@ -67,11 +67,10 @@ cookbook_file '/etc/init.d/unrealircd' do
   mode '760'
 end
 
-execute 'start unrealircd service' do
-  # This should ideally be a service resource but for some reason chef doesn't start the service properly when it is.
-  command '/etc/init.d/unrealircd start'
+execute 'remove_carriage_returns' do
+    command "sed -i -e 's/\r//g' /etc/init.d/unrealircd"
 end
 
 service 'unrealircd' do
-  action :enable
+  action [:enable, :start]
 end
