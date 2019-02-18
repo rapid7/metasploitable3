@@ -6,18 +6,18 @@ module DockerCookbook
     property :target_tag, String
     property :to_repo, String
     property :to_tag, String
-    property :force, Boolean, default: false
+    property :force, [TrueClass, FalseClass], default: false, desired_state: false
 
     #########
     # Actions
     #########
 
     action :tag do
-      return if force == false && Docker::Image.exist?("#{to_repo}:#{to_tag}")
+      return if new_resource.force == false && Docker::Image.exist?("#{new_resource.to_repo}:#{new_resource.to_tag}")
       begin
-        converge_by "update #{target_repo}:#{target_tag} to #{to_repo}:#{to_tag}" do
-          i = Docker::Image.get("#{target_repo}:#{target_tag}")
-          i.tag('repo' => to_repo, 'tag' => to_tag, 'force' => force)
+        converge_by "update #{new_resource.target_repo}:#{new_resource.target_tag} to #{new_resource.to_repo}:#{new_resource.to_tag}" do
+          i = Docker::Image.get("#{new_resource.target_repo}:#{new_resource.target_tag}")
+          i.tag('repo' => new_resource.to_repo, 'tag' => new_resource.to_tag, 'force' => new_resource.force)
         end
       rescue Docker::Error => e
         raise e.message

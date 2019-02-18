@@ -6,7 +6,7 @@ PartOf=<%= @docker_name %>.service
 ListenStream=<%= @docker_socket %>
 SocketMode=0660
 SocketUser=root
-SocketGroup=docker
+SocketGroup=<%= @config.group %>
 
 [Install]
 WantedBy=sockets.target
