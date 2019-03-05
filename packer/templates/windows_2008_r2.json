@@ -134,13 +134,22 @@
         "./resources/drivers/virtio/*"
       ],
       "qemuargs": [
-        ["-m", "4096"],
-        ["-smp", "2"],
-        ["-display", "gtk"]
+        [
+          "-m",
+          "4096"
+        ],
+        [
+          "-smp",
+          "2"
+        ],
+        [
+          "-display",
+          "gtk"
+        ]
       ]
     }
   ],
-"provisioners": [
+  "provisioners": [
     {
       "type": "file",
       "source": "{{user `scripts_dir`}}",
@@ -174,7 +183,7 @@
       "type": "windows-restart"
     },
     {
-      "type":"powershell",
+      "type": "powershell",
       "inline": [
         "$env:chocolateyVersion = '0.10.8'; iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
       ],
@@ -187,7 +196,10 @@
       "type": "powershell",
       "elevated_user": "Administrator",
       "elevated_password": "vagrant",
-      "scripts": "{{user `scripts_dir`}}/installs/setup_iis.bat"
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/setup_iis.bat",
+        "{{user `scripts_dir`}}/installs/setup_snmp.bat"
+      ]
     },
     {
       "type": "windows-shell",
@@ -223,13 +235,13 @@
         "{{user `scripts_dir`}}/installs/setup_jmx.bat",
         "{{user `scripts_dir`}}/installs/install_ruby.bat",
         "{{user `scripts_dir`}}/installs/install_devkit.bat"
-        ]
+      ]
     },
     {
       "type": "windows-restart"
     },
     {
-    "type": "windows-shell",
+      "type": "windows-shell",
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
@@ -241,7 +253,6 @@
         "{{user `scripts_dir`}}/installs/install_manageengine.bat",
         "{{user `scripts_dir`}}/installs/setup_axis2.bat",
         "{{user `scripts_dir`}}/installs/install_backdoors.bat",
-        "{{user `scripts_dir`}}/installs/setup_snmp.bat",
         "{{user `scripts_dir`}}/configs/configure_firewall.bat",
         "{{user `scripts_dir`}}/installs/install_elasticsearch.bat",
         "{{user `scripts_dir`}}/installs/install_flags.bat"
@@ -257,7 +268,7 @@
       ]
     },
     {
-      "type":"powershell",
+      "type": "powershell",
       "inline": [
         "mkdir -p C:/startup"
       ]
