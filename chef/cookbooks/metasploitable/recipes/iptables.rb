@@ -16,6 +16,7 @@ bash 'setup for knockd, used for flag' do
     code_to_execute << "iptables -A INPUT -p tcp --dport #{node[:metasploitable][:ports][service.to_sym]} -j ACCEPT\n"
   end
   code_to_execute << "iptables -A INPUT -p tcp --dport 22 -j ACCEPT\n"
+  code_to_execute << "iptables -A INPUT -p icmp -j ACCEPT\n"
   code_to_execute << "iptables -A INPUT -j DROP\n"
   code code_to_execute
 end
