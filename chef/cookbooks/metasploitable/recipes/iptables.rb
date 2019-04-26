@@ -14,6 +14,10 @@ iptables_rule '01_ssh' do
   lines "-A INPUT -p tcp --dport 22 -j ACCEPT"
 end
 
+iptables_rule '01_icmp' do
+  lines "-A INPUT -p icmp -j ACCEPT"
+end
+
 iptables_rule '999_drop_all' do
   lines '-A INPUT -j DROP'
 end
