@@ -12,6 +12,13 @@ mkdir metasploitable3-workspace
 cd metasploitable3-workspace
 curl -O https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile && vagrant up
 ```
+For Windows users:
+```
+mkdir metasploitable3-workspace
+cd metasploitable3-workspace
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile" -OutFile "Vagrantfile"
+vagrant up
+```
 Or clone this repository and build your own box.
 
 ## Building Metasploitable 3
@@ -55,6 +62,11 @@ https://www.youtube.com/playlist?list=PLZOToVAK85MpnjpcVtNMwmCxMZRFaY6mT
 
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
+* There is a problem with Ruby on Windows, so it is better to use paths without spaces.
+ex:
+NOT USE: x:\\path first\path second\metasploitable3...
+USE:     x:\\path_first\path_second\metasploitable3...
+* Dont forget about privillages at your host
 
 ## More Information
 The wiki has a lot more detail and serves as the main source of documentation. Please [check it out](https://github.com/rapid7/metasploitable3/wiki/).
