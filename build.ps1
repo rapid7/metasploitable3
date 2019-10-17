@@ -5,6 +5,8 @@ $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer"
+$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+$expectedVagrantLocation= "C:\HashiCorp\Vagrant\bin\vagrant.exe"
 
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
@@ -32,7 +34,7 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
 }
 
 Write-Host "";
-$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+
 
 If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
 
@@ -75,7 +77,7 @@ If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVer
 }
 
 
-If ($(Test-Path "C:\HashiCorp\Vagrant\bin\vagrant.exe") -eq $True) {
+If ($(Test-Path $expectedVagrantLocation) -eq $True) {
 
     $vagrantVersion = cmd.exe /c "vagrant" -v
     $vagrantVersion = $vagrantVersion.split(" ")[1]
@@ -89,7 +91,7 @@ If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinV
 
 } else {
 
-    Write-Host "Could not find a compatible version of Vagrant at C:\HashiCorp\Vagrant\bin\. Please download and install it from https://www.vagrantup.com/downloads.html."
+    Write-Host "Could not find a compatible version of Vagrant at $expectedVagrantLocation. Please download and install it from https://www.vagrantup.com/downloads.html."
     exit
 
 }
