@@ -7,7 +7,7 @@ $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer.exe"
 $expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
 $expectedVagrantLocation="C:\HashiCorp\Vagrant\bin"
-$expectedPackerLocation="C\ProgramFiles\Packer"
+
 
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
@@ -63,18 +63,9 @@ If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinV
 
 }
 
-If ($(Test-Path "$expectedPackerLocation\$packer.exe") -eq $True) {
-
-    $packerVersion = cmd.exe /c "$expectedPackerLocation/$packer" -v
+    $packerVersion = cmd.exe /c "$packer" -v
     $packerVersion = $packerVersion.split(" ")[1]
 
-} else {
-
-    Write-Host "packer is not installed (or not in the expected location of $expectedPackerLocation\)"
-    Write-Host "Please download and install it from https://www.packer.io/downloads.html"
-    exit
-
-}
 
 
 If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVersion) {
