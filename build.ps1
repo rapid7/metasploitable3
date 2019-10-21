@@ -63,10 +63,7 @@ If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinV
 
 }
 
-    $packerVersion = cmd.exe /c "$packer" -v
-    $packerVersion = $packerVersion.split(" ")[1]
-
-
+    $packerVersion = cmd.exe /c $packer -v
 
 If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVersion) {
 
