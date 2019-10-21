@@ -4,7 +4,10 @@ $virtualBoxMinVersion = "5.1.10"
 $packerMinVersion = "0.10.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
-$packer = "packer"
+$packer = "packer.exe"
+$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
+$expectedVagrantLocation="C:\HashiCorp\Vagrant\bin"
+
 
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
@@ -32,7 +35,6 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
 }
 
 Write-Host "";
-$expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
 
 If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
 
@@ -75,13 +77,18 @@ If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVer
 }
 
 
-If ($(Test-Path "C:\HashiCorp\Vagrant\bin\vagrant.exe") -eq $True) {
+If ($(Test-Path "$expectedVagrantLocation\vagrant.exe") -eq $True) {
 
     $vagrantVersion = cmd.exe /c "vagrant" -v
     $vagrantVersion = $vagrantVersion.split(" ")[1]
 
-}
+} else {
 
+    Write-Host "Vagrant is not installed (or not in the expected location of $expectedVagrantLocation\)"
+    Write-Host "Please download and install it from https://www.vagrantup.com/downloads.html/"
+    exit
+
+}
 
 If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinVersion) {
 
@@ -151,7 +158,7 @@ function InstallBox($os_full, $os_short)
         }
     }
 
-    echo "Attempting to add metasploitable3-$os_short box to Vagrant..."
+    Write-Host "Attempting to add metasploitable3-$os_short box to Vagrant..."
     $vagrant_box_list = cmd.exe /c "vagrant box list"
 
     If ($vagrant_box_list -match "rapid7/metasploitable3-$os_short") {

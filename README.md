@@ -7,11 +7,21 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 ## Quick-start
 
 To use the prebuilt images provided at https://app.vagrantup.com/rapid7/ create a new local metasploitable workspace:
+
+Linux users:
 ```
 mkdir metasploitable3-workspace
 cd metasploitable3-workspace
 curl -O https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile && vagrant up
 ```
+Windows users:
+```
+mkdir metasploitable3-workspace
+cd metasploitable3-workspace
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile" -OutFile "Vagrantfile"
+vagrant up
+```
+
 Or clone this repository and build your own box.
 
 ## Building Metasploitable 3
