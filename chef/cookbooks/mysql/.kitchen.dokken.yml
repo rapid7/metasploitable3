@@ -1,0 +1,80 @@
+driver:
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: current
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  deprecations_as_errors: true
+
+platforms:
+  - name: centos-6
+    driver:
+      image: centos:6
+      platform: rhel
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install which initscripts net-tools wget
+    run_list:
+      - recipe[mysql_test::yum_repo]
+
+  - name: centos-7
+    driver:
+      image: centos:7
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+    run_list:
+      - recipe[mysql_test::yum_repo]
+
+  - name: debian-7
+    driver:
+      image: debian:7
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+
+  - name: debian-8
+    driver:
+      image: debian:8
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+
+  - name: fedora-24
+    driver:
+      image: fedora:24
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN dnf -y install which systemd-sysv initscripts wget net-tools
+
+  - name: ubuntu-14.04
+    driver:
+      image: ubuntu-upstart:14.04
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+    run_list:
+      - recipe[mysql_test::yum_repo]
+
+  - name: ubuntu-16.04
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+
+  - name: opensuse-leap
+    driver:
+      image: opensuse:leap
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname

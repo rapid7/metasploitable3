@@ -2,6 +2,33 @@
 
 This file is used to list changes made in each version of the mysql cookbook.
 
+## 8.5.1 (2017-08-23)
+
+- Fix the remainder of the namespace collision deprecation warnings
+- Remove the class_eval in the action class as this causes issues with some releases of Chef 12
+
+## 8.5.0 (2017-08-23)
+
+- Require Chef 12.7+ since 12.5/12.6 has custom resource action_class issues
+- Resolve several Chef 14 deprecation warnings
+
+## 8.4.0 (2017-05-30)
+
+- Fix client/server install on Amazon Linux and add testing
+- Remove support for Ubuntu Precise since it's EOL
+- Add Amazon Linux testing
+
+## 8.3.1 (2017-04-04)
+
+- Fix an ignoring of 'cookbook' attribute by 'mysql_config' resource
+- Remove unused helper method
+- Call out the supported platform versions in the metadata
+- Switch to Delivery Local and rename the docked config
+- Remove mention of the EOL opensuse 13.x in the readme
+
+## 8.3.0 (2017-03-20)
+- Refactor mysql_service_manager_upstart.rb to eliminate use of cloned resource
+
 ## 8.2.0 (2016-12-03)
 
 - Include client development packages on RHEL/SUSE platforms

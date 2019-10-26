@@ -1,0 +1,69 @@
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+# Don't `bundle install` which takes about 1.5 mins
+install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  global:
+  - KITCHEN_YAML=.kitchen.yml
+  - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml
+  matrix:
+  - INSTANCE=smoke51-centos-6
+  - INSTANCE=smoke55-centos-6
+  - INSTANCE=smoke55-centos-7
+  - INSTANCE=smoke55-debian-7
+  - INSTANCE=smoke55-debian-8
+  - INSTANCE=smoke55-ubuntu-1404
+  - INSTANCE=smoke56-centos-6
+  - INSTANCE=smoke56-centos-7
+  #- INSTANCE=smoke56-fedora-24
+  - INSTANCE=smoke56-ubuntu-1404
+  - INSTANCE=smoke56-opensuse-leap
+  - INSTANCE=smoke57-centos-6
+  - INSTANCE=smoke57-centos-7
+  #- INSTANCE=smoke57-fedora-24
+  - INSTANCE=smoke57-ubuntu-1604
+  - INSTANCE=installation-client-package-51-centos-6
+  - INSTANCE=installation-client-package-55-centos-6
+  - INSTANCE=installation-client-package-55-centos-7
+  - INSTANCE=installation-client-package-55-debian-7
+  - INSTANCE=installation-client-package-55-debian-8
+  - INSTANCE=installation-client-package-55-ubuntu-1404
+  - INSTANCE=installation-client-package-56-centos-6
+  - INSTANCE=installation-client-package-56-centos-7
+  #- INSTANCE=installation-client-package-56-fedora-24
+  - INSTANCE=installation-client-package-56-ubuntu-1404
+  - INSTANCE=installation-client-package-56-opensuse-leap
+  - INSTANCE=installation-client-package-57-centos-6
+  - INSTANCE=installation-client-package-57-centos-7
+  #- INSTANCE=installation-client-package-57-fedora-24
+  - INSTANCE=installation-client-package-57-ubuntu-1604
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef --version
+  - cookstyle --version
+  - foodcritic --version
+
+script: kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - chef exec delivery local all
+      env: UNIT_AND_LINT=1
