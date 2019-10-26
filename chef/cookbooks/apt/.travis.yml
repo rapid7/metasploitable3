@@ -1,0 +1,48 @@
+addons:
+  apt:
+    sources:
+      - chef-current-xenial
+    packages:
+      - chef-workstation
+
+install: echo "skip bundle install"
+
+env:
+  - CHEF_LICENSE=accept
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+  - INSTANCE=default-centos-7
+  - INSTANCE=default-debian-9
+  - INSTANCE=default-debian-10
+  - INSTANCE=default-ubuntu-1604
+  - INSTANCE=default-ubuntu-1804
+  - INSTANCE=cacher-debian-9
+  - INSTANCE=cacher-debian-10
+  - INSTANCE=cacher-ubuntu-1604
+  - INSTANCE=compile-time-ubuntu-1604
+  - INSTANCE=compile-time-ubuntu-1804
+  - INSTANCE=compile-time-debian-9
+  - INSTANCE=compile-time-debian-10
+  - INSTANCE=unattended-upgrades-ubuntu-1604
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef --version
+
+script: KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - delivery local all
+      env:
+        - UNIT_AND_LINT=1
+        - CHEF_LICENSE=accept

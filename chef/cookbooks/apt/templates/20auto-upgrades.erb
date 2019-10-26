@@ -1,0 +1,5 @@
+APT::Periodic::Update-Package-Lists "<%= node['apt']['unattended_upgrades']['update_package_lists'] ? 1 : 0 %>";
+APT::Periodic::Unattended-Upgrade "<%= node['apt']['unattended_upgrades']['enable'] ? 1 : 0 %>";
+<% if node['apt']['unattended_upgrades']['random_sleep'] -%>
+APT::Periodic::RandomSleep "<%= node['apt']['unattended_upgrades']['random_sleep'] %>";
+<% end -%>

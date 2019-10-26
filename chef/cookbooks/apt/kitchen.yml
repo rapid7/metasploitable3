@@ -1,0 +1,49 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+  chef_license: accept-no-persist
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+  - name: debian-9
+  - name: debian-10
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
+  - name: ubuntu-16.04-chef-13.3
+    driver_config:
+      box: bento/ubuntu-16.04
+    provisioner:
+      require_chef_omnibus: 13.3
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+
+  - name: cacher
+    run_list:
+      - recipe[test::cacher]
+    excludes: centos-7
+
+  - name: compile-time
+    run_list:
+      - recipe[apt::default]
+    attributes:
+      apt:
+        compile_time_update: true
+    excludes: centos-7
+
+  - name: unattended-upgrades
+    run_list:
+      - recipe[test::unattended-upgrades]
+    attributes:
+      apt:
+        unattended_upgrades:
+          enable: true
+    excludes: centos-7
