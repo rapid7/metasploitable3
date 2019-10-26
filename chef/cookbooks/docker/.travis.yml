@@ -1,0 +1,55 @@
+sudo: required
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chef-workstation
+
+# Don't `bundle install` which takes about 1.5 mins
+install: echo "skip bundle install"
+
+env:
+  - CHEF_LICENSE=accept
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+  - INSTANCE=installation-script-main-ubuntu-1604
+  - INSTANCE=installation-script-main-ubuntu-1804
+  - INSTANCE=installation-tarball-ubuntu-1604
+  - INSTANCE=installation-tarball-ubuntu-1804
+  - INSTANCE=installation-package-ubuntu-1604
+  - INSTANCE=installation-package-ubuntu-1804
+  - INSTANCE=registry-ubuntu-1604
+  - INSTANCE=network-ubuntu-1604
+  - INSTANCE=volume-ubuntu-1604
+  - INSTANCE=resources-debian-8
+  - INSTANCE=resources-debian-9
+  - INSTANCE=resources-centos-7
+  - INSTANCE=resources-fedora-28
+  - INSTANCE=resources-ubuntu-1604
+  - INSTANCE=resources-ubuntu-1804
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef --version
+  - cookstyle --version
+  - foodcritic --version
+
+script: kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - chef exec delivery local all
+      env:
+        - UNIT_AND_LINT=1
+        - CHEF_LICENSE=accept

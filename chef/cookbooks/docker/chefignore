@@ -45,22 +45,19 @@ a.out
 
 # Testing #
 ###########
-.watchr
 .rspec
 spec/*
 spec/fixtures/*
 test/*
 features/*
 examples/*
-Guardfile
 Procfile
 .kitchen*
 .rubocop.yml
 spec/*
-Rakefile
 .travis.yml
 .foodcritic
-.codeclimate.yml
+appveyor.yml
 
 # SCM #
 #######
@@ -93,14 +90,3 @@ CONTRIBUTING*
 CHANGELOG*
 TESTING*
 
-# Strainer #
-############
-Colanderfile
-Strainerfile
-.colander
-.strainer
-
-# Vagrant #
-###########
-.vagrant
-Vagrantfile

@@ -85,8 +85,6 @@ module DockerCookbook
     # docker-wait-ready timeout
     property :service_timeout, Integer, default: 20
 
-    allowed_actions :start, :stop, :restart
-
     alias_method :label, :labels
     alias_method :run_group, :group
     alias_method :graph, :data_root

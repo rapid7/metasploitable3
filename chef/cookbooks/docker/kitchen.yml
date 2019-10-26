@@ -1,8 +1,9 @@
 ---
 driver:
   name: dokken
-  chef_version: latest
-  privileged: true
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_license: accept-no-persist
   volumes: [
     '/var/lib/docker', '/var/lib/docker-one', '/var/lib/docker-two'
     ]
@@ -13,6 +14,7 @@ transport:
 provisioner:
   name: dokken
   deprecations_as_errors: true
+  chef_license: accept-no-persist
 
 verifier:
   name: inspec
@@ -32,11 +34,15 @@ platforms:
   driver:
     image: dokken/debian-8
     pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
 
 - name: debian-9
   driver:
     image: dokken/debian-9
     pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
 
 - name: centos-7
   driver:
@@ -52,6 +58,8 @@ platforms:
   driver:
     image: dokken/ubuntu-16.04
     pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
 
 - name: ubuntu-18.04
   driver:

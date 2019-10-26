@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the docker cookbook.
 
+## 4.9.3 (2019-08-14)
+
+- fixes issue #1061, docker_volume 'driver' and 'opts' don't work
+
 ## 4.9.2 (2019-02-15)
 
 - Support setting shared memory size.

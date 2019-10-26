@@ -96,7 +96,6 @@ describe 'docker_test::installation_package' do
       {  docker_version: '18.06.1', expected: '18.06.1~ce~3-0~debian' },
       {  docker_version: '18.09.0', expected: '5:18.09.0~3-0~debian-stretch' },
     ].each do |suite|
-
       it 'generates the correct version string debian stretch' do
         custom_resource = chef_run.docker_installation_package('default')
         actual = custom_resource.version_string(suite[:docker_version])
@@ -129,7 +128,6 @@ describe 'docker_test::installation_package' do
       {  docker_version: '18.06.1', expected: '18.06.1.ce-3.el7' },
       {  docker_version: '18.09.0', expected: '18.09.0-3.el7' },
     ].each do |suite|
-
       it 'generates the correct version string centos 7' do
         custom_resource = chef_run.docker_installation_package('default')
         actual = custom_resource.version_string(suite[:docker_version])
