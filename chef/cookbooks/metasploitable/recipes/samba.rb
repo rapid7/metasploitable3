@@ -6,8 +6,6 @@
 #
 #
 
-include_recipe 'metasploitable::samba'
-
 package 'samba'
 
 cookbook_file '/etc/samba/smb.conf' do

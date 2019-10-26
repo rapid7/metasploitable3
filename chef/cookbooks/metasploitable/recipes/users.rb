@@ -11,7 +11,7 @@ node[:users].each do |u, attributes|
     manage_home true
     password attributes[:password_hash]
     uid uid
-    gid '100'
+    gid 100
     home "/home/#{attributes[:username]}"
     shell '/bin/bash'
   end

@@ -11,17 +11,15 @@ include_recipe 'metasploitable::nodejs'
 
 package 'git'
 
+git '/opt/readme_app' do
+    repository 'https://github.com/jbarnett-r7/metasploitable3-readme.git'
+    action :checkout
+end
+
 directory '/opt/readme_app' do
   owner 'chewbacca'
   group 'users'
   mode '0644'
-end
-
-bash "clone the readme app and install gems" do
-  code <<-EOH
-    cd /opt/
-    git clone https://github.com/jbarnett-r7/metasploitable3-readme.git readme_app
-  EOH
 end
 
 template '/opt/readme_app/start.sh' do
@@ -34,11 +32,12 @@ cookbook_file '/etc/init/readme_app.conf' do
 end
 
 bash 'set permissions' do
+  cwd '/opt/readme_app'
   code <<-EOH
-    chown -R chewbacca:users /opt/readme_app
-    find /opt/readme_app -type d | xargs chmod 0755
-    find /opt/readme_app -type f | xargs chmod 0644
-    chmod 0755 /opt/readme_app/start.sh
+    chown -R chewbacca:users .
+    git ls-files | xargs chmod 0644
+    git ls-files | xargs -n 1 dirname | uniq | xargs chmod 755
+    chmod 0755 ./start.sh
   EOH
 end
 

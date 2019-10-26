@@ -12,6 +12,7 @@ unreal_tar = 'Unreal3.2.8.1_backdoor.tar.gz'
 remote_file "#{Chef::Config[:file_cache_path]}/#{unreal_tar}" do
   source "#{node[:unrealircd][:download_url]}/752e46f2d873c1679fa99de3f52a274d-Unreal3.2.8.1_backdoor.tar_.gz"
   mode '0644'
+  action :create_if_missing
 end
 
 directory node[:unrealircd][:install_dir] do
@@ -51,9 +52,10 @@ end
 bash 'configure and compile' do
   code <<-EOH
     cd /opt/unrealircd/Unreal3.2
-    ./configure --with-showlistmodes --enable-hub --enable-prefixaq --with-listen=5 --with-dpath=/opt/unrealircd/Unreal3.2 --with-spath=/opt/unrealircd/Unreal3.2/src/ircd --with-nick-history=2000 --with-sendq=3000000 --with-bufferpool=18 --with-hostname=metasploitableub --with-permissions=0600 --with-fd-setsize=1024 --enable-dynamic-linking
-    make
+    ./configure --with-showlistmodes --enable-hub --enable-prefixaq --with-listen=5 --with-dpath=/opt/unrealircd/Unreal3.2 --with-spath=/opt/unrealircd/Unreal3.2/src/ircd --with-nick-history=2000 --with-sendq=3000000 --with-bufferpool=18 --with-hostname=metasploitableub --with-permissions=0600 --with-fd-setsize=1024 --enable-dynamic-linking \
+    && make
   EOH
+  not_if { ::File.exist?('/opt/unrealircd/Unreal3.2/unreal') }
 end
 
 execute 'set owner and permissions' do
