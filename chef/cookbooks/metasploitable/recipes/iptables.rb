@@ -4,10 +4,6 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-execute "apt-get update" do
-  command "apt-get update"
-end
-
 bash 'setup for knockd, used for flag' do
   code_to_execute = ""
   code_to_execute << "iptables -A FORWARD 1 -p tcp -m tcp --dport 8989 -j DROP\n"

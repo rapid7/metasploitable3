@@ -4,10 +4,6 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-execute 'apt-get update' do
-  command 'apt-get update'
-end
-
 package 'apache2' do
   action :install
 end
@@ -59,8 +55,9 @@ execute 'make /var/www/html writeable' do
   command 'chmod o+w /var/www/html'
 end
 
-execute 'rm /var/www/html/index.html' do
-  command 'rm /var/www/html/index.html'
+file '/var/www/html/index.html' do
+  action :delete
+  only_if { File.exists?('/var/www/html/index.html') }
 end
 
 service 'apache2' do

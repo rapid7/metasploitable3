@@ -1,0 +1,104 @@
+// Automatically upgrade packages from these (origin:archive) pairs
+Unattended-Upgrade::Allowed-Origins {
+<% unless node['apt']['unattended_upgrades']['allowed_origins'].empty? -%>
+<% node['apt']['unattended_upgrades']['allowed_origins'].each do |origin| -%>
+	"<%= origin %>";
+<% end -%>
+<% end -%>
+};
+
+<% unless node['apt']['unattended_upgrades']['origins_patterns'].empty? -%>
+Unattended-Upgrade::Origins-Pattern {
+<% node['apt']['unattended_upgrades']['origins_patterns'].each do |pattern| -%>
+	"<%= pattern %>";
+<% end -%>
+};
+
+<% end -%>
+// List of packages to not update
+Unattended-Upgrade::Package-Blacklist {
+<% unless node['apt']['unattended_upgrades']['package_blacklist'].empty? -%>
+<% node['apt']['unattended_upgrades']['package_blacklist'].each do |package| -%>
+	"<%= package %>";
+<% end -%>
+<% end -%>
+};
+
+// This option allows you to control if on a unclean dpkg exit
+// unattended-upgrades will automatically run
+//   dpkg --force-confold --configure -a
+// The default is true, to ensure updates keep getting installed
+Unattended-Upgrade::AutoFixInterruptedDpkg "<%= node['apt']['unattended_upgrades']['auto_fix_interrupted_dpkg'] ? 'true' : 'false' %>";
+
+// Split the upgrade into the smallest possible chunks so that
+// they can be interrupted with SIGUSR1. This makes the upgrade
+// a bit slower but it has the benefit that shutdown while a upgrade
+// is running is possible (with a small delay)
+Unattended-Upgrade::MinimalSteps "<%= node['apt']['unattended_upgrades']['minimal_steps'] ? 'true' : 'false' %>";
+
+// Install all unattended-upgrades when the machine is shuting down
+// instead of doing it in the background while the machine is running
+// This will (obviously) make shutdown slower
+Unattended-Upgrade::InstallOnShutdown "<%= node['apt']['unattended_upgrades']['install_on_shutdown'] ? 'true' : 'false' %>";
+
+<% if node['apt']['unattended_upgrades']['mail'] -%>
+// Send email to this address for problems or packages upgrades
+// If empty or unset then no email is sent, make sure that you
+// have a working mail setup on your system. A package that provides
+// 'mailx' must be installed.
+Unattended-Upgrade::Mail "<%= node['apt']['unattended_upgrades']['mail'] %>";
+<% end -%>
+
+<% if node['apt']['unattended_upgrades']['sender'] -%>
+// This option allows to customize the email address used in the
+// 'From' header. unattended-upgrades will use "root" if unset.
+Unattended-Upgrade::Sender "<%= node['apt']['unattended_upgrades']['sender'] %>";
+<% end -%>
+
+// Set this value to "true" to get emails only on errors. Default
+// is to always send a mail if Unattended-Upgrade::Mail is set
+Unattended-Upgrade::MailOnlyOnError "<%= node['apt']['unattended_upgrades']['mail_only_on_error'] ? 'true' : 'false' %>";
+
+// Do automatic removal of new unused dependencies after the upgrade
+// (equivalent to apt-get autoremove)
+Unattended-Upgrade::Remove-Unused-Dependencies "<%= node['apt']['unattended_upgrades']['remove_unused_dependencies'] ? 'true' : 'false' %>";
+
+// Automatically reboot *WITHOUT CONFIRMATION* if a
+// the file /var/run/reboot-required is found after the upgrade
+Unattended-Upgrade::Automatic-Reboot "<%= node['apt']['unattended_upgrades']['automatic_reboot'] ? 'true' : 'false' %>";
+
+<% if node['apt']['unattended_upgrades']['automatic_reboot'] -%>
+// If automatic reboot is enabled and needed, reboot at the specific
+// time instead of immediately. Default is "now"
+Unattended-Upgrade::Automatic-Reboot-Time "<%= node['apt']['unattended_upgrades']['automatic_reboot_time'] %>";
+<% end %>
+
+<% if node['apt']['unattended_upgrades']['dl_limit'] -%>
+// Use apt bandwidth limit feature, this example limits the download
+// speed to 70kb/sec
+// Acquire::http::Dl-Limit "70";
+Acquire::http::Dl-Limit "<%= node['apt']['unattended_upgrades']['dl_limit'] %>";
+<% end -%>
+
+// Enable logging to syslog. Default is False
+Unattended-Upgrade::SyslogEnable "<%= node['apt']['unattended_upgrades']['syslog_enable'] ? 'true' : 'false' %>";
+
+// Specify syslog facility. Default is daemon
+Unattended-Upgrade::SyslogFacility "<%= node['apt']['unattended_upgrades']['syslog_facility'] %>";
+
+// specify any dpkg options you want to run
+// for example if you wanted to upgrade and use
+// the installed version of config files when
+// resolving conflicts during an upgrade you
+// typically need:
+// Dpkg::Options {
+//   "--force-confdef";
+//   "--force-confold";
+//};
+<% unless node['apt']['unattended_upgrades']['dpkg_options'].empty? -%>
+Dpkg::Options {
+<% node['apt']['unattended_upgrades']['dpkg_options'].each do |option|%>
+	"<%= option %>";
+<% end -%>
+};
+<% end -%>

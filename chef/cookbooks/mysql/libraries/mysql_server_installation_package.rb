@@ -14,9 +14,9 @@ module MysqlCookbook
 
     # Actions
     action :install do
-      package package_name do
-        version package_version if package_version
-        options package_options if package_options
+      package new_resource.package_name do
+        version new_resource.package_version if new_resource.package_version
+        options new_resource.package_options if new_resource.package_options
         notifies :install, 'package[perl-Sys-Hostname-Long]', :immediately if platform_family?('suse')
         notifies :run, 'execute[Initial DB setup script]', :immediately if platform_family?('suse')
         action :install
@@ -34,7 +34,7 @@ module MysqlCookbook
     end
 
     action :delete do
-      package package_name do
+      package new_resource.package_name do
         action :remove
       end
     end

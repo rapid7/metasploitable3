@@ -32,7 +32,7 @@ end
 
 bash 'create payroll database and import data' do
   code <<-EOH
-    mysql -S /var/run/mysql-default/mysqld.sock --user="root" --password="sploitme" --execute="CREATE DATABASE payroll;"
-    mysql -S /var/run/mysql-default/mysqld.sock --user="root" --password="sploitme" payroll < /tmp/payroll.sql
+    mysql -S /var/run/mysql-default/mysqld.sock --user="root" --password="#{node[:mysql][:root_password]}" --execute="DROP DATABASE IF EXISTS payroll; CREATE DATABASE payroll;"
+    mysql -S /var/run/mysql-default/mysqld.sock --user="root" --password="#{node[:mysql][:root_password]}" payroll < /tmp/payroll.sql
   EOH
 end

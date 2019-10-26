@@ -16,6 +16,7 @@
         "{{template_dir}}/../../../chef/cookbooks"
       ],
       "run_list": [
+        "apt::default",
         "metasploitable::vm_tools",
         "metasploitable::users",
         "metasploitable::mysql",

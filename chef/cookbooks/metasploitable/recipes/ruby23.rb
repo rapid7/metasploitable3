@@ -10,10 +10,6 @@ apt_repository 'rvm' do
   uri 'ppa:brightbox/ruby-ng'
 end
 
-execute 'apt-get update' do
-  command 'apt-get update'
-end
-
 package 'ruby2.3'
 package 'ruby2.3-dev'
 package 'bundler'

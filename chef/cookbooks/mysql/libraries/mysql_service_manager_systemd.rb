@@ -2,26 +2,8 @@ module MysqlCookbook
   class MysqlServiceManagerSystemd < MysqlServiceBase
     resource_name :mysql_service_manager_systemd
 
-    provides :mysql_service_manager, platform: 'fedora'
-
-    provides :mysql_service_manager, platform: %w(redhat centos scientific) do |node| # ~FC005
-      node['platform_version'].to_f >= 7.0
-    end
-
-    provides :mysql_service_manager, platform: 'debian' do |node|
-      node['platform_version'].to_f >= 8.0
-    end
-
-    provides :mysql_service_manager, platform: 'ubuntu' do |node|
-      node['platform_version'].to_f >= 15.04
-    end
-
-    provides :mysql_service_manager, platform: 'opensuse' do |node|
-      node['platform_version'].to_f >= 13.0
-    end
-
-    provides :mysql_service_manager, platform: 'opensuseleap' do |node|
-      node['platform_version'].to_f >= 42.0
+    provides :mysql_service_manager, os: 'linux' do |_node|
+      Chef::Platform::ServiceHelpers.service_resource_providers.include?(:systemd)
     end
 
     action :create do
@@ -69,12 +51,12 @@ module MysqlCookbook
           mysqld_bin: mysqld_bin
         )
         cookbook 'mysql'
-        notifies :run, "execute[#{instance} systemctl daemon-reload]", :immediately
+        notifies :run, "execute[#{new_resource.instance} systemctl daemon-reload]", :immediately
         action :create
       end
 
       # avoid 'Unit file changed on disk' warning
-      execute "#{instance} systemctl daemon-reload" do
+      execute "#{new_resource.instance} systemctl daemon-reload" do
         command '/bin/systemctl daemon-reload'
         action :nothing
       end
@@ -88,8 +70,8 @@ module MysqlCookbook
         mode '0644'
         variables(
           run_dir: run_dir,
-          run_user: run_user,
-          run_group: run_group
+          run_user: new_resource.run_user,
+          run_group: new_resource.run_group
         )
         cookbook 'mysql'
         action :create
@@ -134,7 +116,7 @@ module MysqlCookbook
       end
     end
 
-    declare_action_class.class_eval do
+    action_class do
       def stop_system_service
         # service management resource
         service 'mysql' do

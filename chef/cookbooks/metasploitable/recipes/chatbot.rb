@@ -25,6 +25,10 @@ end
 
 execute 'unzip chatbot' do
   command 'unzip /tmp/chatbot.zip -d /opt'
+  only_if { Dir['/opt/chatbot'].empty? }
+  notifies :run, 'execute[chown chatbot]', :immediately
+  notifies :run, 'execute[chmod chatbot]', :immediately
+  notifies :run, 'execute[install chatbot]', :immediately
 end
 
 execute 'chown chatbot' do
@@ -37,6 +41,7 @@ end
 
 execute 'install chatbot' do
   command '/opt/chatbot/install.sh'
+  not_if { File.exists?( '/etc/init/chatbot.conf' ) }
 end
 
 service 'chatbot' do

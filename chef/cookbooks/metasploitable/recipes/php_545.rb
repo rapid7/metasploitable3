@@ -10,10 +10,6 @@ include_recipe 'metasploitable::apache'
 
 php_tar = "php-5.4.5.tar.gz"
 
-execute "apt-get update" do
-  command "apt-get update"
-end
-
 execute "install prereqs" do
   command "apt-get install -y gcc make build-essential \
     libxml2-dev libcurl4-openssl-dev libpcre3-dev libbz2-dev libjpeg-dev \
@@ -29,30 +25,39 @@ end
 remote_file "#{Chef::Config[:file_cache_path]}/#{php_tar}" do
   source "#{node[:php545][:download_url]}/#{php_tar}"
   mode '0644'
+  action :create_if_missing
+  not_if 'apache2ctl -M | grep -q php5'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/libxml29_compat.patch" do
   source "https://mail.gnome.org/archives/xml/2012-August/txtbgxGXAvz4N.txt"
   mode '0644'
-end
-
-execute "extract php" do
-  cwd Chef::Config[:file_cache_path]
-  command "tar xvzf #{Chef::Config[:file_cache_path]}/#{php_tar} -C #{Chef::Config[:file_cache_path]}"
+  action :create_if_missing
+  not_if 'apache2ctl -M | grep -q php5'
 end
 
 execute "patch php" do
   cwd "#{Chef::Config[:file_cache_path]}/php-5.4.5"
   command "patch -p0 -b < ../libxml29_compat.patch"
+  action :nothing
 end
+
+execute "extract php" do
+  cwd Chef::Config[:file_cache_path]
+  command "tar xvzf #{Chef::Config[:file_cache_path]}/#{php_tar} -C #{Chef::Config[:file_cache_path]}"
+  only_if {Dir["#{Chef::Config[:file_cache_path]}/php-5.4.5"].empty?}
+  not_if 'apache2ctl -M | grep -q php5'
+  notifies :run, 'execute[patch php]', :immediately
+end
+
 
 bash "compile and install php" do
   cwd "#{Chef::Config[:file_cache_path]}/php-5.4.5"
   code <<-EOH
-    ./configure --with-apxs2=/usr/bin/apxs --with-mysqli --enable-embedded-mysqli --with-gd --with-mcrypt --enable-mbstring --with-pdo-mysql
-    make
-    make install
+    ./configure --with-apxs2=/usr/bin/apxs --with-mysqli --enable-embedded-mysqli --with-gd --with-mcrypt --enable-mbstring --with-pdo-mysql \
+    && make && make install
   EOH
+  not_if 'apache2ctl -M | grep -q php5'
 end
 
 cookbook_file 'etc/apache2/mods-available/php5.conf' do

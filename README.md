@@ -53,6 +53,29 @@ Thanks to [Jeremy](https://twitter.com/webpwnized), you can also follow the step
 
 https://www.youtube.com/playlist?list=PLZOToVAK85MpnjpcVtNMwmCxMZRFaY6mT
 
+### ub1404 Development and Modification
+
+Using Vagrant and a lightweight Ubuntu 14.04 vagrant cloud box image, you can quickly set up and customize ub1404 Metasploitable3 for development or customization.
+To do so, install Vagrant and a hypervisor such as VirtualBox. Then, visit the `bento/ubuntu-14.04` page and find a version that supports
+your hypervisor. For instance, version `v201808.24.0` is compatible with VirtualBox.
+
+Install the vagrant virtualbox vbguest plugin:
+
+    vagrant plugin install vagrant-vbguest
+    
+Then, navigate to the `/chef/dev/ub1404` directory in this repository. Examine the Vagrantfile there. Metasploitable ub1404 uses the vagrant `chef-solo` provisioner.
+To this Vagrantfile, add the metasploitable chef recipes that you desire -- you can browse them in the `/chef/cookbooks/metasploitable` folder. Or, 
+add or edit your own cookbook and/or recipes there.
+
+From the `/chef/dev/ub1404` directory, you can run `vagrant up` to get a development virtual ub1404 instance. After the initial `up` build and provision, 
+when you edit the chef runlist or when you edit a chef recipe, run `vagrant provision` from the same directory. For faster development, you can comment-out 
+recipes that you do not need to rerun -- but even if they are all enabled, vagrant provisioning should not take longer one or two minutes. 
+Chef aims to be idempotent, so you can rerun this command often.
+
+Consider taking a snapshot (e.g., `vagrant snapshot new fresh`) before modifying recipes, so that you can always return to an initial state (`vagrant restore fresh`).
+If you want a _totally_ fresh snapshot, you can do the initialization with `vagrant up --no-provision`, then take a snapshot, followed by `vagrant provision`.
+
+
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
 

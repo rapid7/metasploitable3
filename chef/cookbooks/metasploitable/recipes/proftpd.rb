@@ -10,29 +10,35 @@ include_recipe 'metasploitable::apache'
 
 proftpd_tar = 'proftpd-1.3.5.tar.gz'
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{proftpd_tar}" do
-  source "#{node[:proftpd][:download_url]}/#{proftpd_tar}"
-  mode '0644'
-end
-
 execute "extract proftpd" do
   cwd Chef::Config[:file_cache_path]
   command 'tar zxfv proftpd-1.3.5.tar.gz'
-
   not_if { ::File.exists?(File.join(Chef::Config[:file_cache_path], 'proftpd-1.3.5'))}
+  action :nothing
 end
 
 bash 'compile and install proftpd' do
   cwd "#{Chef::Config[:file_cache_path]}/proftpd-1.3.5"
   code <<-EOH
-    ./configure --prefix=/opt/proftpd --with-modules=mod_copy
-    make
-    make install
+    ./configure --prefix=/opt/proftpd --with-modules=mod_copy \
+    && make && make install
   EOH
+  not_if { ::File.exist?( '/opt/proftpd/sbin/proftpd') }
+  action :nothing
+end
+
+remote_file "#{Chef::Config[:file_cache_path]}/#{proftpd_tar}" do
+  source "#{node[:proftpd][:download_url]}/#{proftpd_tar}"
+  mode '0644'
+  action :create_if_missing
+  not_if { File.exists?( '/opt/proftpd/sbin/proftpd' ) }
+  notifies :run, 'execute[extract proftpd]', :immediately
+  notifies :run, 'bash[compile and install proftpd]', :immediately
 end
 
 execute 'add hostname to /etc/hosts' do
   command "echo #{node[:ipaddress]} #{node[:hostname]} >> /etc/hosts"
+  not_if 'grep -q "#{node[:ipaddress]} #{node[:hostname]}" /etc/hosts'
 end
 
 cookbook_file '/etc/init.d/proftpd' do

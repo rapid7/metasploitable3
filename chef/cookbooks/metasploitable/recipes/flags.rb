@@ -35,12 +35,16 @@ cookbook_file '/opt/docker/7_of_diamonds.zip' do
   mode '0700'
 end
 
-bash 'build docker image for 7 of diamonds' do
-  code <<-EOH
-    cd /opt/docker
-    docker build -t "7_of_diamonds" .
-    docker run -dit --restart always --name 7_of_diamonds 7_of_diamonds
-  EOH
+docker_image '7_of_diamonds' do
+    action :build_if_missing
+    source '/opt/docker/'
+end
+
+docker_container '7_of_diamonds' do
+    action :run_if_missing
+    restart_policy 'always'
+    tty true
+    open_stdin true
 end
 
 file '/opt/docker/7_of_diamonds.zip' do

@@ -14,6 +14,7 @@ bash "download and extract phpmyadmin" do
     tar xvfz /tmp/phpMyAdmin-3.5.8-all-languages.tar.gz -C /var/www/html
     mv /var/www/html/phpMyAdmin-3.5.8-all-languages /var/www/html/phpmyadmin
   EOH
+  not_if { ::File.exists?('/var/www/html/phpmyadmin') }
 end
 
 cookbook_file 'var/www/html/phpmyadmin/config.inc.php' do
