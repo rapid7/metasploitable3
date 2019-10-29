@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
     chef.cookbooks_path = [ '../../cookbooks' ]
 
     chef.add_recipe "apt::default"
+    chef.add_recipe "iptables::default"
     chef.add_recipe "metasploitable::users"
     chef.add_recipe "metasploitable::mysql"
     chef.add_recipe "metasploitable::apache_continuum"
