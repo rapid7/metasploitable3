@@ -2,11 +2,6 @@ module MysqlCookbook
   module HelpersBase
     require 'shellwords'
 
-    def el5?
-      return true if node['platform_family'] == 'rhel' && node['platform_version'].to_i == 5
-      false
-    end
-
     def el6?
       return true if node['platform_family'] == 'rhel' && node['platform_version'].to_i == 6
       false
@@ -14,21 +9,6 @@ module MysqlCookbook
 
     def el7?
       return true if node['platform_family'] == 'rhel' && node['platform_version'].to_i == 7
-      false
-    end
-
-    def fc23?
-      return true if node['platform'] == 'fedora' && node['platform_version'].to_i == 23
-      false
-    end
-
-    def fc24?
-      return true if node['platform'] == 'fedora' && node['platform_version'].to_i == 24
-      false
-    end
-
-    def squeeze?
-      return true if node['platform'] == 'debian' && node['platform_version'].to_i == 6
       false
     end
 
@@ -42,8 +22,8 @@ module MysqlCookbook
       false
     end
 
-    def precise?
-      return true if node['platform'] == 'ubuntu' && node['platform_version'] == '12.04'
+    def stretch?
+      return true if node['platform'] == 'debian' && node['platform_version'].to_i == 9
       false
     end
 
@@ -58,25 +38,13 @@ module MysqlCookbook
       false
     end
 
-    def amazon?
-      return true if node['platform'] == 'amazon'
-    end
-
-    def opensuse?
-      return true if node['platform'] == 'opensuse'
-    end
-
-    def opensuseleap?
-      return true if node['platform'] == 'opensuseleap'
-    end
-
     def defaults_file
       "#{etc_dir}/my.cnf"
     end
 
     def default_data_dir
-      return "/opt/local/lib/#{mysql_name}" if node['os'] == 'solaris2'
       return "/var/lib/#{mysql_name}" if node['os'] == 'linux'
+      return "/opt/local/lib/#{mysql_name}" if node['os'] == 'solaris2'
       return "/var/db/#{mysql_name}" if node['os'] == 'freebsd'
     end
 
@@ -90,18 +58,15 @@ module MysqlCookbook
 
     def default_major_version
       # rhelish
-      return '5.0' if el5?
       return '5.1' if el6?
       return '5.6' if el7?
-      return '5.5' if amazon?
+      return '5.6' if node['platform'] == 'amazon'
 
       # debian
-      return '5.1' if squeeze?
       return '5.5' if wheezy?
       return '5.5' if jessie?
 
       # ubuntu
-      return '5.5' if precise?
       return '5.5' if trusty?
       return '5.7' if xenial?
 
@@ -124,10 +89,9 @@ module MysqlCookbook
     end
 
     def default_client_package_name
-      return ['mysql', 'mysql-devel'] if major_version == '5.0' && el5?
-      return ['mysql51-mysql', 'mysql51-mysql-libs'] if major_version == '5.1' && el5?
       return ['mysql', 'mysql-devel'] if major_version == '5.1' && el6?
-      return ['mysql55-mysql', 'mysql55-mysql-devel'] if major_version == '5.5' && el5?
+      return ['mysql55', 'mysql55-devel.x86_64'] if major_version == '5.5' && node['platform'] == 'amazon'
+      return ['mysql56', 'mysql56-devel.x86_64'] if major_version == '5.6' && node['platform'] == 'amazon'
       return ['mysql-client-5.5', 'libmysqlclient-dev'] if major_version == '5.5' && node['platform_family'] == 'debian'
       return ['mysql-client-5.6', 'libmysqlclient-dev'] if major_version == '5.6' && node['platform_family'] == 'debian'
       return ['mysql-client-5.7', 'libmysqlclient-dev'] if major_version == '5.7' && node['platform_family'] == 'debian'
@@ -136,10 +100,9 @@ module MysqlCookbook
     end
 
     def default_server_package_name
-      return 'mysql-server' if major_version == '5.0' && el5?
-      return 'mysql51-mysql-server' if major_version == '5.1' && el5?
       return 'mysql-server' if major_version == '5.1' && el6?
-      return 'mysql55-mysql-server' if major_version == '5.5' && el5?
+      return 'mysql55-server' if major_version == '5.5' && node['platform'] == 'amazon'
+      return 'mysql56-server' if major_version == '5.6' && node['platform'] == 'amazon'
       return 'mysql-server-5.5' if major_version == '5.5' && node['platform_family'] == 'debian'
       return 'mysql-server-5.6' if major_version == '5.6' && node['platform_family'] == 'debian'
       return 'mysql-server-5.7' if major_version == '5.7' && node['platform_family'] == 'debian'
@@ -191,10 +154,7 @@ module MysqlCookbook
       return 'mysql55-mysqld' if node['platform_family'] == 'rhel' && scl_name == 'mysql55'
       return 'mysqld' if node['platform_family'] == 'rhel'
       return 'mysqld' if node['platform_family'] == 'fedora'
-      return 'mysql' if node['platform_family'] == 'debian'
-      return 'mysql' if node['platform_family'] == 'suse'
-      return 'mysql' if node['platform_family'] == 'omnios'
-      return 'mysql' if node['platform_family'] == 'smartos'
+      'mysql' # not one of the above
     end
 
     def v56plus
@@ -218,8 +178,7 @@ module MysqlCookbook
       "#{prefix_dir}/var/log/#{mysql_name}"
     end
 
-    def lc_messages_dir
-    end
+    def lc_messages_dir; end
 
     def init_records_script
       # Note: shell-escaping passwords in a SQL file may cause corruption - eg
@@ -283,7 +242,7 @@ EOSQL
       cmd = mysql_install_db_bin
       cmd << " --defaults-file=#{etc_dir}/my.cnf"
       cmd << " --datadir=#{data_dir}"
-      cmd << ' --explicit_defaults_for_timestamp' if v56plus
+      cmd << ' --explicit_defaults_for_timestamp' if v56plus && !v57plus
       return "scl enable #{scl_name} \"#{cmd}\"" if scl_package?
       cmd
     end
@@ -327,10 +286,6 @@ EOSQL
       cmd << ' &'
       return "scl enable #{scl_name} \"#{cmd}\"" if scl_package?
       cmd
-    end
-
-    def sensitive_supported?
-      Gem::Version.new(Chef::VERSION) >= Gem::Version.new('11.14.0')
     end
   end
 end

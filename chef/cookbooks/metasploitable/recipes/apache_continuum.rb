@@ -4,10 +4,6 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-execute "apt-get update" do
-  command "apt-get update"
-end
-
 package 'openjdk-6-jre'
 package 'openjdk-6-jdk'
 

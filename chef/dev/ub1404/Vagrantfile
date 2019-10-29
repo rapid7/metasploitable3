@@ -1,0 +1,43 @@
+# This Vagrantfile can be used to quickly spin up a development instance of ub1404
+
+Vagrant.configure("2") do |config|
+  config.vm.define "dev" do |dev|
+    dev.vm.box = "bento/ubuntu-14.04"
+    dev.vm.box_version = "201808.24.0"
+    dev.ssh.username = 'vagrant'
+    dev.ssh.password = 'vagrant'
+    dev.vm.network "forwarded_port", guest: 21, host:2121
+
+    dev.vm.provider "virtualbox" do |v|
+      v.name = "Metasploitable3-ub1404-dev"
+      v.memory = 2048
+    end
+  end
+  
+  config.vm.provision "chef_solo" do |chef|
+    chef.arguments = '--chef-license accept'
+    chef.cookbooks_path = [ '../../cookbooks' ]
+
+    chef.add_recipe "apt::default"
+    chef.add_recipe "metasploitable::users"
+    chef.add_recipe "metasploitable::mysql"
+    chef.add_recipe "metasploitable::apache_continuum"
+    chef.add_recipe "metasploitable::apache"
+    chef.add_recipe "metasploitable::php_545"
+    chef.add_recipe "metasploitable::phpmyadmin"
+    chef.add_recipe "metasploitable::proftpd"
+    chef.add_recipe "metasploitable::docker"
+    chef.add_recipe "metasploitable::samba"
+    chef.add_recipe "metasploitable::sinatra"
+    chef.add_recipe "metasploitable::unrealircd"
+    chef.add_recipe "metasploitable::chatbot"
+    chef.add_recipe "metasploitable::payroll_app"
+    chef.add_recipe "metasploitable::readme_app"
+    chef.add_recipe "metasploitable::cups"
+    chef.add_recipe "metasploitable::drupal"
+    chef.add_recipe "metasploitable::knockd"
+    chef.add_recipe "metasploitable::iptables"
+    chef.add_recipe "metasploitable::flags"
+    chef.add_recipe "metasploitable::clear_cache"
+  end
+end

@@ -1,0 +1,3 @@
+# Managed by Chef
+APT::Install-Recommends "<%= node['apt']['confd']['install_recommends'] ? 1 : 0 %>";
+APT::Install-Suggests "<%= node['apt']['confd']['install_suggests'] ? 1 : 0 %>";

@@ -29,15 +29,15 @@ module MysqlCookbook
       end
     end
 
-    action_class.class_eval do
+    action_class do
       def installation(&block)
-        case install_method
+        case new_resource.install_method
         when 'auto'
-          install = mysql_server_installation(name, &block)
+          install = mysql_server_installation(new_resource.name, &block)
         when 'package'
-          install = mysql_server_installation_package(name, &block)
+          install = mysql_server_installation_package(new_resource.name, &block)
         when 'none'
-          Chef::Log.info('Skipping Mysql installation. Assuming it was handled previously.')
+          Chef::Log.info('Skipping MySQL installation. Assuming it was handled previously.')
           return
         end
         copy_properties_to(install)
@@ -45,15 +45,15 @@ module MysqlCookbook
       end
 
       def svc_manager(&block)
-        case service_manager
+        case new_resource.service_manager
         when 'auto'
-          svc = mysql_service_manager(name, &block)
+          svc = mysql_service_manager(new_resource.name, &block)
         when 'sysvinit'
-          svc = mysql_service_manager_sysvinit(name, &block)
+          svc = mysql_service_manager_sysvinit(new_resource.name, &block)
         when 'upstart'
-          svc = mysql_service_manager_upstart(name, &block)
+          svc = mysql_service_manager_upstart(new_resource.name, &block)
         when 'systemd'
-          svc = mysql_service_manager_systemd(name, &block)
+          svc = mysql_service_manager_systemd(new_resource.name, &block)
         end
         copy_properties_to(svc)
         svc

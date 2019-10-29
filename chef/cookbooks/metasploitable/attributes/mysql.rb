@@ -1,0 +1,1 @@
+default[:mysql][:root_password] = 'sploitme'

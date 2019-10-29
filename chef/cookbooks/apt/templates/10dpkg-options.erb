@@ -1,0 +1,8 @@
+# Managed by Chef
+DPkg::Options {
+<%= node['apt']['confd']['force_confask'] ? '"--force-confask";' : '' -%>
+<%= node['apt']['confd']['force_confdef'] ? '"--force-confdef";' : '' -%>
+<%= node['apt']['confd']['force_confmiss'] ? '"--force-confmiss";' : '' -%>
+<%= node['apt']['confd']['force_confnew'] ? '"--force-confnew";' : '' -%>
+<%= node['apt']['confd']['force_confold'] ? '"--force-confold";' : '' -%>
+}

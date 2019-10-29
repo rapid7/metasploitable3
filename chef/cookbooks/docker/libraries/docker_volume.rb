@@ -19,8 +19,8 @@ module DockerCookbook
     action :create do
       converge_by "creating volume #{new_resource.volume_name}" do
         opts = {}
-        opts['Driver'] = driver if property_is_set?(:driver)
-        opts['DriverOpts'] = opts if property_is_set?(:opts)
+        opts['Driver'] = new_resource.driver if property_is_set?(:driver)
+        opts['DriverOpts'] = new_resource.opts if property_is_set?(:opts)
         Docker::Volume.create(new_resource.volume_name, opts, connection)
       end if current_resource.nil?
     end
