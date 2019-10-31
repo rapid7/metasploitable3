@@ -22,7 +22,7 @@ execute 'remove_carriage_returns' do
     command "sed -i -e 's/\r//g' /etc/default/knockd"
 end
 
-iptables_rule 'knockd' do
+iptables_rule '1_knockd' do
   lines "-I FORWARD 1 -p tcp -m tcp --dport #{node[:flags][:five_of_diamonds][:vuln_port]} -j DROP"
 end
 

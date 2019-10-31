@@ -5,6 +5,11 @@
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 #
 #
+include_recipe 'iptables::default'
+
+iptables_rule '1_samba' do
+  lines "-A INPUT -p tcp --dport 445 -j ACCEPT"
+end
 
 package 'samba'
 

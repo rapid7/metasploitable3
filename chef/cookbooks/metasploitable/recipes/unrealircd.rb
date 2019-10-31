@@ -7,6 +7,12 @@
 # Downloaded from https://www.exploit-db.com/exploits/13853/
 # Install steps taken from https://wiki.swiftirc.net/wiki/Installing_and_Configuring_UnrealIRCd_on_Linux
 
+include_recipe 'iptables::default'
+
+iptables_rule '1_unrealircd' do
+  lines "-A INPUT -p tcp --dport 6697 -j ACCEPT"
+end
+
 unreal_tar = 'Unreal3.2.8.1_backdoor.tar.gz'
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{unreal_tar}" do

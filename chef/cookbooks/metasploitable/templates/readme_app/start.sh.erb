@@ -2,4 +2,4 @@
 
 cd /opt/readme_app
 bundle install --path vendor/bundle
-bundle exec rails s -b 0.0.0.0 -p <%= node[:metasploitable][:ports][:readme_app] %>
+bundle exec rails s -b 0.0.0.0 -p <%= @readme_app_port %>

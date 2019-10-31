@@ -8,6 +8,15 @@
 
 include_recipe 'metasploitable::ruby23'
 include_recipe 'metasploitable::nodejs'
+include_recipe 'iptables::default'
+
+iptables_rule '1_chatbot_ui' do
+  lines "-A INPUT -p tcp --dport 80 -j ACCEPT"
+end
+
+iptables_rule '1_chatbot_nodejs' do
+  lines "-A INPUT -p tcp --dport 3000 -j ACCEPT"
+end
 
 package 'unzip'
 

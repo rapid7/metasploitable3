@@ -6,6 +6,12 @@
 
 # Install steps taken from https://github.com/rapid7/metasploit-framework/pull/5224
 
+include_recipe 'iptables::default'
+
+iptables_rule '1_proftpd' do
+  lines "-A INPUT -p tcp --dport 21 -j ACCEPT"
+end
+
 include_recipe 'metasploitable::apache'
 
 proftpd_tar = 'proftpd-1.3.5.tar.gz'

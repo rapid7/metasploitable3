@@ -4,17 +4,17 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-iptables_rule 'established' do
-  lines '-I INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT'
+include_recipe 'iptables::default'
+
+iptables_rule '00_established' do
+  lines '-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT'
 end
 
-node[:metasploitable][:ports].keys.each do |service|
-  iptables_rule service do
-    lines "-I INPUT -p tcp --dport #{node[:metasploitable][:ports][service.to_sym]} -j ACCEPT"
-  end
+iptables_rule '01_ssh' do
+  lines "-A INPUT -p tcp --dport 22 -j ACCEPT"
 end
 
-iptables_rule 'drop_all' do
+iptables_rule '999_drop_all' do
   lines '-A INPUT -j DROP'
 end
 
