@@ -9,4 +9,4 @@ resources/drivers/
 *.DS_Store
 *.box
 *.iso
-*.vfd
+*.swp

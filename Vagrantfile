@@ -27,6 +27,22 @@ Vagrant.configure("2") do |config|
 
     win2k8.vm.network "private_network", type: "dhcp"
 
+    win2k8.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2
+      v.video_type = 'qxl'
+      v.input :type => "tablet", :bus => "usb"
+      v.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'
+      v.channel :type => 'spicevmc', :target_name => 'com.redhat.spice.0', :target_type => 'virtio'
+      v.graphics_type = "spice"
+
+      # Enable Hyper-V enlightenments: https://blog.wikichoon.com/2014/07/enabling-hyper-v-enlightenments-with-kvm.html
+      v.hyperv_feature :name => 'stimer',  :state => 'on'
+      v.hyperv_feature :name => 'relaxed', :state => 'on'
+      v.hyperv_feature :name => 'vapic',   :state => 'on'
+      v.hyperv_feature :name => 'synic',   :state => 'on'
+    end
+
     # Configure Firewall to open up vulnerable services
     case ENV['MS3_DIFFICULTY']
       when 'easy'
