@@ -1,4 +1,4 @@
-powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://repo1.maven.org/maven2/org/elasticsearch/elasticsearch/1.1.1/elasticsearch-1.1.1.zip', 'C:\Windows\Temp\elasticsearch-1.1.1.zip')" <NUL
+powershell -Command "[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true} ; (New-Object System.Net.WebClient).DownloadFile('http://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.1.1.zip', 'C:\Windows\Temp\elasticsearch-1.1.1.zip')" <NUL
 cmd /c ""C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\elasticsearch-1.1.1.zip" -o"C:\Program Files\""
 cmd /c ""C:\Program Files\elasticsearch-1.1.1\bin\service.bat" install"
 sc config "elasticsearch-service-x64" start= auto
