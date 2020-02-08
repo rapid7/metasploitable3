@@ -185,7 +185,7 @@
     {
       "type": "powershell",
       "inline": [
-        "$env:chocolateyVersion = '0.10.8'; iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
+        "$env:chocolateyVersion = '0.10.8'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
       ],
       "pause_before": "60s"
     },
