@@ -18,5 +18,7 @@ default[:metasploitable][:ports] = { :cups => 631,
                                      :chatbot_nodejs => 3000,
                                      :readme_app => 3500,
                                      :sinatra => 8181,
-                                     :samba => 445
+                                     :samba => 445,
+                                     :wrapper => 32000,
+                                     :continuum => 8080
 }
