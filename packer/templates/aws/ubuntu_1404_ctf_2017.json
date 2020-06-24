@@ -3,6 +3,8 @@
     {
       "type": "amazon-ebs",
       "region": "us-east-1",
+      "access_key": "{{user `aws_access_key`}}",
+	    "secret_key": "{{user `aws_secret_key`}}",
       "source_ami": "ami-86562dee",
       "instance_type": "t2.small",
       "ssh_username": "ubuntu",
@@ -49,6 +51,8 @@
     }
   ],
   "variables": {
+    "aws_access_key": "YOUR_ACCESS_KEY",
+    "aws_secret_key": "YOUR_SECRET_KEY",
     "iso_url": "http://old-releases.ubuntu.com/releases/14.04.1/ubuntu-14.04.1-server-amd64.iso",
     "iso_checksum_type": "md5",
     "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
