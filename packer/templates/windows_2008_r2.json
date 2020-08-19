@@ -131,7 +131,7 @@
         "{{user `resources_dir`}}/certs/microsoft_root_2011.cer",
         "{{user `resources_dir`}}/certs/thawte_primary_root.cer",
         "{{user `resources_dir`}}/certs/utn-userfirst.cer",
-        "./resources/drivers/virtio/virtio-win-0.1.117_amd64/amd64/Win2008R2/*"
+        "./resources/drivers/virtio/*"
       ],
       "qemuargs": [
         [
