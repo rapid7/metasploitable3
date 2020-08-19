@@ -4,9 +4,8 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
-bash 'clear cache and backup that might contain sensitive information' do
-  code <<-EOH
-  cd /var/chef
-  rm -R *
-  EOH
+# 'clear cache and backup that might contain sensitive information' do
+directory '/var/chef' do
+  action :delete
+  recursive true
 end
