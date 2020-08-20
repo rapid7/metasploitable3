@@ -1,0 +1,139 @@
+#!<%= @hashbang %> -w
+
+#
+# rebuild-<%= @ipt %>.rb -- Construct an iptables rules file from fragments.
+#
+# Written by Phil Cohen <github@phlippers.net>
+# Copyright 2011, Phil Cohen
+#
+# Constructs an iptables rules file from the prefix, standard, and suffix
+# files in the iptables configuration area, adding any additional modules
+# specified in the command line, and prints the resulting iptables rules to
+# standard output (suitable for saving into /var/lib/iptables or some other
+# appropriate location on the system).
+
+##############################################################################
+# Modules and declarations
+##############################################################################
+
+# Path to the iptables template area.
+TEMPLATE_PATH = "/etc/<%= @ipt %>.d"
+
+##############################################################################
+# Installation
+##############################################################################
+
+# Read in a file, processing includes as required.
+def read_iptables(file, table = :filter)
+  file = File.join(TEMPLATE_PATH, file) unless File.dirname(file).include?("<%= @ipt %>.d")
+  rule = File.readlines(file).map{ |line| line.chomp }
+  rule.each do |line|
+    if line =~ /^\s*include\s+(\S+)$/
+      read_iptables($1, table)
+    elsif line =~ /^\s*\*([a-z]+)\s*$/
+      table = $1.to_sym
+    elsif line =~ /^\s*:([-a-zA-Z0-9_]+)(?:\s+([A-Z]+(?:\s*\[.*?\])))?$/
+      @data[table][:chains][$1] = $2 || '-'
+    elsif line !~ /^\s*COMMIT\s*$/
+      #detect new chains
+      if chain = line.match(/\-[ADRILFZN]\s+([-a-zA-Z0-9_]+)\s/)
+        @data[table][:chains][chain[1]] ||= '-'
+      end
+      @data[table][:rules].push line
+    end
+  end
+end
+
+# Write a file carefully.
+def write_iptables(file, data)
+  File.open("#{file}.new", "w") { |f| f.write(data) }
+  File.rename("#{file}.new", file)
+end
+
+# Install iptables on a Red Hat or Debian system. Takes the new iptables data.
+def install_rules(data)
+  Dir.mkdir('/etc/<%= @ipt %>') unless File.directory?('/etc/<%= @ipt %>')
+  write_iptables("<%= @persisted_file %>", data)
+  return false unless system("/sbin/<%= @ipt %>-restore < <%= @persisted_file %>")
+  true
+end
+
+##############################################################################
+# Main routine
+##############################################################################
+
+@data = {
+    :filter => {
+        :chains => {
+            'INPUT'   => 'ACCEPT [0,0]',
+            'FORWARD' => 'ACCEPT [0,0]',
+            'OUTPUT'  => 'ACCEPT [0,0]'
+        },
+        :rules => []
+    },
+    :mangle => {
+        :chains => {
+            'PREROUTING'  => 'ACCEPT [0,0]',
+            'INPUT'       => 'ACCEPT [0,0]',
+            'FORWARD'     => 'ACCEPT [0,0]',
+            'OUTPUT'      => 'ACCEPT [0,0]',
+            'POSTROUTING' => 'ACCEPT [0,0]'
+        },
+        :rules => []
+    },
+    :nat => {
+        :chains => {
+            'PREROUTING'  => 'ACCEPT [0,0]',
+            'POSTROUTING' => 'ACCEPT [0,0]',
+            'OUTPUT'      => 'ACCEPT [0,0]'
+        },
+        :rules => [],
+    },
+    :raw => {
+        :chains => {
+            'PREROUTING'  => 'ACCEPT [0,0]',
+            'OUTPUT'      => 'ACCEPT [0,0]'
+        },
+        :rules => [],
+    },
+    :security => {
+        :chains => {
+            'INPUT'   => 'ACCEPT [0,0]',
+            'FORWARD' => 'ACCEPT [0,0]',
+            'OUTPUT'  => 'ACCEPT [0,0]'
+        },
+        :rules => []
+    }
+}
+
+templates = Dir["#{TEMPLATE_PATH}/*"].sort.delete_if do |template|
+  %w[prefix suffix postfix].include?(File.basename(template))
+end
+
+templates.unshift 'prefix' if File.exist? "#{TEMPLATE_PATH}/prefix"
+templates.push 'suffix' if File.exist? "#{TEMPLATE_PATH}/suffix"
+templates.push 'postfix' if File.exist? "#{TEMPLATE_PATH}/postfix"
+
+templates.each { |template| read_iptables(template) }
+
+iptables_rules = ""
+@data.each do |table, table_data|
+  if table_data[:rules].any?
+    iptables_rules << "*#{table.to_s}\n"
+    table_data[:chains].each do |chain, rule|
+      iptables_rules << ":#{chain} #{rule}\n"
+    end
+    iptables_rules << table_data[:rules].join("\n")
+    iptables_rules << "\nCOMMIT\n"
+  end
+end
+
+system_files = %w(/etc/debian_version /etc/redhat-release /etc/system-release)
+if system_files.any? { |file| File.exist?(file) }
+  success = install_rules(iptables_rules)
+  raise "#{$0}: failed to install iptables rules" unless success
+else
+  raise "#{$0}: cannot figure out whether this is Red Hat or Debian\n";
+end
+
+exit 0

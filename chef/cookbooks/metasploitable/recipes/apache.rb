@@ -4,6 +4,12 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
+include_recipe 'iptables::default'
+
+iptables_rule '1_apache' do
+  lines "-A INPUT -p tcp --dport 80 -j ACCEPT"
+end
+
 package 'apache2' do
   action :install
 end

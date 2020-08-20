@@ -8,6 +8,13 @@
 
 include_recipe 'metasploitable::ruby23'
 include_recipe 'metasploitable::nodejs'
+include_recipe 'iptables::default'
+
+recipe_port = 3500
+
+iptables_rule '1_readme_app' do
+  lines "-A INPUT -p tcp --dport #{recipe_port} -j ACCEPT"
+end
 
 package 'git'
 
@@ -23,6 +30,7 @@ directory '/opt/readme_app' do
 end
 
 template '/opt/readme_app/start.sh' do
+  variables( readme_app_port: recipe_port )
   source 'readme_app/start.sh.erb'
 end
 
