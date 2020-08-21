@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # URI for downloading the latest WHQL'd Virtio drivers
-virtio_uri="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win_amd64.vfd"
+virtio_release="virtio-win-0.1.117_amd64"
+virtio_release_folder="virtio-win-0.1.117-1"
+virtio_uri="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/${virtio_release_folder}/${virtio_release}.vfd"
 
 # le flag
 have_tools=true
@@ -35,10 +37,10 @@ if [ ! -x /usr/bin/7z ]; then
 fi
 
 if [ "$have_tools" = true ]; then
-    if [ -f ".virtio-stable.vfd" ]; then
-	echo ".virtio-stable.vfd already exists, skipping download."
+    if [ -f ".${virtio_release}.vfd" ]; then
+	echo ".${virtio_release}.vfd already exists, skipping download."
     else
-	echo "Downloading and extracting virtio stable drivers."
-	wget -c "${virtio_uri}" -O .virtio-stable.vfd && 7z x -oresources/drivers/virtio .virtio-stable.vfd txtsetup.oem disk1 amd64/Win2008
+	echo "Downloading and extracting virtio ${virtio_release} drivers."
+	wget -c "${virtio_uri}" -O ".${virtio_release}.vfd" && 7z x -oresources/drivers/virtio/"${virtio_release}" ".${virtio_release}.vfd" amd64/Win2008R2
     fi
 fi
