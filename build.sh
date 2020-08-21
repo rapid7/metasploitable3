@@ -173,6 +173,9 @@ for provider in $providers; do
         echo "NOTE: If you are having issues, try starting over by doing 'vagrant destroy' and then 'vagrant up'."
     else
         if [ -z $box_import ]; then
+            if [ $provider = "qemu" ]; then
+              provider="libvirt"
+            fi
             if vagrant box add $packer_build_path/"$os_full"_"$provider"_"$box_version".box --name rapid7/metasploitable3-$os_short; then
             echo "Box successfully added to Vagrant."
             else
