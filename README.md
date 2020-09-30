@@ -95,3 +95,5 @@ The wiki has a lot more detail and serves as the main source of documentation. P
 ## Acknowledgements
 The Windows portion of this project was based off of GitHub user [joefitzgerald's](https://github.com/joefitzgerald) [packer-windows](https://github.com/joefitzgerald/packer-windows) project.
 The Packer templates, original Vagrantfile, and installation answer files were used as the base template and built upon for the needs of this project.
+
+## Still if you have any problem try to update repo of your kali (https://hacktoberfest.digitalocean.com/)
