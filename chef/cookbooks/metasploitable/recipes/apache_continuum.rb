@@ -16,6 +16,7 @@ end
 remote_file "#{Chef::Config[:file_cache_path]}/#{node[:apache_continuum][:tar]}" do
   source "#{node[:apache_continuum][:download_url]}/#{node[:apache_continuum][:tar]}"
   mode '0644'
+  action :create_if_missing
 end
 
 execute "extract apache continum" do
