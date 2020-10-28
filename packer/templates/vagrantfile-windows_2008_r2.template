@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
         v.vmx["scsi0.virtualDev"] = "lsisas1068"
     end
 
-    win2k8.vm.provider "libvirt" do |v|
+    config.vm.provider :libvirt do |v|
       v.memory = "2048"
       v.cpus = "2"
       v.video_type = 'qxl'
