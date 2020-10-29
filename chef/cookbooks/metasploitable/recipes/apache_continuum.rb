@@ -4,6 +4,12 @@
 #
 # Copyright:: 2017, Rapid7, All Rights Reserved.
 
+include_recipe 'iptables::default'
+
+iptables_rule '01_apache_continuum' do
+  lines "-A INPUT -p tcp --dport 8080 -j ACCEPT"
+end
+
 package 'openjdk-6-jre'
 package 'openjdk-6-jdk'
 
