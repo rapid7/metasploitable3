@@ -204,7 +204,6 @@
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "{{user `scripts_dir`}}/configs/update_root_certs.bat",
-        "{{user `scripts_dir`}}/configs/vagrant-ssh.bat",
         "{{user `scripts_dir`}}/configs/disable-auto-logon.bat",
         "{{user `scripts_dir`}}/configs/enable-rdp.bat"
       ]
@@ -222,8 +221,9 @@
     },
     {
       "type": "powershell",
-      "inline": [
-        "$env:chocolateyVersion = '0.10.8'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
+      "scripts": [
+        "./scripts/configs/vagrant-ssh.ps1",
+        "./scripts/installs/chocolatey.ps1"
       ],
       "pause_before": "60s"
     },
