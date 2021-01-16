@@ -4,6 +4,7 @@ cmd /C rm .gemrc
 
 copy /Y C:\Vagrant\resources\rails_server\gemrc C:\Users\vagrant\.gemrc
 
+cmd /C "C:\tools\ruby23\bin\gem.cmd install bundler -v '1.17.3' --no-document"
 cmd /C "C:\tools\ruby23\bin\gem.cmd install rails -v '4.1.1' --no-document"
 cmd /C "C:\tools\ruby23\bin\gem.cmd install rake -v '11.3.0' --no-document"
 cmd /C C:\tools\ruby23\bin\gem.cmd install coffee-script-source -v '1.10.0' --no-document
