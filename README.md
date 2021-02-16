@@ -55,7 +55,9 @@ Requirements:
 3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add packer/builds/windows_2008_r2_*_0.1.0.box --name=metasploitable3-win2k8`.
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
 5. To start the VM, run the command `vagrant up win2k8`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
-6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
+6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are:
+    - Username: `vagrant`
+    - Password: `vagrant`
 
 Videos:
 
