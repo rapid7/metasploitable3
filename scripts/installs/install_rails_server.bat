@@ -1,5 +1,5 @@
 cmd /C echo :ssl_verify_mode: 0 > .gemrc
-cmd /C gem update --system
+cmd /C gem update --system 3.2.10
 cmd /C rm .gemrc
 
 copy /Y C:\Vagrant\resources\rails_server\gemrc C:\Users\vagrant\.gemrc
