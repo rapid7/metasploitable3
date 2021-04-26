@@ -57,12 +57,6 @@ Requirements:
 5. To start the VM, run the command `vagrant up win2k8`. This will start up the VM and run all of the installation and configuration scripts necessary to set everything up. This takes about 10 minutes.
 6. Once this process completes, you can open up the VM within VirtualBox and login. The default credentials are U: vagrant and P: vagrant.
 
-Videos:
-
-Thanks to [Jeremy](https://twitter.com/webpwnized), you can also follow the steps in these videos to set up Metasploitable3:
-
-https://www.youtube.com/playlist?list=PLZOToVAK85MpnjpcVtNMwmCxMZRFaY6mT
-
 ### ub1404 Development and Modification
 
 Using Vagrant and a lightweight Ubuntu 14.04 vagrant cloud box image, you can quickly set up and customize ub1404 Metasploitable3 for development or customization.
