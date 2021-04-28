@@ -10,4 +10,6 @@ execute 'add nodejs 4 repository' do
   not_if { ::File.exist?('/usr/bin/node') }
 end
 
-package 'nodejs'
+package 'nodejs' do
+  options '--force-yes'
+end
