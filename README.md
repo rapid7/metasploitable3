@@ -61,25 +61,39 @@ Requirements:
 
 ### ub1404 Development and Modification
 
-Using Vagrant and a lightweight Ubuntu 14.04 vagrant cloud box image, you can quickly set up and customize ub1404 Metasploitable3 for development or customization.
-To do so, install Vagrant and a hypervisor such as VirtualBox. Then, visit the `bento/ubuntu-14.04` page and find a version that supports
-your hypervisor. For instance, version `v201808.24.0` is compatible with VirtualBox.
+Using Vagrant and a lightweight Ubuntu 14.04 vagrant cloud box image, you can
+quickly set up and customize ub1404 Metasploitable3 for development or
+customization. To do so, install Vagrant and a hypervisor such as VirtualBox,
+VMWare, or libvirt.
 
-Install the vagrant virtualbox vbguest plugin:
+Install the relevant provider plugin:
 
+    # virtualbox
     vagrant plugin install vagrant-vbguest
-    
-Then, navigate to the `/chef/dev/ub1404` directory in this repository. Examine the Vagrantfile there. Metasploitable ub1404 uses the vagrant `chef-solo` provisioner.
-To this Vagrantfile, add the metasploitable chef recipes that you desire -- you can browse them in the `/chef/cookbooks/metasploitable` folder. Or, 
-add or edit your own cookbook and/or recipes there.
 
-From the `/chef/dev/ub1404` directory, you can run `vagrant up` to get a development virtual ub1404 instance. After the initial `up` build and provision, 
-when you edit the chef runlist or when you edit a chef recipe, run `vagrant provision` from the same directory. For faster development, you can comment-out 
-recipes that you do not need to rerun -- but even if they are all enabled, vagrant provisioning should not take longer one or two minutes. 
-Chef aims to be idempotent, so you can rerun this command often.
+    # libvirt
+    vagrant plugin install vagrant-libvirt
 
-Consider taking a snapshot (e.g., `vagrant snapshot new fresh`) before modifying recipes, so that you can always return to an initial state (`vagrant restore fresh`).
-If you want a _totally_ fresh snapshot, you can do the initialization with `vagrant up --no-provision`, then take a snapshot, followed by `vagrant provision`.
+Then, navigate to the [chef/dev/ub1404](chef/dev/ub1404) directory in this repository.
+Examine the Vagrantfile there. Select a base box that supports your provider.
+
+Metasploitable ub1404 uses the vagrant `chef-solo` provisioner. Configure the
+chef_solo block in the Vagrantfile with the metasploitable chef recipes that you
+desire -- you can browse them in the [chef/cookbooks/metasploitable](chef/cookbooks/metasploitable)
+folder. Or, add or edit your own cookbook and/or recipes there.
+
+From the [chef/dev/ub1404](chef/dev/ub1404) directory, you can run `vagrant up`
+to get a development virtual ub1404 instance. After the initial `up` build and provision,
+when you edit the chef runlist or when you edit a chef recipe, run
+`vagrant rsync && vagrant provision` from the same directory. For faster
+development, you can comment-out recipes that you do not need to rerun -- but
+even if they are all enabled, vagrant re-provisioning should not take longer than
+one or two minutes. Chef aims to be idempotent, so you can rerun this command often.
+
+Consider taking a snapshot (e.g., `vagrant snapshot save fresh`) before modifying
+recipes, so that you can always return to an initial state (`vagrant restore fresh`).
+If you want a _totally_ fresh snapshot, you can do the initialization with
+`vagrant up --no-provision`, then take a snapshot, followed by `vagrant provision`.
 
 
 ## Vulnerabilities

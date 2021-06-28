@@ -1,19 +1,23 @@
 # This Vagrantfile can be used to quickly spin up a development instance of ub1404
 
 Vagrant.configure("2") do |config|
-  config.vm.define "dev" do |dev|
-    dev.vm.box = "bento/ubuntu-14.04"
-    dev.vm.box_version = "201808.24.0"
-    dev.ssh.username = 'vagrant'
-    dev.ssh.password = 'vagrant'
-    dev.vm.network "forwarded_port", guest: 21, host:2121
 
-    dev.vm.provider "virtualbox" do |v|
-      v.name = "Metasploitable3-ub1404-dev"
-      v.memory = 2048
-    end
+  config.vm.define "Metasploitable3-dev"
+  config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box_version = "201808.24.0"
+
+  config.vm.provider :libvirt do |libvirt, override|
+    override.vm.box = "peru/ubuntu-14.04-server-amd64"
+    override.vm.box_version = "20190901.01"
+    libvirt.memory = 2048
   end
-  
+
+  config.ssh.username = 'vagrant'
+  config.ssh.password = 'vagrant'
+  config.vm.network "forwarded_port", guest: 21, host:2121
+
+  # manually rsync recipe changes before re-provisioning. e.g.,
+  # `vagrant rsync && vagrant provision`
   config.vm.provision "chef_solo" do |chef|
     chef.arguments = '--chef-license accept'
     chef.cookbooks_path = [ '../../cookbooks' ]
@@ -41,4 +45,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "metasploitable::flags"
     chef.add_recipe "metasploitable::clear_cache"
   end
+
+  # Disable NFS sharing (==> default: Mounting NFS shared folders...)
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", disabled: true
 end
