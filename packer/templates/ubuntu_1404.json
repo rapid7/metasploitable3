@@ -97,7 +97,9 @@
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "2h",
-      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "ssh_pty": true,
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_timeout": "10m",
       "guest_os_type": "Ubuntu_64",
       "disk_size": 40000,
       "vm_name": "metasploitable3-ub1404",
@@ -154,6 +156,12 @@
     }
   ],
   "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "echo 'Disabling sudo password for the user...'", 
+        "echo 'vagrant' | sudo -S bash -c 'echo \"vagrant ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers'"]
+    },
     {
       "type": "chef-solo",
       "version": "13.8.5",
