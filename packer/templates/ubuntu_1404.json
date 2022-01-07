@@ -3,7 +3,6 @@
     {
       "type": "parallels-iso",
       "iso_url": "{{user `iso_url`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "http_directory" : "{{template_dir}}/../http",
       "http_port_min" : 9001,
@@ -36,7 +35,6 @@
     {
       "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
       "http_directory" : "{{template_dir}}/../http",
@@ -74,7 +72,6 @@
     {
       "type": "virtualbox-iso",
       "iso_url": "{{user `iso_url`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
       "http_directory" : "{{template_dir}}/../http",
@@ -119,7 +116,6 @@
     {
       "type": "qemu",
       "iso_url": "{{user `iso_url`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "headless": false,
       "http_directory" : "{{template_dir}}/../http",
@@ -194,7 +190,6 @@
   ],
   "variables": {
     "iso_url": "http://old-releases.ubuntu.com/releases/14.04.0/ubuntu-14.04-server-amd64.iso",
-    "iso_checksum_type": "sha256",
     "iso_checksum": "ababb88a492e08759fddcf4f05e5ccc58ec9d47fa37550d63931d0a5fa4f7388",
     "box_version": "0.1.12"
   }
