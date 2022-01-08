@@ -1,8 +1,8 @@
 #!/bin/bash
 
-min_vbox_ver="5.1.10"
+min_vbox_ver="6.1.0"
 min_vagrant_ver="1.9.0"
-min_packer_ver="0.10.0"
+min_packer_ver="1.6.0"
 min_vagrantreload_ver="0.0.1"
 min_vagrantvmware_ver="0.0.1"
 min_vagrantparallels_ver="0.0.1"

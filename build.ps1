@@ -1,7 +1,7 @@
 ﻿$ErrorActionPreference = "Stop"
 
-$virtualBoxMinVersion = "5.1.10"
-$packerMinVersion = "0.10.0"
+$virtualBoxMinVersion = "6.1.0"
+$packerMinVersion = "1.6.0"
 $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer.exe"

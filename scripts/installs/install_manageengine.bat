@@ -1,4 +1,4 @@
-powershell -Command "[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true} ; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('https://archives.manageengine.com/desktop-central/91084/ManageEngine_DesktopCentral.exe', 'C:\Windows\Temp\ManageEngine_DesktopCentral.exe')" <NUL
+powershell -Command "[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true} ; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('https://metasploitable-binaries.s3.amazonaws.com/metasploitable3/ManageEngine_DesktopCentral.exe', 'C:\Windows\Temp\ManageEngine_DesktopCentral.exe')" <NUL
 start /WAIT C:\Windows\Temp\ManageEngine_DesktopCentral.exe /w /s /f1C:\Vagrant\resources\manageengine\setup.iss
 net stop "ManageEngine Desktop Central Server"
 net stop "MEDC Server Component - Apache"

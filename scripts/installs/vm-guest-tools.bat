@@ -1,7 +1,7 @@
-if not exist "C:\Windows\Temp\7zInstaller-x64.msi" (
-    powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://www.7-zip.org/a/7z1604-x64.msi', 'C:\Windows\Temp\7zInstaller-x64.msi')" <NUL
+if not exist "C:\Program Files\7-Zip\7z.exe" (
+    powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('https://www.7-zip.org/a/7z1604-x64.msi', 'C:\Windows\Temp\7zInstaller-x64.msi')" <NUL
+    msiexec /qb /i C:\Windows\Temp\7zInstaller-x64.msi
 )
-msiexec /qb /i C:\Windows\Temp\7zInstaller-x64.msi
 
 if "%PACKER_BUILDER_TYPE%" equ "vmware-iso" goto :vmware
 if "%PACKER_BUILDER_TYPE%" equ "virtualbox-iso" goto :virtualbox
@@ -43,4 +43,6 @@ if exist "C:\Users\vagrant\prl-tools-win.iso" (
 )
 
 :done
-msiexec /qb /x C:\Windows\Temp\7zInstaller-x64.msi
+if exist "C:\Windows\Temp\7zInstaller-x64.msi" (
+    msiexec /qb /x C:\Windows\Temp\7zInstaller-x64.msi
+)
