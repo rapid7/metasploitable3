@@ -342,7 +342,7 @@
     }
   ],
   "variables": {
-    "iso_url": "http://download.microsoft.com/download/7/5/E/75EC4E54-5B02-42D6-8879-D8D3A25FBEF7/7601.17514.101119-1850_x64fre_server_eval_en-us-GRMSXEVAL_EN_DVD.iso",
+    "iso_url": "https://download.microsoft.com/download/4/1/D/41DEA7E0-B30D-4012-A1E3-F24DC03BA1BB/7601.17514.101119-1850_x64fre_server_eval_en-us-GRMSXEVAL_EN_DVD.iso",
     "iso_checksum": "4263be2cf3c59177c45085c0a7bc6ca5",
     "autounattend": "{{template_dir}}/../answer_files/2008_r2/Autounattend.xml",
     "scripts_dir": "{{template_dir}}/../../scripts",
