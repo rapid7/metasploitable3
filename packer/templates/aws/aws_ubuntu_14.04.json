@@ -14,7 +14,7 @@
       "cookbook_paths": [
         "{{template_dir}}/../../../chef/cookbooks"
       ],
-      "execute_command": "export CHEF_LICENSE=accept-silent",
+      "execute_command": "{{if .Sudo}}sudo {{end}}chef-solo --chef-license accept-silent -c {{.ConfigPath}} -j /tmp/packer-chef-solo/node.json",
       "run_list": [
         "apt::default",
         "metasploitable::vm_tools",
