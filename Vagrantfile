@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     config.ssh.username = 'vagrant'
     config.ssh.password = 'vagrant'
 
-    ub1404.vm.network "private_network", ip: '172.28.128.3'
+    ub1404.vm.network "private_network", ip: '192.168.56.5'
 
     ub1404.vm.provider "virtualbox" do |v|
       v.name = "Metasploitable3-ub1404"
