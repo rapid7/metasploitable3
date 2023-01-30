@@ -40,6 +40,10 @@ function Invoke-CLR4PowerShellCommand {
 
 }
 
+if (!(Test-Path -Path $PROFILE)) {
+  New-Item -ItemType File -Path $PROFILE -Force
+}
+
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
