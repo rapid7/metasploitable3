@@ -50,6 +50,7 @@ Set-StrictMode -Version Latest
 $isWin8 = wmic os get caption | find /i '" 8 "'
 $isWin2012 = wmic os get caption | find /i '" 2012 "'
 
+$env:chocolateyVersion = '0.10.13'
 # skip wrapping for 8 or 2012?
 if ($isWin8 -or $isWin2012){
    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
