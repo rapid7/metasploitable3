@@ -287,7 +287,7 @@
         "{{user `scripts_dir`}}/installs/install_wamp.bat",
         "{{user `scripts_dir`}}/installs/start_wamp.bat",
         "{{user `scripts_dir`}}/installs/install_wordpress.bat",
-        "{{user `scripts_dir`}}/installs/install_openjdk6.bat",
+        "{{user `scripts_dir`}}/installs/install_openjdk7.bat",
         "{{user `scripts_dir`}}/installs/setup_jmx.bat",
         "{{user `scripts_dir`}}/chocolatey_installs/ruby.bat",
         "{{user `scripts_dir`}}/installs/install_devkit.bat"
