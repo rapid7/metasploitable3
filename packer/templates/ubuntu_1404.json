@@ -158,6 +158,8 @@
       ],
       "run_list": [
         "apt::default",
+        "iptables::default",
+        "metasploitable::system_config",
         "metasploitable::users",
         "metasploitable::mysql",
         "metasploitable::apache_continuum",
