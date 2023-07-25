@@ -85,6 +85,7 @@ end
 
 service 'proftpd' do
   action [:enable, :start]
+  supports :status => true
 end
 
 service 'proftpd_ip_renewer' do
