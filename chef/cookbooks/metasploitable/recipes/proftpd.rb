@@ -49,7 +49,7 @@ end
 
 cookbook_file '/etc/init.d/proftpd' do
   source 'proftpd/proftpd'
-  mode '760'
+  mode '755'
 end
 
 execute 'remove_carriage_returns' do
