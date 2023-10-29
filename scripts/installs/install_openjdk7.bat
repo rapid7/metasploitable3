@@ -1,2 +1,0 @@
-powershell -Command "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u80-unofficial-windows-amd64-installer.zip', 'C:\Windows\Temp\openjdk-1.7.0-u80-unofficial-windows-amd64-installer.zip')" <NUL
-cmd /c ""C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\openjdk-1.7.0-u80-unofficial-windows-amd64-installer.zip" -oC:\openjdk7"
