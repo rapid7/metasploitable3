@@ -2,6 +2,7 @@
 packer_cache/
 packer/builds/
 resources/drivers/
+resources/windows_pre_downloads/
 *.vfd
 *.exe
 *.msi

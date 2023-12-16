@@ -1,0 +1,16 @@
+---
+info:
+  title: Metasploitable3
+  description: Metasploitable3 is a VM that is built from the ground up with a large
+    amount of security vulnerabilities.
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/metasploitable3
+  x-cortex-tag: metasploitable3
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: metasploit
+openapi: 3.0.1
+servers:
+- url: "/"

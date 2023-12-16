@@ -18,8 +18,6 @@
         "{{user `scripts_dir`}}/configs/microsoft-updates.bat",
         "{{user `scripts_dir`}}/configs/win-updates.ps1",
         "{{user `scripts_dir`}}/installs/openssh.ps1",
-        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1",
-        "{{user `scripts_dir`}}/installs/install_wmf.ps1",
         "{{user `resources_dir`}}/certs/oracle-cert.cer",
         "{{user `resources_dir`}}/certs/gdig2.crt",
         "{{user `resources_dir`}}/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -56,8 +54,6 @@
         "{{user `scripts_dir`}}/configs/microsoft-updates.bat",
         "{{user `scripts_dir`}}/configs/win-updates.ps1",
         "{{user `scripts_dir`}}/installs/openssh.ps1",
-        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1",
-        "{{user `scripts_dir`}}/installs/install_wmf.ps1",
         "{{user `resources_dir`}}/certs/oracle-cert.cer",
         "{{user `resources_dir`}}/certs/gdig2.crt",
         "{{user `resources_dir`}}/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -99,8 +95,6 @@
         "{{user `scripts_dir`}}/configs/microsoft-updates.bat",
         "{{user `scripts_dir`}}/configs/win-updates.ps1",
         "{{user `scripts_dir`}}/installs/openssh.ps1",
-        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1",
-        "{{user `scripts_dir`}}/installs/install_wmf.ps1",
         "{{user `resources_dir`}}/certs/oracle-cert.cer",
         "{{user `resources_dir`}}/certs/gdig2.crt",
         "{{user `resources_dir`}}/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -150,8 +144,6 @@
         "{{user `scripts_dir`}}/configs/microsoft-updates.bat",
         "{{user `scripts_dir`}}/configs/win-updates.ps1",
         "{{user `scripts_dir`}}/installs/openssh.ps1",
-        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1",
-        "{{user `scripts_dir`}}/installs/install_wmf.ps1",
         "{{user `resources_dir`}}/certs/oracle-cert.cer",
         "{{user `resources_dir`}}/certs/gdig2.crt",
         "{{user `resources_dir`}}/certs/comodorsadomainvalidationsecureserverca.crt",
@@ -185,6 +177,16 @@
   ],
   "provisioners": [
     {
+        "type": "shell-local",
+        "only_on": ["linux", "darwin"],
+        "inline": ["cd {{user `resources_dir`}} && {{user `resources_dir`}}/download-windows-files.sh"]
+    },
+    {
+        "type": "shell-local",
+        "only_on": ["windows"],
+        "inline": ["cd {{user `resources_dir`}} && powershell {{user `resources_dir`}}/download-windows-files.ps1"]
+    },
+    {
       "type": "file",
       "source": "{{user `scripts_dir`}}",
       "destination": "C:/vagrant"
@@ -200,7 +202,6 @@
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "{{user `scripts_dir`}}/configs/update_root_certs.bat",
-        "{{user `scripts_dir`}}/configs/disable-auto-logon.bat",
         "{{user `scripts_dir`}}/configs/enable-rdp.bat"
       ]
     },
@@ -214,6 +215,25 @@
     },
     {
       "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/install_wmf.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "180s"
     },
     {
       "type": "powershell",
@@ -240,7 +260,9 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "{{user `scripts_dir`}}/installs/install_boxstarter.bat",
+        "{{user `scripts_dir`}}/configs/disable-auto-logon.bat",
+        "{{user `scripts_dir`}}/chocolatey_installs/chocolatey-compatibility.bat",
+        "{{user `scripts_dir`}}/chocolatey_installs/boxstarter.bat",
         "{{user `scripts_dir`}}/chocolatey_installs/7zip.bat",
         "{{user `scripts_dir`}}/configs/apply_password_settings.bat",
         "{{user `scripts_dir`}}/configs/create_users.bat",
@@ -267,7 +289,7 @@
         "{{user `scripts_dir`}}/installs/install_wordpress.bat",
         "{{user `scripts_dir`}}/installs/install_openjdk6.bat",
         "{{user `scripts_dir`}}/installs/setup_jmx.bat",
-        "{{user `scripts_dir`}}/installs/install_ruby.bat",
+        "{{user `scripts_dir`}}/chocolatey_installs/ruby.bat",
         "{{user `scripts_dir`}}/installs/install_devkit.bat"
       ]
     },
