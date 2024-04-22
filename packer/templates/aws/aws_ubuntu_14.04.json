@@ -1,0 +1,56 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "source_ami": "ami-86562dee",
+      "instance_type": "t2.small",
+      "ssh_username": "ubuntu",
+      "ami_name": "metasploitable3-ub1404-{{user `box_version`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": [
+        "{{template_dir}}/../../../chef/cookbooks"
+      ],
+      "execute_command": "{{if .Sudo}}sudo {{end}}chef-solo --chef-license accept-silent -c {{.ConfigPath}} -j /tmp/packer-chef-solo/node.json",
+      "run_list": [
+        "apt::default",
+        "metasploitable::vm_tools",
+        "metasploitable::users",
+        "metasploitable::mysql",
+        "metasploitable::apache_continuum",
+        "metasploitable::apache",
+        "metasploitable::php_545",
+        "metasploitable::phpmyadmin",
+        "metasploitable::proftpd",
+        "metasploitable::docker",
+        "metasploitable::samba",
+        "metasploitable::sinatra",
+        "metasploitable::unrealircd",
+        "metasploitable::chatbot",
+        "metasploitable::payroll_app",
+        "metasploitable::readme_app",
+        "metasploitable::cups",
+        "metasploitable::drupal",
+        "metasploitable::knockd",
+        "metasploitable::iptables",
+        "metasploitable::flags",
+        "metasploitable::sshd"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [
+        "apt-get remove chef"
+      ]
+    }
+  ],
+  "variables": {
+    "iso_url": "http://old-releases.ubuntu.com/releases/14.04.1/ubuntu-14.04.1-server-amd64.iso",
+    "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+    "box_version": "2022.05.10"
+  }
+}
