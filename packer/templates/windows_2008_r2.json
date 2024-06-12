@@ -197,8 +197,8 @@
       "destination": "C:/vagrant"
     },
     {
-      "type": "shell",
-      "remote_path": "/tmp/script.bat",
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "{{user `scripts_dir`}}/configs/update_root_certs.bat",
