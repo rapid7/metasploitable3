@@ -89,11 +89,14 @@ else
     echo "Virtualbox images will not be built."
 fi
 
-if compare_versions $($packer_bin -v) $min_packer_ver false; then
+# Get element after "Packer" or first if only version is present (handles older versions)
+packer_version=$($packer_bin version -machine-readable | cut -d, -f 4 | head -n 1)
+
+if compare_versions $packer_version $min_packer_ver false; then
     echo "Compatible version of $packer_bin was found."
 else
     packer_bin=packer
-    if compare_versions $($packer_bin -v) $min_packer_ver false; then
+    if compare_versions $packer_version $min_packer_ver false; then
         echo "Compatible version of $packer_bin was found."
     else
         echo "Compatible version of packer was not found. Please install from here: https://www.packer.io/downloads.html"
