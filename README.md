@@ -95,6 +95,8 @@ recipes, so that you can always return to an initial state (`vagrant restore fre
 If you want a _totally_ fresh snapshot, you can do the initialization with
 `vagrant up --no-provision`, then take a snapshot, followed by `vagrant provision`.
 
+## Error Solutions
+> If you are facing problem when you run build.ps1 file you can use updatedBuild.ps1 file and make sure packer.pkr.hcl is configure correctly.
 
 ## Vulnerabilities
 * [See the wiki page](https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities)
