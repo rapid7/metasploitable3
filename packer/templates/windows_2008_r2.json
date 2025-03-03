@@ -110,18 +110,8 @@
         "{{user `resources_dir`}}/certs/utn-userfirst.cer"
       ],
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "4096"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "4096"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"]
       ]
     },
     {
@@ -132,8 +122,8 @@
       "boot_wait": "10m",
       "communicator": "ssh",
       "accelerator": "kvm",
-      "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
       "ssh_timeout": "2h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "disk_size": 61440,
@@ -157,34 +147,29 @@
         "{{user `resources_dir`}}/certs/microsoft_root_2011.cer",
         "{{user `resources_dir`}}/certs/thawte_primary_root.cer",
         "{{user `resources_dir`}}/certs/utn-userfirst.cer",
-        "./resources/drivers/virtio/*"
+        "{{user `resources_dir`}}/drivers/amd64/Win2008R2/*"
       ],
       "qemuargs": [
-        [
-          "-m",
-          "4096"
-        ],
-        [
-          "-smp",
-          "2"
-        ],
-        [
-          "-display",
-          "gtk"
-        ]
+        ["-m", "4096"],
+        ["-smp", "2"],
+        ["-display", "gtk"]
       ]
     }
   ],
   "provisioners": [
     {
-        "type": "shell-local",
-        "only_on": ["linux", "darwin"],
-        "inline": ["cd {{user `resources_dir`}} && {{user `resources_dir`}}/download-windows-files.sh"]
+      "type": "shell-local",
+      "only_on": ["linux", "darwin"],
+      "inline": [
+        "cd {{user `resources_dir`}} && {{user `resources_dir`}}/download-windows-files.sh"
+      ]
     },
     {
-        "type": "shell-local",
-        "only_on": ["windows"],
-        "inline": ["cd {{user `resources_dir`}} && powershell {{user `resources_dir`}}/download-windows-files.ps1"]
+      "type": "shell-local",
+      "only_on": ["windows"],
+      "inline": [
+        "cd {{user `resources_dir`}} && powershell {{user `resources_dir`}}/download-windows-files.ps1"
+      ]
     },
     {
       "type": "file",
@@ -209,27 +194,21 @@
       "type": "windows-shell",
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-      "scripts": [
-        "{{user `scripts_dir`}}/configs/disable_firewall.bat"
-      ]
+      "scripts": ["{{user `scripts_dir`}}/configs/disable_firewall.bat"]
     },
     {
       "type": "windows-restart"
     },
     {
       "type": "powershell",
-      "scripts": [
-        "{{user `scripts_dir`}}/installs/install_dotnet45.ps1"
-      ]
+      "scripts": ["{{user `scripts_dir`}}/installs/install_dotnet45.ps1"]
     },
     {
       "type": "windows-restart"
     },
     {
       "type": "powershell",
-      "scripts": [
-        "{{user `scripts_dir`}}/installs/install_wmf.ps1"
-      ]
+      "scripts": ["{{user `scripts_dir`}}/installs/install_wmf.ps1"]
     },
     {
       "type": "windows-restart",
@@ -325,9 +304,7 @@
     },
     {
       "type": "powershell",
-      "inline": [
-        "mkdir -p C:/startup"
-      ]
+      "inline": ["mkdir -p C:/startup"]
     },
     {
       "type": "file",

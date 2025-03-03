@@ -1,4 +1,5 @@
 .vagrant/
+output-qemu/
 packer_cache/
 packer/builds/
 resources/drivers/

@@ -4,8 +4,8 @@
 #
 
 docker_service 'default' do
-  install_method 'package'
-  version '18.06.1'
+  install_method 'tarball'
+  version '18.06.0'
   action [:create, :start]
   group 'docker'
 end

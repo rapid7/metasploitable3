@@ -1,8 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
   config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.winrm.transport = :plaintext
+  config.winrm.basic_auth_only = true
+  
   config.vm.define "ub1404" do |ub1404|
     ub1404.vm.box = "rapid7/metasploitable3-ub1404"
     ub1404.vm.hostname = "metasploitable3-ub1404"
@@ -15,6 +17,13 @@ Vagrant.configure("2") do |config|
       v.name = "Metasploitable3-ub1404"
       v.memory = 2048
     end
+
+    ub1404.vm.provider "libvirt" do |v|
+      v.memory = 2048
+      v.title = "Metasploitable3-ub1404" 
+      v.storage_pool_name = ENV['LIBVIRT_POOL'] || "default"
+    end
+
   end
 
   config.vm.define "win2k8" do |win2k8|
@@ -41,6 +50,10 @@ Vagrant.configure("2") do |config|
       v.hyperv_feature :name => 'relaxed', :state => 'on'
       v.hyperv_feature :name => 'vapic',   :state => 'on'
       v.hyperv_feature :name => 'synic',   :state => 'on'
+      v.hyperv_feature :name => 'vpindex', :state => 'on'
+      v.clock_timer :name => 'hypervclock', :present => 'yes'
+      v.title = "Metasploitable3-win2k8" 
+      v.storage_pool_name = ENV['LIBVIRT_POOL'] || "default"
     end
 
     # Configure Firewall to open up vulnerable services

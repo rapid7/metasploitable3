@@ -42,5 +42,7 @@ if [ "$have_tools" = true ]; then
     else
 	echo "Downloading and extracting virtio ${virtio_release} drivers."
 	wget -c "${virtio_uri}" -O ".${virtio_release}.vfd" && 7z x -oresources/drivers/virtio/"${virtio_release}" ".${virtio_release}.vfd" amd64/Win2008R2
+  mkdir ../../resources/drivers/
+  cp -r ./resources/drivers/virtio/virtio-win-0.1.117_amd64/amd64/ ../../resources/drivers/
     fi
 fi
