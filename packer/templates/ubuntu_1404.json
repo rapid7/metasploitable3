@@ -175,6 +175,7 @@
         "metasploitable::cups",
         "metasploitable::drupal",
         "metasploitable::knockd",
+        "metasploitable::ingreslock",
         "metasploitable::iptables",
         "metasploitable::flags",
         "metasploitable::ifnames"
