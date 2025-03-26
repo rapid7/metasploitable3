@@ -49,7 +49,7 @@ end
 
 cookbook_file '/etc/init.d/proftpd' do
   source 'proftpd/proftpd'
-  mode '760'
+  mode '755'
 end
 
 execute 'remove_carriage_returns' do
@@ -85,6 +85,7 @@ end
 
 service 'proftpd' do
   action [:enable, :start]
+  supports :status => true
 end
 
 service 'proftpd_ip_renewer' do

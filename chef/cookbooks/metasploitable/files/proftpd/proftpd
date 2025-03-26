@@ -26,6 +26,19 @@ do_stop()
    killall proftpd
 }
 
+do_status()
+{
+   if pgrep -f ^proftpd > /dev/null ; then
+      echo 'Running';
+      exit 0;
+   else
+      echo 'Not running';
+      exit 1;
+   fi
+
+}
+
+
 
 case "$1" in
    start)
@@ -33,6 +46,9 @@ case "$1" in
      ;;
    stop)
      do_stop
+     ;;
+   status)
+     do_status
      ;;
 esac
 
