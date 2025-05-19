@@ -6,9 +6,7 @@ $vagrantMinVersion = "1.9.0"
 $vagrantreloadMinVersion = "0.0.1"
 $packer = "packer.exe"
 $expectedVBoxLocation = "C:\Program Files\Oracle\VirtualBox"
-$expectedVagrantLocation="C:\HashiCorp\Vagrant\bin"
-
-
+$expectedVagrantLocation = "C:\Program Files\Vagrant\bin"
 
 function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False) {
     If ($exactMatch) {
@@ -22,7 +20,7 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
     $actualVersion = $actualVersion.split(".")
     $expectedVersion = $expectedVersion.split(".")
 
-    for($i=0; $i -le $expectedVersion.length; $i++) {
+    for($i=0; $i -lt $expectedVersion.length; $i++) {
         If([INT]$actualVersion[$i] -gt [INT]$expectedVersion[$i]) {
             return $True
         }
@@ -34,12 +32,12 @@ function CompareVersions ($actualVersion, $expectedVersion, $exactMatch = $False
     return $True
 }
 
-Write-Host "";
+Write-Host ""
 
-If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
+If (Test-Path "$expectedVBoxLocation\VBoxManage.exe") {
 
     $vboxVersion = cmd.exe /c "$expectedVBoxLocation\VBoxManage.exe" -v
-    $vboxVersion = $vboxVersion.split("r")[0]
+    $vboxVersion = $vboxVersion.split("r")[0].Trim()
 
 } else {
 
@@ -48,7 +46,6 @@ If ($(Test-Path "$expectedVBoxLocation\VBoxManage.exe") -eq $True) {
     exit
 
 }
-
 
 If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinVersion -exactMatch $False) {
 
@@ -64,6 +61,7 @@ If (CompareVersions -actualVersion $vboxVersion -expectedVersion $virtualBoxMinV
 }
 
 $packerVersion = cmd.exe /c $packer -v
+$packerVersion = $packerVersion -replace 'Packer v', ''
 
 If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVersion) {
 
@@ -71,16 +69,15 @@ If (CompareVersions -actualVersion $packerVersion -expectedVersion $packerMinVer
 
 } else {
 
-    Write-Host "Could not find a compatible version of packer. Please download it from https://www.packer.io/downloads.html and add it to your PATH."
+    Write-Host "Could not find a compatible version of Packer. Please download it from https://www.packer.io/downloads.html and add it to your PATH."
     exit
 
 }
 
-
-If ($(Test-Path "$expectedVagrantLocation\vagrant.exe") -eq $True) {
+If (Test-Path "$expectedVagrantLocation\vagrant.exe") {
 
     $vagrantVersion = cmd.exe /c "vagrant" -v
-    $vagrantVersion = $vagrantVersion.split(" ")[1]
+    $vagrantVersion = $vagrantVersion.split(" ")[1].Trim()
 
 } else {
 
@@ -101,9 +98,7 @@ If (CompareVersions -actualVersion $vagrantVersion -expectedVersion $vagrantMinV
 
 }
 
-
 $vagrantPlugins = cmd.exe /c "vagrant plugin list" | select-string -pattern "vagrant-reload"
-
 
 If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
@@ -111,7 +106,6 @@ If (![string]::IsNullOrEmpty($vagrantPlugins)) {
     $vagrantreloadVersion = $vagrantPlugins.Replace("(", "")
     $vagrantreloadVersion = $vagrantreloadVersion.Replace(")", "")
     $vagrantreloadVersion = $vagrantreloadVersion.split(" ")[1]
-
 
     If (CompareVersions -actualVersion $vagrantreloadVersion -expectedVersion $vagrantreloadMinVersion) {
 
@@ -123,7 +117,6 @@ If (![string]::IsNullOrEmpty($vagrantPlugins)) {
 
     Write-Host "Could not find a compatible version of vagrant-reload plugin. Attempting to install..."
     cmd.exe /c "vagrant plugin install vagrant-reload"
-
 
     # Hacky version of Try-Catch for non-terminating errors.
     # See http://stackoverflow.com/questions/1142211/try-catch-does-not-seem-to-have-an-effect
@@ -143,10 +136,10 @@ function InstallBox($os_full, $os_short)
 
     Write-Host "Building metasploitable3-$os_short Vagrant box..."
 
-    If ($(Test-Path "packer\builds\$($os_full)_virtualbox_$boxversion.box") -eq $True) {
+    If (Test-Path "packer\builds\$($os_full)_virtualbox_$boxversion.box") {
 
         Write-Host "It looks like the Vagrant box already exists. Skipping the Packer build."
-    
+
     } else {
 
         cmd.exe /c $packer build --only=virtualbox-iso packer\templates\$os_full.json
@@ -166,7 +159,7 @@ function InstallBox($os_full, $os_short)
     } else {
 
         cmd.exe /c vagrant box add packer\builds\$($os_full)_virtualbox_$boxversion.box --name rapid7/metasploitable3-$os_short
-    
+
         if($?) {
             Write-Host "rapid7/metasploitable3-$os_short box successfully added to Vagrant."
         } else {
@@ -175,36 +168,26 @@ function InstallBox($os_full, $os_short)
     }
 }
 
-
-
 Write-Host "All requirements found. Proceeding..."
 
-if($args.Length -eq 0)
-{
-  $option = Read-Host -Prompt 'No box name passed as input. Build both the boxes ? (y/n)';
-  if ($option -eq 'y')
-  {
-    InstallBox -os_full "windows_2008_r2" -os_short "win2k8";
-    InstallBox -os_full "ubuntu_1404" -os_short "ub1404";
-  } else {
-    Write-Host "To build metasploitable boxes separately, use the following commands:";
-    Write-Host "- .\build.ps1 windows2008";
-    Write-Host "- .\build.ps1 ubuntu1404";
-  }
+if ($args.Length -eq 0) {
+    $option = Read-Host -Prompt 'No box name passed as input. Build both the boxes ? (y/n)';
+    if ($option -eq 'y') {
+        InstallBox -os_full "windows_2008_r2" -os_short "win2k8"
+        InstallBox -os_full "ubuntu_1404" -os_short "ub1404"
+    } else {
+        Write-Host "To build metasploitable boxes separately, use the following commands:"
+        Write-Host "- .\build.ps1 windows2008"
+        Write-Host "- .\build.ps1 ubuntu1404"
+    }
+} ElseIf ($args.Length -eq 1) {
+    if ($args -eq "windows2008") {
+        InstallBox -os_full "windows_2008_r2" -os_short "win2k8"
+    } ElseIf ($args -eq "ubuntu1404") {
+        InstallBox -os_full "ubuntu_1404" -os_short "ub1404"
+    } else {
+        Write-Host "Invalid OS. Valid options are 'ubuntu1404' and 'windows2008'"
+    }
 }
-ElseIf ($args.Length -eq 1)
-{
-  if ($args -eq "windows2008")
-  {
-    InstallBox -os_full "windows_2008_r2" -os_short "win2k8";
-  }
-  ElseIf ($args -eq "ubuntu1404")
-  {
-    InstallBox -os_full "ubuntu_1404" -os_short "ub1404";
-  }
-  Else
-  {
-    Write-Host "Invalid OS. Valid options are 'ubuntu1404' and 'windows2008'";
-  }
-}
-Write-Host "";
+
+Write-Host ""

@@ -40,6 +40,7 @@ Requirements:
 * Internet connection
 
 ### To build automatically:
+0. Clone this repo and navigate to the main directory. While in the main directory, navigate to `packer` folder. Once you are in the folder you need to open the `packer.pck.hcl` with your preferred code editor, open terminal and run `$packer init .`
 
 1. - On **Linux/OSX** run `./build.sh windows2008` to build the Windows box or `./build.sh ubuntu1404` to build the Linux box. If /tmp is small, use `TMPDIR=/var/tmp ./build.sh ...` to store temporary packer disk images under /var/tmp.
    - On **Windows**, open powershell terminal and run `.\build.ps1 windows2008` to build the Windows box or `.\build.ps1 ubuntu1404` to build the Linux box. If no option is passed to the script i.e. `.\build.ps1`, then both the boxes are built.
@@ -50,7 +51,8 @@ Requirements:
 
 ### To build manually:
 
-1. Clone this repo and navigate to the main directory.
+1. Clone this repo and navigate to the main directory. While in the main directory, navigate to `packer` folder. Once you are in the folder you need to open the `packer.pck.hcl` with your preferred code editor, open terminal and run `$packer init .`
+
 2. Build the base VM image by running `packer build --only=<provider> ./packer/templates/windows_2008_r2.json` where `<provider>` is your preferred virtualization platform. Currently `virtualbox-iso`, `qemu`, and `vmware-iso` providers are supported. This will take a while the first time you run it since it has to download the OS installation ISO.
 3. After the base Vagrant box is created you need to add it to your Vagrant environment. This can be done with the command `vagrant box add packer/builds/windows_2008_r2_*_0.1.0.box --name=rapid7/metasploitable3-win2k8`.
 4. Use `vagrant plugin install vagrant-reload` to install the reload vagrant provisioner if you haven't already.
