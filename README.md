@@ -6,7 +6,7 @@ Metasploitable3 is released under a BSD-style license. See COPYING for more deta
 
 ## Quick-start
 
-To use the prebuilt images provided at https://app.vagrantup.com/rapid7/ create a new local metasploitable workspace:
+To use the prebuilt images provided at https://portal.cloud.hashicorp.com/vagrant/discover/rapid7 create a new local metasploitable workspace:
 
 Linux users:
 ```
