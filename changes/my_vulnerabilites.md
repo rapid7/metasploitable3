@@ -137,7 +137,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ## SSH
 
-**Ports:** 22 (SSH)
+**Ports:** 2222 (SSH)
 
 **Credentials:** Any credentials valid for Metasploitable3 (see Configuration page)
 

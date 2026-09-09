@@ -46,8 +46,7 @@ $sshd_config = $sshd_config -replace '#PermitUserEnvironment no', 'PermitUserEnv
 $sshd_config = $sshd_config -replace '#UseDNS yes', 'UseDNS no'
 # disable the login banner
 $sshd_config = $sshd_config -replace 'Banner /etc/banner.txt', '#Banner /etc/banner.txt'
-# next time OpenSSH starts have it listen on th eproper port
-$sshd_config = $sshd_config -replace 'Port 2222', "Port 22"
+# next time OpenSSH starts have it listen on the proper port
 Set-Content "C:\Program Files\OpenSSH\etc\sshd_config" $sshd_config
 
 Write-Output "Removing ed25519 key as Vagrant net-ssh 2.9.1 does not support it"
@@ -80,7 +79,7 @@ Set-Content C:\Windows\Temp\PATH ([byte[]][char[]] $env:PATH) -Encoding Byte
 Write-Output "Configuring firewall"
 netsh advfirewall firewall add rule name="SSHD" dir=in action=allow service=OpenSSHd enable=yes
 netsh advfirewall firewall add rule name="SSHD" dir=in action=allow program="C:\Program Files\OpenSSH\usr\sbin\sshd.exe" enable=yes
-netsh advfirewall firewall add rule name="ssh" dir=in action=allow protocol=TCP localport=22
+netsh advfirewall firewall add rule name="ssh" dir=in action=allow protocol=TCP localport=2222
 
 if ($AutoStart -eq $true) {
     Start-Service "OpenSSHd"
