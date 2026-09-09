@@ -8,7 +8,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 **Ports:** 4884 (HTTP), 8989 (HTTP), 9898 (HTTPS)
 
-**Credentials:** cupcake / ch0col4t3_fl@vor_with_van!lla
+**Credentials:** admin / easy
 
 **Access:** `http://localhost:4884`, login with above credentials.
 
@@ -67,15 +67,14 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 ---
 
 ## Jenkins ❓
-
-**Ports:** 6868 (HTTP)
+**Ports:** 8484 (HTTP)
 
 **Credentials:** None enabled by default
 
-**Access:** `http://localhost:6868`
+**Access:** `http://localhost:8484`
 
 **Start/Stop:**
-- `services.msc` → jenkins service
+- `services.msc` → jinkies service
 
 **Modules:**
 - `exploits/multi/http/jenkins_script_console`

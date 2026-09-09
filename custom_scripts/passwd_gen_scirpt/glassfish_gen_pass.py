@@ -15,10 +15,10 @@ def verify_ssha256(password: str, stored: str) -> bool:
     return candidate == digest
  
 # --- test ---
-test_password = "ch0col4t3_fl@vor_with_van!lla"
-user = "cupcake"
+user = "admin"
+test_password = "easy"
 hashed = generate_ssha256(test_password)
-print(f"Generated: cupcake;{hashed};asadmin")
+print(f"Generated: {user};{hashed};asadmin")
  
 # correct password should verify
 print("Correct password verifies:", verify_ssha256(test_password, hashed))
