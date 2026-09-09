@@ -6,7 +6,7 @@ netsh advfirewall firewall add rule name="Open Port 8989 for GlassFish" dir=in a
 netsh advfirewall firewall add rule name="Open Port 8585 for Wordpress and phpMyAdmin" dir=in action=allow protocol=TCP localport=8585
 netsh advfirewall firewall add rule name="Java 1.6 java.exe" dir=in action=allow program="C:\openjdk6\openjdk-1.6.0-unofficial-b28-windows-amd64-installer\jre\bin\java.exe" enable=yes
 netsh advfirewall firewall add rule name="Open Port 3000 for Rails Server" dir=in action=allow protocol=TCP localport=3000
-netsh advfirewall firewall add rule name="Open Port 8020 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8020
+netsh advfirewall firewall add rule name="Open Port 8010 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8010
 netsh advfirewall firewall add rule name="Open Port 8383 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8383
 netsh advfirewall firewall add rule name="Open Port 8022 for ManageEngine Desktop Central" dir=in action=allow protocol=TCP localport=8022
 netsh advfirewall firewall add rule name="Open Port 9200 for ElasticSearch" dir=in action=allow protocol=TCP localport=9200
