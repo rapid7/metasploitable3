@@ -28,7 +28,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 **Ports:** 7979 (HTTP)
 
-**Credentials:** Apache Tomcat Web Application Manager — U: najboljsiHrib / P: Lisca
+**Credentials:** Apache Tomcat Web Application Manager — U: admin / P: lisca
 
 **Access:**
 - Vulnerable app: `http://localhost:7979/struts2-rest-showcase`
@@ -48,7 +48,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 **Ports:** 7979 (HTTP)
 
-**Credentials:** U: najboljsiHrib / P: Lisca
+**Credentials:** U: admin / P: lisca
 
 **Access:** `http://localhost:7979`
 
