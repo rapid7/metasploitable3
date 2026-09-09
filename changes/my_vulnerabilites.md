@@ -151,7 +151,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ## WinRM
 
-**Ports:** 5985 (HTTPS)
+**Ports:** 5986 (HTTPS)
 
 **Credentials:** Any credentials valid for Metasploitable3 (see Configuration page)
 

@@ -192,7 +192,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/listener?Address=*+Transport=HTTP @{Port="5985"} </CommandLine>
+                    <CommandLine>cmd.exe /c winrm set winrm/config/listener?Address=*+Transport=HTTP @{Port="5986"} </CommandLine>
                     <Description>Win RM listener Address/Port</Description>
                     <Order>14</Order>
                     <RequiresUserInput>true</RequiresUserInput>
@@ -204,7 +204,7 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5985 "Port 5985" </CommandLine>
+                    <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5986 "Port 5986" </CommandLine>
                     <Description>Win RM port open</Description>
                     <Order>16</Order>
                     <RequiresUserInput>true</RequiresUserInput>
