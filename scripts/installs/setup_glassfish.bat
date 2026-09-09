@@ -1,5 +1,5 @@
 mkdir C:\glassfish
-powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('http://download.java.net/glassfish/4.0/release/glassfish-4.0.zip', 'C:\Windows\Temp\glassfish4.zip')" <NUL
+powershell -ExecutionPolicy Bypass -File "C:\vagrant\resources\glassfish\installs\download_glassfish.ps1"
 cmd /c ""C:\Program Files\7-Zip\7z.exe" -y x "C:\Windows\Temp\glassfish4.zip" -oC:\glassfish"
 copy /Y "C:\vagrant\resources\glassfish\admin-keyfile" "C:\glassfish\glassfish4\glassfish\domains\domain1\config\admin-keyfile"
 copy /Y "C:\vagrant\resources\glassfish\domain.xml" "C:\glassfish\glassfish4\glassfish\domains\domain1\config\domain.xml"

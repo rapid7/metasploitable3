@@ -28,8 +28,8 @@ Vagrant.configure("2") do |config|
     win2k8.vm.network "private_network", type: "dhcp"
 
     win2k8.vm.provider "libvirt" do |v|
-      v.memory = 4096
-      v.cpus = 2
+      v.memory = 8192
+      v.cpus = 12
       v.video_type = 'qxl'
       v.input :type => "tablet", :bus => "usb"
       v.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'

@@ -33,7 +33,7 @@
         "{{user `resources_dir`}}/certs/utn-userfirst.cer"
       ],
       "vm_name": "metasploitable3-win2k8",
-      "cpus": 2,
+      "cpus": 12,
       "memory": 4096
     },
     {
@@ -72,7 +72,7 @@
       "vmx_data": {
         "cpuid.coresPerSocket": "2",
         "memsize": "4096",
-        "numvcpus": "2",
+        "numvcpus": "12",
         "scsi0.virtualDev": "lsisas1068"
       }
     },
@@ -120,7 +120,7 @@
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "2"
+          "12"
         ]
       ]
     },
@@ -166,7 +166,7 @@
         ],
         [
           "-smp",
-          "2"
+          "12"
         ],
         [
           "-display",
@@ -271,6 +271,11 @@
       ]
     },
     {
+      "type": "windows-restart",
+      "pause_before": "180s",
+      "restart_timeout": "15m"
+    },
+    {
       "type": "windows-restart"
     },
     {
@@ -287,10 +292,15 @@
         "{{user `scripts_dir`}}/installs/install_wamp.bat",
         "{{user `scripts_dir`}}/installs/start_wamp.bat",
         "{{user `scripts_dir`}}/installs/install_wordpress.bat",
-        "{{user `scripts_dir`}}/installs/install_openjdk6.bat",
         "{{user `scripts_dir`}}/installs/setup_jmx.bat",
-        "{{user `scripts_dir`}}/chocolatey_installs/ruby.bat",
-        "{{user `scripts_dir`}}/installs/install_devkit.bat"
+        "{{user `scripts_dir`}}/chocolatey_installs/ruby.bat"
+      ]
+    },
+    { 
+      "type": "powershell",
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/install_openjdk6.ps1",
+        "{{user `scripts_dir`}}/installs/install_devkit.ps1"
       ]
     },
     {
@@ -306,12 +316,17 @@
         "{{user `scripts_dir`}}/installs/install_rails_service.bat",
         "{{user `scripts_dir`}}/installs/setup_webdav.bat",
         "{{user `scripts_dir`}}/installs/setup_mysql.bat",
-        "{{user `scripts_dir`}}/installs/install_manageengine.bat",
-        "{{user `scripts_dir`}}/installs/setup_axis2.bat",
         "{{user `scripts_dir`}}/installs/install_backdoors.bat",
         "{{user `scripts_dir`}}/configs/configure_firewall.bat",
-        "{{user `scripts_dir`}}/installs/install_elasticsearch.bat",
         "{{user `scripts_dir`}}/installs/install_flags.bat"
+      ]
+    },
+    { 
+      "type": "powershell",
+      "scripts": [
+        "{{user `scripts_dir`}}/installs/install_manageengine.ps1",
+        "{{user `scripts_dir`}}/installs/setup_axis2.ps1",
+        "{{user `scripts_dir`}}/installs/install_elasticsearch.ps1"
       ]
     },
     {

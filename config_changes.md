@@ -39,5 +39,4 @@
 # Testing if vagrant not ADMIN group can change services
 
 # My King announcment service
-It needs to deny stop config right even to Administrator
-sc.exe sdset <ServiceName> "D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)"
+The service will not crash 

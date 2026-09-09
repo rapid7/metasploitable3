@@ -4,7 +4,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## GlassFish
+## GlassFish ❓
 
 **Ports:** 4884 (HTTP), 8989 (HTTP), 9898 (HTTPS)
 
@@ -24,7 +24,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Apache Struts
+## Apache Struts ✅
 
 **Ports:** 7979 (HTTP)
 
@@ -44,7 +44,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Tomcat
+## Tomcat ✅
 
 **Ports:** 7979 (HTTP)
 
@@ -66,13 +66,13 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Jenkins
+## Jenkins ❓
 
-**Ports:** 8484 (HTTP)
+**Ports:** 6868 (HTTP)
 
 **Credentials:** None enabled by default
 
-**Access:** `http://localhost:8484`
+**Access:** `http://localhost:6868`
 
 **Start/Stop:**
 - `services.msc` → jenkins service
@@ -83,7 +83,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## IIS - FTP
+## IIS - FTP 
 
 **Ports:** 21 (FTP)
 
@@ -226,7 +226,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ## Apache Axis2
 
-**Ports:** 7979 (HTTP)
+**Ports:** 7979 (HTTP) ✅
 
 **Credentials:** None needed
 
