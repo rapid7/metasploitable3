@@ -37,10 +37,10 @@ Vagrant.configure("2") do |config|
       v.graphics_type = "spice"
 
       # Enable Hyper-V enlightenments: https://blog.wikichoon.com/2014/07/enabling-hyper-v-enlightenments-with-kvm.html
-      v.hyperv_feature :name => 'stimer',  :state => 'on'
+      # v.hyperv_feature :name => 'stimer',  :state => 'on'
       v.hyperv_feature :name => 'relaxed', :state => 'on'
       v.hyperv_feature :name => 'vapic',   :state => 'on'
-      v.hyperv_feature :name => 'synic',   :state => 'on'
+      # v.hyperv_feature :name => 'synic',   :state => 'on'
     end
 
     # Configure Firewall to open up vulnerable services
