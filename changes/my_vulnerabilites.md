@@ -24,7 +24,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Apache Struts ✅
+## Apache Struts ❓
 
 **Ports:** 7979 (HTTP)
 
@@ -44,7 +44,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Tomcat ✅
+## Tomcat ❓
 
 **Ports:** 7979 (HTTP)
 
@@ -135,7 +135,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## SSH
+## SSH❓
 
 **Ports:** 2222 (SSH)
 
@@ -149,7 +149,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## WinRM
+## WinRM ❓
 
 **Ports:** 5986 (HTTPS)
 
@@ -185,9 +185,9 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## ManageEngine
+## ManageEngine ❓
 
-**Ports:** 8020 (HTTP)
+**Ports:** 8010 (HTTP)
 
 **Credentials:** admin / admin
 
