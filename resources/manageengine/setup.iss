@@ -24,7 +24,7 @@ Result=1
 [{BCEF6F6B-E530-4D5E-8DB7-C54F96DB9D2A}-MessageBox-0]
 Result=1
 [{BCEF6F6B-E530-4D5E-8DB7-C54F96DB9D2A}-AskText-0]
-szText=8020
+szText=8010
 Result=1
 [{BCEF6F6B-E530-4D5E-8DB7-C54F96DB9D2A}-SdSelectFolder-0]
 szFolder=ManageEngine Desktop Central
