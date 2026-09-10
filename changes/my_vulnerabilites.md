@@ -24,7 +24,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Apache Struts ❓
+## Apache Struts ✅
 
 **Ports:** 7979 (HTTP)
 
@@ -44,7 +44,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Tomcat ❓
+## Tomcat ✅
 
 **Ports:** 7979 (HTTP)
 
@@ -223,7 +223,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## Apache Axis2
+## Apache Axis2 ✅
 
 **Ports:** 7979 (HTTP) ✅
 
