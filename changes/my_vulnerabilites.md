@@ -4,7 +4,7 @@ Source: https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities
 
 ---
 
-## GlassFish ❓
+## GlassFish ✅
 
 **Ports:** 4884 (HTTP), 8989 (HTTP), 9898 (HTTPS)
 
